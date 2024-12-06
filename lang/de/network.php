@@ -1,0 +1,30 @@
+<?php
+
+return [
+    'my_referrals' => 'Meine Empfehlungen',
+    'total_investment' => 'Gesamtinvestition',
+    'status' => 'Status',
+    'active' => 'Aktiv',
+    'inactive' => 'Inaktiv',
+    'any_referrals_registered' => "Sie haben keine Empfehlung registriert!",
+    'user_avatar' => 'Benutzer-Avatar',
+    'PreRegistration' => 'Voranmeldung',
+
+    'associates' => 'Mitarbeiterbericht',
+    'login' => 'Anmeldung',
+    'name' => 'Name',
+    'coutry' => 'Land',
+    'city' => 'Stadt',
+    'email' => 'Email',
+    'level' => 'Niveau',
+    'sponsor' => 'Sponsor',
+    'my_team' => 'MEIN TEAM',
+    'username' => 'Benutzername',
+    'group_volume' => 'GRUPPENUMSATZ',
+    'no_directs' => 'Keine direkten Empfehlungen',
+    'weekly_payment' => 'Wöchentliche Zahlung',
+    'total_profit' => 'Gesamter Gewinn',
+    'total_commission' => 'Gesamte Provision',
+    'weekly_profit' => 'Wöchentlicher Gewinn',
+    'weekly_commission' => 'Wöchentliche Provision',
+];

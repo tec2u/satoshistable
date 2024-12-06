@@ -1,0 +1,30 @@
+<?php
+
+return [
+    'my_referrals' => 'Mis referidos',
+    'total_investment' => 'Inversión total',
+    'status' => 'Estado',
+    'active' => 'Activo',
+    'inactive' => 'Inactivo',
+    'any_referrals_registered' => "¡No tienes ninguna referencia registrada!",
+    'user_avatar' => 'Avatar de usuario',
+    'PreRegistration' => 'Pre-Registro',
+
+    'associates' => 'Reporte de Asociados',
+    'login' => 'Acceso',
+    'name' => 'Nombre',
+    'coutry' => 'País',
+    'city' => 'Ciudad',
+    'email' => 'Email',
+    'level' => 'Nivel',
+    'sponsor' => 'Patrocinador',
+    'my_team' => 'MI EQUIPO',
+    'username' => 'Nombre de usuario',
+    'group_volume' => 'VOLUMEN DEL GRUPO',
+    'no_directs' => 'No hay referidos directos',
+    'weekly_payment' => 'Pago Semanal',
+    'total_profit' => 'Beneficio Total',
+    'total_commission' => 'Comisión Total',
+    'weekly_profit' => 'Beneficio Semanal',
+    'weekly_commission' => 'Comisión Semanal',
+];
