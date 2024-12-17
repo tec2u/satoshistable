@@ -15,7 +15,7 @@ return [
     |
     */
 
-   'name' => env('APP_NAME', 'AI NEXT LEVEL'),
+   'name' => env('APP_NAME', 'Satoshistable'),
 
    /*
     |--------------------------------------------------------------------------

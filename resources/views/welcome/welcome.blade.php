@@ -4,7 +4,7 @@
 <head>
   <meta charset=" utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <title>AI Next Level Club</title>
+  <title>Satoshistable</title>
   <link rel="icon" type="image/png" sizes="400x400" href="assetsWelcome/images/fivicon_tiger.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins&amp;display=swap">
@@ -92,10 +92,10 @@
               <p data-aos="fade" data-aos-duration="1500" data-aos-delay="400" data-aos-once="true" class="phero">
                 @lang('leadpage.home.txt')</p>
               <h2 class="text-uppercase fw-bold hhero hherosm" data-aos="fade-up" data-aos-duration="1400"
-                data-aos-delay="800" data-aos-once="true" style="font-size: 4rem">AI NEXT LEVEL CLUB<br></h2>
+                data-aos-delay="800" data-aos-once="true" style="font-size: 4rem">Satoshistable<br></h2>
               <div style="display: inlin-block; width: 100%;">
                 <center>
-                  <video style="width: 80%; margin-top: 50px;" src="/images/AI NEXT LEVEL OPEN english.mp4"
+                  <video style="width: 80%; margin-top: 50px;" src="/images/Satoshistable OPEN english.mp4"
                     controls="controls" autoplay="false"></video>
                 </center>
               </div>

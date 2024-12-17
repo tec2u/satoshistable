@@ -4,7 +4,7 @@
 <head>
   <meta charset=" utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <title>AI Next Level</title>
+  <title>Satoshistable</title>
   <link rel="icon" type="image/png" sizes="400x400" href="assetsWelcome/images/fivicon_tiger.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins&amp;display=swap">
@@ -225,7 +225,7 @@
             <p class="text-center text-white-50 mb-0">@lang('leadpage.footer.please')</p>
             <h1 class="text-white mb-3 fw-bold">@lang('leadpage.footer.disclaimer')</h1>
             <p style="text-align: justify;" class="pfooter">@lang('leadpage.footer.footertxt')<br></p>
-            <p class="text-muted mt-5 mb-0">@lang('leadpage.footer.copyright') AI NEXT LEVEL</p>
+            <p class="text-muted mt-5 mb-0">@lang('leadpage.footer.copyright') Satoshistable</p>
           </div>
         </div>
       </div>

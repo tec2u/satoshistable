@@ -36,7 +36,7 @@ return [
     'password' => 'Passwort',
     'admin' => 'Admin',
     'logout' => 'Abmelden',
-    'ai_next_level_club' => 'AI Next Level Club',
+    'ai_next_level_club' => 'Satoshistable',
     'add_new_account' => 'Neues Konto hinzufügen',
     'my_accounts' => 'Meine Konten',
     'profit_share' => 'Gewinnbeteiligung',

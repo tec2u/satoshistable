@@ -36,7 +36,7 @@ return [
     'password' => 'Mot de passe',
     'admin' => 'Admin',
     'logout' => 'Déconnexion',
-    'ai_next_level_club' => 'Club AI Next Level',
+    'ai_next_level_club' => 'Club Satoshistable',
     'add_new_account' => 'Ajouter un nouveau compte',
     'my_accounts' => 'Mes comptes',
     'profit_share' => 'Partage des bénéfices',
