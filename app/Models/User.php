@@ -417,9 +417,9 @@ class User extends Authenticatable
 
       $getpackages = $this->getPackages($id);
 
-      if (!$pay) {
+    //   if (!$pay) {
          $tag = "Inactive";
-      }
+    //   }
       if ($getadessao > 0) {
          $tag = "PreRegistration";
       }

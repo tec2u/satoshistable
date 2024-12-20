@@ -85,7 +85,7 @@
               <div class="mt-3">
                 <p class="pheroland">THIS TUTORIAL IS TO HELP YOU SET UP YOUR FIRST BOT</p>
                 <h3 class=" hheroland fw-bold">STEP 1 - BOT SELECTION</h3>
-                <p class=" pheroland ">SINCE YOU HAVE YOUR ACCOUNT WITH AI-NEXTLEVEL CREATED, THE NEXT STEP IS SELECTING
+                <p class=" pheroland ">SINCE YOU HAVE YOUR ACCOUNT WITH AI-satoshitable CREATED, THE NEXT STEP IS SELECTING
                   THE BOT CATEGORY. WE HAVE 2: 15000 AND 5000 BOT. EACH REPRESENTS THE AMOUNT OF DEPOSIT REQUIRE FOR THE
                   BOT TO WORK</h3>
                   </br></br></br>

@@ -1856,7 +1856,7 @@ blockquote {
   # Navigation Menu
   --------------------------------------------------------------*/
 /**
-  * Desktop Navigation 
+  * Desktop Navigation
   */
 .navbar {
     padding: 0;
@@ -1968,7 +1968,7 @@ blockquote {
 }
 
 /**
-  * Mobile Navigation 
+  * Mobile Navigation
   */
 .mobile-nav-toggle {
     color: #384046;
@@ -2599,7 +2599,7 @@ input[type="email"] {
     display: block;
     width: 40px;
     height: 3px;
-    background: #ffc107;
+    background: #8e71d9;
     bottom: 0;
     left: calc(50% - 20px);
 }
@@ -2659,7 +2659,7 @@ input[type="email"] {
     padding: 15px 20px;
     border: 1px solid #eee;
     border-radius: 9px;
-    background-color: #ffc107;
+    background-color: #8e71d9;
     font-family: "Poppins", sans-serif;
     font-size: 16px;
     color: #0e2d46;
@@ -2676,7 +2676,7 @@ input[type="email"] {
     padding: 15px 20px;
     border: 1px solid #eee;
     border-radius: 9px;
-    background-color: #ffc107;
+    background-color: #8e71d9;
     font-family: "Poppins", sans-serif;
     font-size: 16px;
     color: #0e2d46;
@@ -2694,7 +2694,7 @@ input[type="email"] {
 }
 
 .prof {
-    color: #ffc107 !important;
+    color: #8e71d9 !important;
 }
 
 /*--------------------------------------------------------------
@@ -2713,7 +2713,7 @@ input[type="email"] {
 }
 
 .what-we-do .icon-box .icon i {
-    color: #ffc107;
+    color: #8e71d9;
     font-size: 50px;
 }
 
@@ -2741,11 +2741,11 @@ input[type="email"] {
 
 .what-we-do .icon-box:hover h4 a,
 .what-we-do .icon-box:hover .icon i {
-    color: #ffc107;
+    color: #8e71d9;
 }
 
 .what-we-do .icon-box .icon1 i {
-    color: #ffc107;
+    color: #8e71d9;
     font-size: 90px;
 }
 
@@ -3429,7 +3429,7 @@ button.small,
 }
 
 .txt_footer1:hover {
-    color: #ffc107 !important;
+    color: #8e71d9 !important;
 }
 
 .txt_li {
@@ -4273,15 +4273,15 @@ button.small,
 }
 
 .btn2 {
-    background-color: #ffc107;
-    border: solid 1px #ffc107;
+    background-color: #8e71d9;
+    border: solid 1px #8e71d9;
     border-radius: 8px;
     color: #0e2d46;
 }
 
 .btn2:hover {
-    background-color: #ffc107;
-    border-color: #ffc107 !important;
+    background-color: #8e71d9;
+    border-color: #8e71d9 !important;
     color: #0e2d46;
     box-shadow: 0px 4px 8px 1px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: 0px 4px 8px 1px rgba(0, 0, 0, 0.75);
@@ -4360,9 +4360,9 @@ button.small,
 }
 
 .btn-pric {
-    background-color: #ffc107 !important;
-    border-color: #ffc107 !important;
-    background: #ffc107 !important;
+    background-color: #8e71d9 !important;
+    border-color: #8e71d9 !important;
+    background: #8e71d9 !important;
     color: #0e2d46;
 }
 
@@ -4447,7 +4447,7 @@ button.small,
 
 .btn_header_logo {
     border-radius: 10px;
-    border-color: #ffc107 !important;
+    border-color: #8e71d9 !important;
     border-width: 5px;
     height: 50px;
     width: 20px;
@@ -4458,11 +4458,11 @@ button.small,
 
 .btn_header_logo_1 {
     border-radius: 10px;
-    border-color: #ffc107 !important;
+    border-color: #8e71d9 !important;
     border-width: 5px;
     height: 50px;
     width: 20px;
-    background-color: #ffc107 !important;
+    background-color: #8e71d9 !important;
     color: #0e2d46;
     font-family: "Poppins", sans-serif;
 }
@@ -4688,7 +4688,7 @@ body {
 .about_section .detail-box a {
     display: inline-block;
     padding: 10px 45px;
-    background-color: #ffc107;
+    background-color: #8e71d9;
     color: #0e2d46;
     border-radius: 45px;
     -webkit-transition: all 0.3s;
@@ -4712,7 +4712,7 @@ body {
 .btn_card_pay {
     border-radius: 10px;
     height: 40px;
-    background-color: #ffc107;
+    background-color: #8e71d9;
     color: #0e2d46;
     margin-top: 20px;
     font-family: "Poppins", sans-serif;
@@ -4727,7 +4727,7 @@ body {
 }
 
 .color_faq {
-    background-color: #ffc107 !important;
+    background-color: #8e71d9 !important;
     color: #fff;
     font-family: "Poppins", sans-serif;
 }
@@ -4819,7 +4819,7 @@ input[type="checkbox"] {
     left: -10px;
     font-size: 100%;
     margin-right: 3px;
-    color: #ffc107;
+    color: #8e71d9;
     font-family: "Font Awesome 5 Free";
 }
 
@@ -4842,14 +4842,14 @@ input[type="checkbox"] {
 }
 
 #refer td {
-    background-color: #ffc107 !important;
+    background-color: #8e71d9 !important;
     color: white;
     font-weight: bold;
 }
 
 .btn-ref {
-    background: #ffc107;
-    border-color: #ffc107;
+    background: #8e71d9;
+    border-color: #8e71d9;
     color: #0e2d46;
 }
 
@@ -4861,14 +4861,14 @@ input[type="checkbox"] {
 
 .bdrdr {
     border-top-right-radius: 16px !important;
-    background-color: #ffc107 !important;
+    background-color: #8e71d9 !important;
     color: white;
     font-weight: bold;
 }
 
 .bdrdbr {
     border-bottom-right-radius: 16px !important;
-    background-color: #ffc107 !important;
+    background-color: #8e71d9 !important;
     color: white;
     font-weight: bold;
 }
@@ -5014,7 +5014,7 @@ input[type="checkbox"] {
 }
 
 .tblue {
-    color: #ffc107;
+    color: #8e71d9;
     font-weight: bold;
 }
 
@@ -5055,7 +5055,7 @@ nav ul li {
     font-size: 16px !important;
     font-weight: 900;
     /* background-color: #143955 !important; */
-    color: #ffc107;
+    color: #8e71d9;
     border-radius: 8px;
     border: none !important;
 }
@@ -5064,7 +5064,7 @@ nav ul li {
     /* font-size: 16px !important; */
     font-weight: bolder !important;
     background-color: #0e2d46 !important;
-    color: #ffc107 !important;
+    color: #8e71d9 !important;
     border: none !important;
     border-radius: 8px;
     box-shadow: 0px 4px 8px 1px rgba(124, 124, 124, 0.4);
@@ -5079,10 +5079,10 @@ nav ul li {
     font-weight: bold;
     margin-left: 12px;
     padding: 6px 8px;
-    background-color: #ffc107 !important;
+    background-color: #8e71d9 !important;
     color: #0e2d46;
     border-radius: 8px;
-    border: solid 1px #ffc107;
+    border: solid 1px #8e71d9;
 }
 
 .jbutton:hover {
@@ -5109,7 +5109,7 @@ nav ul li {
 }
 
 .langlink:hover {
-    color: #ffc107;
+    color: #8e71d9;
 }
 
 .hhero {
@@ -5255,7 +5255,7 @@ nav ul li {
 
 .btnregist {
     border-style: solid;
-    border-color: #ffc107;
+    border-color: #8e71d9;
 }
 
 .shad:hover {

@@ -152,22 +152,18 @@
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar font" style="background-color: #0071c1;">
+  <aside id="sidebar" class="sidebar font" style="background-color: #8e71d9;">
     <a href="{{ route('home.home') }}">
       <img class="imagetest2" style="width: 250px" src="{{ asset('images/tigle_logo2.png') }}" alt="">
     </a>
     </br></br>
 
     <ul class="sidebar-nav" id="sidebar-nav">
-      <a class="nav-link collapsed" href="{{ route('packages.processBuying') }}">
-        <i class="bi bi-clipboard2-minus"></i><span>@lang('header.add_new_account')</span><i class="bi  ms-auto"></i>
-      </a>
-      </br>
       @if (auth()->user()->payFirstOrder())
         <li class="nav-item">
           <a class="nav-link " href="{{ route('home.home') }}">
             <i class="bi bi-grid"></i>
-            <span>@lang('header.dashboard')</span>
+            <span>Home</span>
           </a>
         </li><!-- End Dashboard Nav -->
       @endif
@@ -202,13 +198,6 @@
 
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link " href="{{ route('packages.packagesprofit') }}">
-          <i class="bi bi-clipboard2-minus"></i><span>@lang('header.profit_share')</span>
-
-        </a>
-      </li>
-
       @if (auth()->user()->payFirstOrder())
 
         {{-- <!-- End Products Nav --> --}}

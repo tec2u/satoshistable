@@ -85,7 +85,7 @@
               <div class="mt-3">
                 <p class="pheroland">THIS TUTORIAL IS TO HELP YOU SET UP YOUR FIRST BOT</p>
                 <h3 class=" hheroland fw-bold">STEP 2 - EXCHANGE ACCOUNT CREATION</h3>
-                <p class=" pheroland ">SINCE YOU HAVE YOUR ACCOUNT WITH AI-NEXTLEVEL CREATED, THE NEXT STEP IS CREATING
+                <p class=" pheroland ">SINCE YOU HAVE YOUR ACCOUNT WITH AI-satoshitable CREATED, THE NEXT STEP IS CREATING
                   YOUR ACCOUNT ON THE EXCHANGE OF YOUR CHOICE. WE PREPARED 3 EXCHANGES WITH TUTORIAL TO HELP YOU ON THE
                   PROCEDURES OF CREATING THE ACCOUNT, APPROVING AND FUNDING</h3>
                   </br></br></br>

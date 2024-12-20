@@ -130,7 +130,7 @@
             <table>
               <tr>
                 <td>
-                @lang('package.email'): support@ai-nextlevel.com <br>
+                @lang('package.email'): support@ai-satoshitable.com <br>
                   xxx <br>
                   xxx <br>
                   xxx <br>

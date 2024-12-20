@@ -97,10 +97,6 @@ class HomeAdminController extends Controller
          DB::raw('orders_package.id as id'),
          DB::raw('orders_package.created_at as created_at'),
          DB::raw('users.name as name'),
-         DB::raw('orders_package.user as user'),
-         DB::raw('orders_package.price as price'),
-         DB::raw('orders_package.pass as pass'),
-         DB::raw('orders_package.status as status')
       )
          ->orderBy('orders_package.id', 'DESC')
          ->join('users', 'users.id', '=', 'orders_package.user_id')

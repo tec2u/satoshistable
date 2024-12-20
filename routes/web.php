@@ -57,7 +57,9 @@ Route::get('setlocale/{locale}', function ($locale) {
 
 
 Route::controller(HomeController::class)->group(function () {
-   Route::get('/', 'welcome')->name('.welcome');
+   Route::get('/', 'welcome1')->name('welcome1');
+   Route::get('/generic', 'generic')->name('generic');
+   Route::get('/elements', 'elements')->name('elements');
    Route::get('/fees', 'fees')->name('.fees');
 });
 

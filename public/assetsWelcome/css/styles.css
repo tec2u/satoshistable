@@ -122,14 +122,14 @@ body {
 
 .anavlink {
     font-size: 18px;
-    color: #0071c1 !important;
+    color: #8e71d9 !important;
     margin: 0 20px;
     border-bottom: 1px solid rgba(225, 225, 225, 0);
 }
 
 .anavlink:hover {
     font-size: 18px;
-    color: #0071c1 !important;
+    color: #8e71d9 !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.27);
     margin: 0 20px;
 }
@@ -154,7 +154,7 @@ body {
 .btnnavlog {
     min-width: 110px;
     border-style: solid;
-    border-color: #0071c1;
+    border-color: #8e71d9;
     margin-right: 12px;
 }
 

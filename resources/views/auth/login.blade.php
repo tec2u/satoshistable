@@ -24,7 +24,7 @@
 
   <div id="loginform" class="limiter">
     <div class="container-login100">
-      <div class="wrap-login100" style="background-color: #2e869b">
+      <div class="wrap-login100" style="background-color: #8e71d9">
         <form class="login100-form validate-form" method="POST" action="{{ route('login') }}">
           @csrf
           <span class="login100-form-title p-b-48">

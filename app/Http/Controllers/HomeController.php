@@ -36,7 +36,6 @@ class HomeController extends Controller
       $packages = OrderPackage::where('user_id', $id_user)->where('payment_status', 1)->where('status', 1)->orderBy('id', 'DESC')->get();
       $orderpackages = OrderPackage::where('user_id', $id_user)->orderBy('id', 'DESC')->limit(5)->get();
       $user = User::where('id', $id_user)->first();
-      $images = DailyImages::all();
       $current_package = OrderPackage::where('user_id', $id_user)->first();
       $pacote = $user->orderPackage->first();
       $career = CareerUser::where('user_id', $user->id)->max('career_id');
@@ -185,14 +184,20 @@ class HomeController extends Controller
       }
 
 
-      return view('home', compact('n_pago', 'packages', 'orderpackages', 'name', 'user', 'data', 'label', 'datasaida', 'totalbanco', 'bonusdaily', 'pontos', 'saque', 'carrer', 'inactiverights', 'url_image_popup', 'images'));
+      return view('home', compact('n_pago', 'packages', 'orderpackages', 'name', 'user', 'data', 'label', 'datasaida', 'totalbanco', 'bonusdaily', 'pontos', 'saque', 'carrer', 'inactiverights', 'url_image_popup'));
    }
 
-   public function welcome()
+   public function welcome1()
    {
-      $packages = Package::where('type', 'packages')->where('activated', 1)->orderBy('price')->get();
-
-      return view('welcome.welcome', compact('packages'));
+      return view('welcome.home');
+   }
+   public function generic()
+   {
+      return view('welcome.generic');
+   }
+   public function elements()
+   {
+      return view('welcome.elements');
    }
 
    public function fees()

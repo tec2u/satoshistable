@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\ClubSwanController;
 use App\Http\Requests\Admin\SearchRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\MatrizForcadaController;
 use App\Models\Banco;
 use App\Models\ConfigBonus;
 use App\Models\ConfigBonusunilevel;
 use App\Models\CustomLog;
 use App\Models\HistoricScore;
+use App\Models\MatrizForcada;
 use App\Models\Order;
 use App\Models\OrderPackage;
 use App\Models\Package;
@@ -173,6 +175,7 @@ class PackageAdminController extends Controller
 
 
             $Orderpackage = OrderPackage::find($id);
+            $package = Package::find($Orderpackage->package_id);
             // dd($Orderpackage->id);
 
             $Orderpackage->update($data);
@@ -180,56 +183,63 @@ class PackageAdminController extends Controller
             if ($Orderpackage->status == 1 && $Orderpackage->payment_status == 1) {
                 ####POPULA A ARRAY COM O BONUS UNILEVEL PARA ENVIAR PRA FUNÇÃO
 
-                // $array_unilevel = array();
-                // $array_unilevel_peoples = array();
-                // $pega_config_unilevel = ConfigBonusunilevel::get();
+                $array_unilevel = array();
+                $array_unilevel_peoples = array();
+                $pega_config_unilevel = ConfigBonusunilevel::get();
 
-                // foreach ($pega_config_unilevel as $pega_config_unilevel) {
+                foreach ($pega_config_unilevel as $pega_config_unilevel) {
 
-                //     if ($pega_config_unilevel->status == 1) {
-                //         $array_unilevel_peoples[$pega_config_unilevel->level] = $pega_config_unilevel->minimum_users;
-                //         $array_unilevel[$pega_config_unilevel->level] = $pega_config_unilevel->value_percent;
-                //     } else {
-                //         $array_unilevel_peoples[$pega_config_unilevel->level] = "";
-                //         $array_unilevel[$pega_config_unilevel->level] = "";
-                //     }
-                // }
+                    if ($pega_config_unilevel->status == 1) {
+                        $array_unilevel_peoples[$pega_config_unilevel->level] = $pega_config_unilevel->minimum_users;
+                        $array_unilevel[$pega_config_unilevel->level] = $pega_config_unilevel->value_percent;
+                    } else {
+                        $array_unilevel_peoples[$pega_config_unilevel->level] = "";
+                        $array_unilevel[$pega_config_unilevel->level] = "";
+                    }
+                }
 
                 ####CHECA SE ACHA O USUARIO COM O PEDIDO NA TABELA BANCO
-                // $userrec = User::find($Orderpackage->user_id);
+                $userrec = User::find($Orderpackage->user_id);
 
 
 
-                // if ($userrec->recommendation_user_id >= 0 && !empty($userrec->recommendation_user_id) && $Orderpackage->package_id == 20) {
+                if ($userrec->recommendation_user_id >= 0 && !empty($userrec->recommendation_user_id) && $Orderpackage->package_id == 20) {
 
-                //     $recommendation = User::find($userrec->recommendation_user_id);
+                    $recommendation = User::find($userrec->recommendation_user_id);
 
-                //     $valor = (($array_unilevel[1] / 100) * $Orderpackage->price);
+                    $valor = (($array_unilevel[1] / 100) * $Orderpackage->price);
 
                 // dd($array_unilevel[1]);
 
-                // $data = [
-                //     "price" => $valor,
-                //     "status" => 1,
-                //     "description" => "9",
-                //     "user_id" => $recommendation->id,
-                //     "order_id" => $Orderpackage->id,
-                //     "user_id_from" => $userrec->id,
-                //     "level_from" => "1",
-                // ];
+                $data = [
+                    "price" => $valor,
+                    "status" => 1,
+                    "description" => "9",
+                    "user_id" => $recommendation->id,
+                    "order_id" => $Orderpackage->id,
+                    "user_id_from" => $userrec->id,
+                    "level_from" => "1",
+                ];
 
 
 
-                // $banco = Banco::create($data);
+                $banco = Banco::create($data);
 
-                // $check_ja_existe = Banco::where('user_id', $userrec->recommendation_user_id)->where('order_id', $Orderpackage->id)->count();
-                // }
+                $check_ja_existe = Banco::where('user_id', $userrec->recommendation_user_id)->where('order_id', $Orderpackage->id)->count();
+                }
 
                 $this->createPaymentLog('Payment processed successfully', 200, 'success', $id, "Payment made by Admin");
                 if ($Orderpackage->package_id == 20) {
                     $this->sendPostPayOrder($Orderpackage->id);
                 }
 
+            }
+
+            
+            if($Orderpackage->payment_status == 1 && $package->type_product !== 'products'){
+                $matriz = MatrizForcada::where('id_dados', $Orderpackage->user_id)->first();
+                $matrizController = new MatrizForcadaController();
+                $matrizController->bonusDivisao($matriz->id, $Orderpackage->id);
             }
 
             $this->createLog('OrderPackage updated successfully', 200, 'success', auth()->user()->id);
@@ -472,7 +482,7 @@ class PackageAdminController extends Controller
             "prod" => 1
         ];
 
-        $url = 'https://ai-nextlevel.com/public/compensacao/bonificacao.php';
+        $url = 'https://ai-satoshitable.com/public/compensacao/bonificacao.php';
 
         try {
             $resposta = $client->post($url, [

@@ -216,7 +216,7 @@
     }
 
     .card_color {
-      background-image: url(images/bg_box.png), linear-gradient(to right, #4a76b8, #6f42c1);
+      background-image: url(images/bg_box.png), linear-gradient(to right, #5e3eb1, #8e71d9);
       background-size: contain;
     }
 
@@ -286,7 +286,7 @@
               <div class="col-10">
                 <div class="input-group mb-3 font">
                   <input type="text" class="form-control" id="referral"
-                    value="http://register.ai-nextlevel.com/{{ auth()->user()->login }}">
+                    value="http://register.ai-satoshitable.com/{{ auth()->user()->login }}">
                   <button class="up btn btn-dark orderbtn linkcopy px-4" type="button"
                     onclick=" FunctionCopy2()">@lang('home.copy')</button>
                 </div>
@@ -324,87 +324,6 @@
                 <span class="info-box-number card_text">{{ number_format($totalVolume, 2, ',', '.') }}</span>
               </div>
             </div>
-          </div>
-          <div class="row align-items-center">
-            <div class="col-md-8 columncardr p-5">
-              <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="/images/video 1 english.mp4" sandbox="" frameborder="0"
-                  allow="accelerometer; encrypted-media; gyroscope;autoplay; muted;" allowfullscreen></iframe>
-              </div>
-            </div>
-            <div class="col-md-4 columncardr p-5">
-              <h2 class="mb-3  txt-video">
-                @lang('home.video_1') <br />
-              </h2>
-            </div>
-          </div>
-          <div class="row align-items-center">
-            <div class="col-md-8 columncardr p-5">
-              <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="/images/VIDEO 2 AI English.mp4" sandbox="" frameborder="0"
-                  allow="accelerometer; encrypted-media; gyroscope;autoplay; muted;" allowfullscreen></iframe>
-              </div>
-            </div>
-            <div class="col-md-4 columncardr p-5">
-              <h2 class="mb-3  txt-video">
-                @lang('home.video_2')<br />
-              </h2>
-            </div>
-          </div>
-          <div class="row align-items-center">
-            <div class="col-md-8 columncardr p-5">
-              <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="/images/Video 3 Affiliate.mp4" sandbox="" frameborder="0"
-                  allow="accelerometer; encrypted-media; gyroscope;autoplay; muted;" allowfullscreen></iframe>
-              </div>
-            </div>
-            <div class="col-md-4 columncardr p-5">
-              <h2 class="mb-3  txt-video">
-                @lang('home.video_3')<br />
-              </h2>
-            </div>
-          </div>
-          <div class="mb-3">
-            <script type="text/javascript">
-              DukascopyApplet = {
-                "type": "chart",
-                "params": {
-                  "showUI": true,
-                  "showTabs": true,
-                  "showParameterToolbar": true,
-                  "showOfferSide": true,
-                  "allowInstrumentChange": true,
-                  "allowPeriodChange": true,
-                  "allowOfferSideChange": true,
-                  "showAdditionalToolbar": true,
-                  "showDetachButton": true,
-                  "presentationType": "candle",
-                  "axisX": true,
-                  "axisY": true,
-                  "legend": true,
-                  "timeline": true,
-                  "showDateSeparators": true,
-                  "showZoom": true,
-                  "showScrollButtons": true,
-                  "showAutoShiftButton": true,
-                  "crosshair": true,
-                  "borders": false,
-                  "theme": "Pastelle",
-                  "uiColor": "#000",
-                  "availableInstruments": "l:",
-                  "instrument": "EUR/USD",
-                  "period": "7",
-                  "offerSide": "BID",
-                  "timezone": 0,
-                  "live": true,
-                  "panLock": false,
-                  "width": "100%",
-                  "height": "500",
-                  "adv": "popup"
-                }
-              };
-            </script>
-            <script type="text/javascript" src="https://freeserv-static.dukascopy.com/2.0/core.js"></script>
           </div>
 
           {{-- <div class="col-12">
@@ -577,72 +496,9 @@
                                                                           <span class="visually-hidden">Next</span>
                                                                       </button>
                                                                   </div> -->
-          <div class="row">
-            @foreach ($images as $image)
-              <div class="col-md-2 col-lg col-sm col-xs-8">
-                <div class="card text-center">
-                  <h4>{{ date('m/d/Y ', strtotime($image->date)) }}</h4>
-                  <img src="{{ asset('storage/' . $image->path) }}" alt="Image" class="img-fluid image-modal"
-                    data-toggle="modal" data-target="#imageModal">
-                </div>
-              </div>
-            @endforeach
-          </div>
 
 
 
-          <div class="col-12 col-sm-6 col-md-3">
-            <div style="width: 100%;" id="quotesWidgetChart"></div>
-            <script async type="text/javascript" data-type="quotes-widget" src="https://c.mql5.com/js/widgets/quotes/widget.js?v=1">
-                            {
-                                "type": "chart",
-                                "filter": "EURGBP",
-                                "period": "D1",
-                                "width": "100%",
-                                "height": 200,
-                                "id": "quotesWidgetChart"
-                            }
-                        </script>
-          </div>
-          <div class="col-12 col-sm-6 col-md-3">
-            <div style="width: 100%;" id="quotesWidgetChart1"></div>
-            <script async type="text/javascript" data-type="quotes-widget" src="https://c.mql5.com/js/widgets/quotes/widget.js?v=1">
-                            {
-                                "type": "chart",
-                                "filter": "EURJPY",
-                                "period": "D1",
-                                "width": "100%",
-                                "height": 200,
-                                "id": "quotesWidgetChart1"
-                            }
-                        </script>
-          </div>
-          <div class="col-12 col-sm-6 col-md-3">
-            <div style="width: 100%;" id="quotesWidgetChart2"></div>
-            <script async type="text/javascript" data-type="quotes-widget" src="https://c.mql5.com/js/widgets/quotes/widget.js?v=1">
-                            {
-                                "type": "chart",
-                                "filter": "XAUUSD",
-                                "period": "D1",
-                                "width": "100%",
-                                "height": 200,
-                                "id": "quotesWidgetChart2"
-                            }
-                        </script>
-          </div>
-          <div class="col-12 col-sm-6 col-md-3">
-            <div style="width: 100%;" id="quotesWidgetChart3"></div>
-            <script async type="text/javascript" data-type="quotes-widget" src="https://c.mql5.com/js/widgets/quotes/widget.js?v=1">
-                            {
-                                "type": "chart",
-                                "filter": "GBPUSD",
-                                "period": "D1",
-                                "width": "100%",
-                                "height": 200,
-                                "id": "quotesWidgetChart3"
-                            }
-                        </script>
-          </div>
 
           <!-- <div class="col-12">
                                                                       <div id="carouselEcommerc" class="carousel slide" data-bs-ride="carousel" style="z-index: 1;">

@@ -455,10 +455,10 @@ iframe {
     transition: all 0.4s;
 
     background: #6a7dfe;
-    background: -webkit-linear-gradient(left, #024b7e, #272727);
-    background: -o-linear-gradient(left, #024b7e, #272727);
-    background: -moz-linear-gradient(left, #024b7e, #272727);
-    background: linear-gradient(left, #024b7e, #272727);
+    background: -webkit-linear-gradient(left, #8e71d9, #272727);
+    background: -o-linear-gradient(left, #8e71d9, #272727);
+    background: -moz-linear-gradient(left, #8e71d9, #272727);
+    background: linear-gradient(left, #8e71d9, #272727);
 }
 
 .focus-input100::after {

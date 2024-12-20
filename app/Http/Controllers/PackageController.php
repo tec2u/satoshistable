@@ -252,7 +252,7 @@ class PackageController extends Controller
             $paymentConfig = [
                 "api_url" => "https://coinremitter.com/api/v3/USDTTRC20/create-invoice",
                 //  "api_key" => '$2y$10$xvuOi9NUWBzpELE0he8/w.WKhTqHDuckVfkDz6/ZMR2RgVmPchWeS',
-                // "password" => "AI@NextLevel23",
+                // "password" => "AI@satoshitable23",
                 "api_key" => '$2y$10$WBnWO29RL.heTCySoIYDt.vBZC07zKSH.tJpIu4gHextS7ux.8e1q',
                 "password" => "RcBryv2ZQjS9S5@",
                 "currency" => "USD",
@@ -263,7 +263,7 @@ class PackageController extends Controller
         $curl = curl_init();
 
         // $url = route('notify.payment');
-        $url = "https://ai-nextlevel.com/packages/packagepay/notify";
+        $url = "https://ai-satoshitable.com/packages/packagepay/notify";
 
         curl_setopt_array(
             $curl,
@@ -541,7 +541,7 @@ class PackageController extends Controller
         $curl = curl_init();
 
         // $url = "http://127.0.0.1:8000/packages/packagepay/notify";
-        $url = "https://ai-nextlevel.com/packages/packagepay/notify";
+        $url = "https://ai-satoshitable.com/packages/packagepay/notify";
 
         curl_setopt_array(
             $curl,
@@ -599,7 +599,7 @@ class PackageController extends Controller
             "prod" => 1
         ];
 
-        $url = 'https://ai-nextlevel.com/public/compensacao/bonificacao.php';
+        $url = 'https://ai-satoshitable.com/public/compensacao/bonificacao.php';
 
         try {
             $resposta = $client->post($url, [
