@@ -8,8 +8,8 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>Satoshistable</title>
-  <link rel="icon" type="image/png" sizes="400x400" href="assetsWelcome/images/fivicon_tiger.png">
+  <title>SATOSHI SQUARE TABLE</title>
+  <link rel="icon" type="image/png" sizes="400x400" href="/images/logo.png">
 
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">

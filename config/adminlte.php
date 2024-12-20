@@ -86,7 +86,7 @@ return [
    'auth_logo' => [
       'enabled' => false,
       'img' => [
-         'path' => '/images/tigle_logo2.png',
+         'path' => '/images/logo.png',
          'alt' => 'Auth Logo',
          'class' => '',
          'width' => 50,
@@ -109,7 +109,7 @@ return [
    'preloader' => [
       'enabled' => true,
       'img' => [
-         'path' => '/images/tigle_logo2.png',
+         'path' => '/images/logo.png',
          'alt' => 'AdminLTE Preloader Image',
          'effect' => 'animation__shake',
          'width' => 60,
