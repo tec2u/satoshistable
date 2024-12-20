@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HistoricScore;
+use App\Models\MatrizForcada;
 use App\Models\OrderPackage;
 use App\Models\Rede;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,66 +20,94 @@ class NetworkController extends Controller
      */
     public function mytree($parameter)
     {
-        $rede = Rede::where('user_id', $parameter)->first();
-        $name = empty($rede->upline_id) ? "" : Rede::find($rede->upline_id)->user->login;
-        $redename = $rede->user->login;
-        $id = $rede->id;
-        $qty = $rede->qty;
-        $email = $rede->user->email;
-        $volume = $rede->user->getVolume($rede->user->id);
-        $tag =  '';
-        $pay = OrderPackage::where('user_id', $rede->user->id)->where('status', 1)->where('payment_status', 1)->first();
-        $getadessao = $rede->user->getAdessao($rede->user->id);
-        $getpackages = $rede->user->getPackages($rede->user->id);
-        if (!$pay) {
-            $tag = ["Inactive"];
-        }
-        if ($getadessao > 0) {
-            $tag = ["PreRegistration"];
-        }
-        if ($getpackages > 0) {
-            $tag = ["AllCards"];
-        }
-        $rede_users = Rede::where('upline_id', $id)->get()->count();
-        if ($rede_users > 0) {
-            $network = $this->getNetwork($rede->id);
-            $networks[] = array(
-                "id" => "$id",
-                "name" => "$redename",
-                "img" => "https://cdn.balkan.app/shared/empty-img-none.svg",
-                "size" => ".$qty",
-                "referred" => $name,
-                "email"    => $email,
-                "volume"  => "Volume: $volume",
-                "tags" => $tag
-            );
-            $networks = array_merge($network, $networks);
-        } else {
-            $network = $this->getNetwork($rede->id);
-            $networks = array(
-                array(
+        $rede = MatrizForcada::where('id_dados', $parameter)->first();
+        $startDate = Carbon::now()->startOfMonth();
+        $endDate = Carbon::now()->endOfMonth();
+        // nova condição de verificação remover depois
+        if ($rede) {
+
+            $name = $rede->user->name;
+            $login = $rede->user->login;
+            $redename = $rede->user->name . ' ' . $rede->user->last_name ?? '';
+            $id = $rede->id;
+            $upline = $rede->upline;
+            $qty = $rede->qty;
+            $email = $rede->user->email;
+            $volume = $rede->user->getVolume($rede->user->id);
+            $tag = '';
+            $pay = OrderPackage::where('user_id', $rede->user->id)->where('status', 1)->where('payment_status', 1)->first();
+            $getadessao = $rede->user->getAdessao($rede->user->id);
+            $getpackages = $rede->user->getPackages($rede->user->id);
+
+            if (!$pay) {
+                $tag = ["Inactive"];
+            }
+            if ($getadessao > 0) {
+                $tag = ["PreRegistration"];
+            }
+            if ($getpackages > 0) {
+                $tag = ["AllCards"];
+            }
+            $rede_users = MatrizForcada::where('upline', $id)->get()->count();
+
+            if ($rede_users > 0) {
+                $network = $this->getNetwork($rede->id);
+                $networks[] = array(
                     "id" => "$id",
+                    "login" => "$login",
                     "name" => "$redename",
+                    "upline" => $upline,
                     "img" => "https://cdn.balkan.app/shared/empty-img-none.svg",
                     "size" => ".$qty",
+                    "qty" => $qty ? $qty : 0,
                     "referred" => $name,
-                    "volume"  => "Volume: $volume",
-                    "tags" => $tag
-                )
-            );
+                    "email" => $email,
+                    "volume" => "Volume: $volume",
+                    "tags" => $tag,
+                    "active" => $rede->user->hasValidOrderPackage($startDate, $endDate),
+                    "level" => 0
+                );
+                $networks = array_merge($network, $networks);
+            } else {
+                $network = $this->getNetwork($rede->id);
+                $networks = array(
+                    array(
+                        "id" => "$id",
+                        "login" => "$login",
+                        "name" => "$redename",
+                        "upline" => $upline,
+                        "img" => "https://cdn.balkan.app/shared/empty-img-none.svg",
+                        "size" => ".$qty",
+                        "qty" => $qty ? $qty : 0,
+                        "referred" => $name,
+                        "volume" => "Volume: $volume",
+                        "tags" => $tag,
+                        "active" => $rede->user->hasValidOrderPackage($startDate, $endDate),
+                        "level" => 0
+                    )
+                );
+            }
+
+            $id_user = Auth::id();
+            $openProduct = OrderPackage::where('user_id', $id_user)->where('payment_status', 1)->where('status', 1)->orderBy('id', 'DESC')->get();
+            $countPackages = count($openProduct);
+
+            usort($networks, function ($a, $b) {
+                return $a['upline'] - $b['upline'];
+            });
+            // return response()->json($networks);
+            $networks = json_encode($networks);
+            // return response()->json(['qtd' => count($network)]);
+            return view('network.rede', compact('networks', 'countPackages'));
+        } else {
+            $id_user = Auth::id();
+            $openProduct = OrderPackage::where('user_id', $id_user)->where('payment_status', 1)->where('status', 1)->orderBy('id', 'DESC')->get();
+            $countPackages = count($openProduct);
+
+            $networks = 0;
+
+            return view('network.rede', compact('networks', 'countPackages'));
         }
-        //$networks += $this->getNetwork($rede->id);
-        // {
-        //     id: 1,
-        //     name: "Amber McKenzie",
-        //     img: "https://cdn.balkan.app/shared/empty-img-none.svg",
-        //     size: 10,
-        //     referred: "master"
-        // },
-        $networks = json_encode($networks);
-        //$networks = str_replace(array("\n", "\r"), '', $networks);
-        //dd($networks);
-        return view('network.rede', compact('networks'));
     }
     public function mytreediferente($parameter)
     {
@@ -130,17 +161,19 @@ class NetworkController extends Controller
     }
     private function getNetwork($id, $cont = '')
     {
-        $cont = empty($cont) ? 1 : $cont;
-        $rede_users = Rede::where('upline_id', $id)->get();
+        $rede_users = MatrizForcada::where('upline', $id)->get();
+        $startDate = Carbon::now()->startOfMonth();
+        $endDate = Carbon::now()->endOfMonth();
+
         $networks = array();
         foreach ($rede_users as $rede) {
-            $name = empty(Rede::find($rede->upline_id)) ? "" : Rede::find($rede->upline_id)->first()->user->login;
-            $redename = $rede->user->login;
+            $login = $rede->user->login;
+            $redename = $rede->user->name . ' ' . $rede->user->last_name ?? '';
             $id = $rede->id;
             $qty = $rede->qty;
-            $upline = $rede->upline_id;
+            $upline = $rede->upline;
             $volume = $rede->user->getVolume($rede->user->id);
-            $tag =  '';
+            $tag = '';
             $pay = OrderPackage::where('user_id', $rede->user->id)->where('status', 1)->where('payment_status', 1)->first();
             $getadessao = $rede->user->getAdessao($rede->user->id);
             $getpackages = $rede->user->getPackages($rede->user->id);
@@ -154,24 +187,28 @@ class NetworkController extends Controller
                 $tag = ["AllCards"];
             }
             $email = $rede->user->email;
-            $referral_rede = Rede::where('id', $upline)->first();
-            $referral_user = User::where('id', $referral_rede->user_id)->first();
+            $referral_rede = MatrizForcada::where('id', $upline)->first();
+            $referral_user = User::where('id', $referral_rede->id_dados)->first();
+            $level = HistoricScore::where('user_id', auth()->user()->id)->where('user_id_from', $rede->id_dados)->orderBy('id', 'desc')->first();
+
             $networks[] = array(
                 "id" => "$id",
                 "pid" => "$upline",
+                "login" => "$login",
                 "name" => "$redename",
+                "upline" => $upline,
                 "img" => "https://cdn.balkan.app/shared/empty-img-none.svg",
                 "size" => "$qty",
+                "qty" => $qty ? $qty : 0,
                 "referred" => $referral_user->login,
-                "email"    => $email,
-                "volume"  => "Volume: $volume ",
-                "btn"     => "<a href='" . route('networks.mytree', ['parameter' => $rede->user->id]) . "'> More + </a>",
-                "tags" => $tag
+                "email" => $email,
+                "volume" => "Volume: $volume ",
+                "btn" => "<a href='" . route('networks.mytree', ['parameter' => $rede->user->id]) . "'> More + </a>",
+                "tags" => $tag,
+                "active" => $rede->user->hasValidOrderPackage($startDate, $endDate),
+                "level" => $cont
             );
-            $cont++;
-            if ($cont < 3) {
-                $networks = array_merge($this->getNetwork($rede->id, $cont), $networks);
-            }
+            $networks = array_merge($this->getNetwork($rede->id, $cont + 1), $networks);
         }
         //dd($networks);
         return $networks;
