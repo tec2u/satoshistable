@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Hyperspace by HTML5 UP</title>
+		<title>Satoshi Square Table</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -36,9 +36,10 @@
 				<!-- Intro -->
 					<section id="intro" class="wrapper style1 fullscreen fade-up">
 						<div class="inner">
-							<h1>Hyperspace</h1>
-							<p>Just another fine responsive site template designed by <a href="http://html5up.net">HTML5 UP</a><br />
-							and released for free under the <a href="http://html5up.net/license">Creative Commons</a>.</p>
+							<img src='/images/logo.png' style='width: 200px;
+    float: left;'>
+							<h1>Satoshi Square Table</h1>
+							<p>A square table meeting is a metaphorical term for a discussion or meeting format where all participants are considered equal in status and have an equal opportunity to contribute. Unlike a hierarchical arrangement where certain participants may dominate or hold more authority, the square table concept emphasizes collaboration, open communication, and mutual respect.</p>
 							<ul class="actions">
 								<li><a href="#one" class="button scrolly">Learn more</a></li>
 							</ul>
