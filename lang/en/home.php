@@ -56,7 +56,7 @@ return [
     'redetotal_details' => 'Network Total',
     'cardactive_details' => 'Active Orders',
     'pool_commission' => 'Poll Commission',
-    'bonus_referral'  => 'Referral',
+    'bonus_referral' => 'Referral',
     'score_poll' => 'Shares',
 
     'txt' => 'Our referral programme gives you unlimited rewards,
@@ -88,7 +88,7 @@ return [
     'rw7' => 'Use at hundreds of retailers around the world',
     'copy' => 'COPY',
     'total_commission' => 'TOTAL COMMISSION',
-    'total_referrals' => 'TOTAL REFERRALS',
+    'total_referrals' => 'TOTAL DIRECT REFERRALS',
     'group_volume' => 'GROUP VOLUME',
     'video_1' => 'VIDEO 1 Welcome to A.I. NEXT LEVEL CLUB',
     'video_2' => 'VIDEO 2 Set up your broker account & how to pay your profit order',

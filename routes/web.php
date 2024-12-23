@@ -98,6 +98,17 @@ Route::controller(StepByStepController::class)->group(function () {
 // });
 
 
+Route::get('/download/presentation', function () {
+   $headers = [
+      'Content-Type' => 'application/pdf',
+   ];
+
+   $fileName = "presentation.pdf";
+   $file = asset("/images/presentation.pdf");
+   dd($file);
+
+   return response()->download($file, $fileName, $headers);
+})->name('download.presentation');
 
 Route::get('/partners', function () {
    return view('welcome.partners');
@@ -238,7 +249,7 @@ Route::prefix('packages')->middleware('auth')->name('packages')->group(function 
       Route::get('/packages', 'index')->name('.index');
       Route::get('/packagesActivator', 'packagesActivator')->name('.packagesActivator');
       Route::get('/packageslog', 'package')->name('.packagelog');
-    Route::get('/packagesprofit', 'packageprofit')->name('.packagesprofit');
+      Route::get('/packagesprofit', 'packageprofit')->name('.packagesprofit');
       Route::get('/packagesprofit/invoice/{id}', 'invoice')->name('.invoice');
       Route::post('/packagepay/crypto', 'payCrypto')->name('.payCrypto');
       Route::post('/packagepay/crypto/new', 'payCryptoNode')->name('.payCryptoNode');

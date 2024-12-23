@@ -122,14 +122,14 @@ body {
 
 .anavlink {
     font-size: 18px;
-    color: #8e71d9 !important;
+    color: #020801 !important;
     margin: 0 20px;
     border-bottom: 1px solid rgba(225, 225, 225, 0);
 }
 
 .anavlink:hover {
     font-size: 18px;
-    color: #8e71d9 !important;
+    color: #020801 !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.27);
     margin: 0 20px;
 }
@@ -154,7 +154,7 @@ body {
 .btnnavlog {
     min-width: 110px;
     border-style: solid;
-    border-color: #8e71d9;
+    border-color: #020801;
     margin-right: 12px;
 }
 
@@ -429,7 +429,6 @@ header.special .icon:before {
     opacity: 0.35;
 }
 
-
 .prof {
     color: black;
     background-color: #e7e7e7 !important;
@@ -439,51 +438,43 @@ header.special .icon:before {
     margin-top: 6em;
 }
 
-#phone ul{
+#phone ul {
     list-style-type: none !important;
     margin: 0;
     padding: 0;
-
 }
 
 @media (max-width: 576px) {
-#phone ul li {
-
-    width:100%;
-    margin: auto;
-
+    #phone ul li {
+        width: 100%;
+        margin: auto;
     }
 }
 
-.max-img{
-    max-width:66%;
-}
-
-@media (max-width: 576px) {
 .max-img {
-    max-width: 90%;
-    }
+    max-width: 66%;
+}
 
+@media (max-width: 576px) {
+    .max-img {
+        max-width: 90%;
+    }
 }
 @media (max-width: 576px) {
-    #phone ul li button{
-
+    #phone ul li button {
         width: 100%;
         margin: 8px auto;
-
     }
 }
 
-.iconwid{
-    font-size:40px !important;
+.iconwid {
+    font-size: 40px !important;
 }
-
 
 @media (max-width: 576px) {
-.margintopsm{
-
-    margin-top:44px;
-}
+    .margintopsm {
+        margin-top: 44px;
+    }
 }
 
 .video {
@@ -491,10 +482,10 @@ header.special .icon:before {
     width: 100%;
 }
 
-.lpagelink{
-  width: 100%;
+.lpagelink {
+    width: 100%;
 }
 
-.linkcopy{
+.linkcopy {
     min-width: 80px;
 }

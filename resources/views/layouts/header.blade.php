@@ -94,19 +94,19 @@
             </button>
             <ul class="dropdown-menu">
               <li>
-                <a class="dropdown-item" href="/setlocale/en"><img src="{{ asset('assetsWelcome/images/flaguk.png')}}"
+                <a class="dropdown-item" href="/setlocale/en"><img src="{{ asset('assetsWelcome/images/flaguk.png') }}"
                     style="width: 18px;margin-right:10px" alt="...">@lang('header.english')</a>
               </li>
               <li>
-                <a class="dropdown-item" href="/setlocale/es"><img src="{{ asset('assetsWelcome/images/flagspa.png')}}"
+                <a class="dropdown-item" href="/setlocale/es"><img src="{{ asset('assetsWelcome/images/flagspa.png') }}"
                     style="width: 18px;margin-right:10px" alt="...">@lang('header.spanish')</a>
               </li>
               <li>
-                <a class="dropdown-item" href="/setlocale/de"><img src="{{ asset('assetsWelcome/images/flagger.png')}}"
+                <a class="dropdown-item" href="/setlocale/de"><img src="{{ asset('assetsWelcome/images/flagger.png') }}"
                     style="width: 18px;margin-right:10px" alt="...">@lang('header.german')</a>
               </li>
               <li>
-                <a class="dropdown-item" href="/setlocale/fr"><img src="{{ asset('assetsWelcome/images/flagfr.png')}}"
+                <a class="dropdown-item" href="/setlocale/fr"><img src="{{ asset('assetsWelcome/images/flagfr.png') }}"
                     style="width: 18px;margin-right:10px" alt="...">@lang('header.french')</a>
               </li>
             </ul>
@@ -152,7 +152,7 @@
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar font" style="background-color: #8e71d9;">
+  <aside id="sidebar" class="sidebar font" style="background-color: #020801;">
     <a href="{{ route('home.home') }}">
       <img class="imagetest2" style="width: 250px" src="{{ asset('images/tigle_logo2.png') }}" alt="">
     </a>
@@ -207,11 +207,11 @@
             <i class="bi bi-people"></i><span>@lang('header.referral_program')</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="networks-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{{ route('networks.mytree', Auth::id()) }}">
-                        <i class="bi bi-circle"></i><span>Visualização Rede</span>
-                    </a>
-                </li>
+            <li>
+              <a href="{{ route('networks.mytree', Auth::id()) }}">
+                <i class="bi bi-circle"></i><span>Visualização Rede</span>
+              </a>
+            </li>
             <li>
               <a href="{{ route('networks.associatesReport') }}">
                 <i class="bi bi-circle"></i><span>@lang('header.my_team')</span>
