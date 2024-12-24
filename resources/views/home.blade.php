@@ -297,7 +297,7 @@
               <div class="col-10">
                 <div class="input-group mb-3 font">
                   <input type="text" class="form-control" id="referral"
-                    value="http://register.ai-satoshitable.com/{{ auth()->user()->login }}">
+                    value="{{ route('indication.register', auth()->user()->id) }}">
                   <button class="up btn  orderbtn linkcopy px-4" type="button"
                     style="background-color: #99c147;color:white" onclick=" FunctionCopy2()">@lang('home.copy')</button>
                 </div>

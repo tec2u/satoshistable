@@ -154,7 +154,7 @@
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar font" style="background-color: #fff;">
     <a href="{{ route('home.home') }}">
-      <img class="imagetest2" style="width: 250px" src="{{ asset('images/tigle_logo2.png') }}" alt="">
+      <img class="imagetest2" style="width: 150px" src="{{ asset('images/logo.png') }}" alt="">
     </a>
     </br></br>
 
