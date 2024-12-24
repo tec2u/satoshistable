@@ -416,127 +416,43 @@ class NetworkController extends Controller
     {
         $id_user = Auth::id();
         $rede = Rede::where('user_id', $id_user)->first();
+        $networks = Rede::where('upline_id', $rede->id)->get();
 
-        $now_month = date('m');
-        $now_year = date('Y');
-
-        $year = $request->year;
-        $month = $request->month;
-
-        // $networks = User::where('recommendation_user_id', $id_user)->get();
-
-        // $meus_diretos = DB::select("SELECT count(distinct(user_id_from)) as total FROM historic_score where user_id = $id_user and level_from = 1");
-
-        // dd($nova_rede, $meus_diretos);
-        // exit();
-        // $recommendation_user_id =
-
-
-        // if ($rede) {
-
-        // $networks = Rede::where('upline_id', $rede->id)->get();
-        // $new_rede = Rede::where('upline_id', $rede->id)->get();
-
-        // dd($networks);
-        // exit();
-
-        // SELECT sum(score),user_id FROM historic_score where  user_id in (select id from users where recommendation_user_id=116091)
-        // and created_at like '%2024-01%' group by user_id;
-
-        // $totalnet = DB::select("SELECT * FROM historic_score where user_id = $id_user and level_from = 1 and DATE_FORMAT(updated_at, '%Y-%m') = DATE_FORMAT(NOW() - INTERVAL 1 MONTH, '%Y-%m')");
-
-        // $networks = array();
-
-        // $totalnet = DB::select("SELECT sum(score),user_id FROM historic_score where user_id in (select id from users where recommendation_user_id = $id_user) group by user_id");
-
-        // dd($totalnet, $nova_rede);
-        // exit();
-
-        // foreach ($totalnet as $list_user) {
-
-        //     $user_array = User::where('id', $list_user->user_id)->first();
-        //     array_push($networks, $user_array);
-        // }
-
-        //     $totalnot = DB::select("SELECT * FROM historic_score where user_id = $id_user and level_from > 1 and DATE_FORMAT(created_at, '%Y-%m') = DATE_FORMAT(NOW() - INTERVAL 1 MONTH, '%Y-%m')");
-
-        //     $diretos_qr = DB::select("SELECT sum(score) as total FROM historic_score where user_id = $id_user and level_from = 1 and DATE_FORMAT(created_at, '%Y-%m') = DATE_FORMAT(NOW() - INTERVAL 1 MONTH, '%Y-%m')");
-
-        //     $indiretos_qr = DB::select("SELECT sum(score) as total FROM historic_score where user_id = $id_user and level_from > 1 and DATE_FORMAT(created_at, '%Y-%m') = DATE_FORMAT(NOW() - INTERVAL 1 MONTH, '%Y-%m')");
-
-        //     $totalScore = $totalnot;
-
-        // } else {
-        //     $networks = [];
-        //     $totalScore = 0;
-        // }
-
-        if ($request->month && $request->year) {
-
-            $networks = DB::select("SELECT * FROM users WHERE recommendation_user_id = $id_user");
-
-            $openProduct = DB::select("SELECT * FROM orders_package WHERE EXTRACT(month from created_at) = $month AND EXTRACT(year from created_at) = $year");
-            $countPackages = count($openProduct);
-        } else {
-            $networks = User::where('recommendation_user_id', $id_user)->get();
-
-            $openProduct = OrderPackage::where('user_id', $id_user)->where('payment_status', 1)->where('status', 1)->orderBy('id', 'DESC')->get();
-            $countPackages = count($openProduct);
+        if ($networks) {
+            return view('network.associatesReport', compact('networks'));
         }
-
-        // dd($networks);
-
-        return view('network.associatesReport', compact('networks', 'countPackages', 'id_user', 'month', 'year'));
     }
 
     public function pesquisa(Request $request)
     {
         if ($request->ajax()) {
             $id = $request->login;
+            // $rede = DB::table('rede')
+            // ->selectRaw('users.login as login, users.country as country, users.email as email,users.name as name,user2.name as patrocinador,rede.id as id')
+            // ->join('users', 'rede.user_id', '=', 'users.id')
+            // ->join('rede rede2', 'rede2.id', '=', 'rede.upline_id')
+            // ->join('users user2', 'rede2.user_id', '=', 'user2.id')
+            // ->where('rede.upline_id', $id )->get();
 
-            // $rede = DB::select('SELECT users.login as login,
-            //         users.country as country,
-            //         users.id as user_id,
-            //         users.email as email,
-            //         users.name as name,
-            //         user2.login as patrocinador,
-            //         -- score1.score as score,
-            //         rede.id as id
-            //     FROM rede
-            //     JOIN users on rede.user_id = users.id
-            //     JOIN rede rede2 on rede2.id = rede.upline_id
-            //     JOIN users user2 on rede2.user_id = user2.id
-            //     -- JOIN historic_score score1 on rede.user_id = score1.user_id
-            //     WHERE rede.upline_id = ?',
-            //     [$id]
-            // );
-
-            $rede = User::where('recommendation_user_id', $id)->get();
-
+            $rede = DB::select('SELECT users.login as login, 
+                                    users.country as country, 
+                                    users.email as email,
+                                    users.name as name,
+                                    user2.login as patrocinador,
+                                    rede.id as id 
+                                FROM rede
+                                JOIN users on rede.user_id = users.id
+                                JOIN rede rede2 on rede2.id = rede.upline_id
+                                JOIN users user2 on rede2.user_id = user2.id
+                                WHERE rede.upline_id = ?',
+                [$id]
+            );
             if (empty(sizeof($rede))) {
-                return response()->json(['error' => '0 results found']);
+                return response()->json(['error' => 'tabela vazia']);
             } else {
-                $rede = collect($rede)->unique('id')->values();
-
-                foreach ($rede as $value) {
-                    $iduser = $value->id;
-                    $year = $request->year;
-                    $month = $request->month;
-
-                    $volume = DB::select("SELECT sum(score) as total FROM historic_score where user_id=$iduser AND YEAR(created_at) = $year AND MONTH(created_at) = $month");
-                    $volume = isset($volume[0]->{'total'}) ? $volume[0]->{'total'} : 0;
-
-                    $value->volume = $volume;
-
-                    $pat = User::where('id', $value->recommendation_user_id)->first();
-                    if (isset($pat)) {
-                        $value->patrocinador = $pat->login;
-                    } else {
-                        $value->patrocinador = '';
-                    }
-                }
                 return response()->json($rede);
             }
+
         }
         return view('network.associatesReport');
     }
