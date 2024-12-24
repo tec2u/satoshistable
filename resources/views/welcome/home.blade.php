@@ -28,6 +28,7 @@
           <li><a href="#one">Who we are</a></li>
           <li><a href="#news">News</a></li>
           <li><a href="#ceo">CEO</a></li>
+          <li><a href="#partners">Partners</a></li>
           <li><a href="#two">What we do</a></li>
           <li><a href="#three">Get in touch</a></li>
           <li><a href="{{ route('login') }}">Login</a></li>
@@ -121,16 +122,15 @@
 
     <section id="ceo" class="wrapper style4 fade-up">
       <div class="left">
-        <h1 class="textStyled">CEO</h1>
+        <h1 class="textStyled">CEO, Sam Lee</h1>
         <div class="choose-us-box">
           <img src="{{ asset('/images/line-left.png') }}" alt="Owner">
           <p>
-            A tech prodigy from India who delved into software development at 17. His expertise lies in DeFi and crypto,
-            where he currently spearheads a thriving BTC20 smart chain with over 11 Million active wallets strong user
-            community. Beyond his current success, Shavez is driven by a vision to broaden DeFi's reach to untapped
-            markets. With a commitment to innovation, he aspires to make decentralized finance accessible to diverse
-            segments of society, contributing to the industry's evolution. Shavez's journey is a testament to
-            determination and forward-thinking, inspiring tech enthusiasts worldwide.
+            Sam Lee is the Founder and CEO of Blockchain Global, a leading multinational enterprise which focuses on the
+            commercialisation of blockchain technology through international blockchain investments, blockchain
+            innovation hubs, and network infrastructure services; through its offices in Australia, the U.S., Malaysia,
+            China, Switzerland and Japan. Blockchain Global has invested more than USD $300 million in 80
+            blockchain-enabled projects.
             <img src="{{ asset('/images/line-right.png') }}" alt="Owner">
           </p>
         </div>

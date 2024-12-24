@@ -170,6 +170,10 @@ body {
     -ms-overflow-style: scrollbar;
 }
 
+* {
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
 @media screen and (max-width: 480px) {
     html,
     body {
@@ -3830,14 +3834,14 @@ body.is-ie #sidebar > .inner {
 }
 
 #sidebar nav a:before {
-    background: #3c2c62;
+    background: #003103;
 }
 
 #sidebar nav a:after {
-    background-image: -moz-linear-gradient(to right, #020801, #b74e91);
-    background-image: -webkit-linear-gradient(to right, #020801, #b74e91);
-    background-image: -ms-linear-gradient(to right, #020801, #b74e91);
-    background-image: linear-gradient(to right, #020801, #b74e91);
+    background-image: -moz-linear-gradient(to right, #020801, #9edb24);
+    background-image: -webkit-linear-gradient(to right, #020801, #9edb24);
+    background-image: -ms-linear-gradient(to right, #020801, #9edb24);
+    background-image: linear-gradient(to right, #020801, #9edb24);
     -moz-transition: max-width 0.2s ease;
     -webkit-transition: max-width 0.2s ease;
     -ms-transition: max-width 0.2s ease;
@@ -3983,7 +3987,7 @@ body.is-preload #sidebar nav ul li {
 
 .textStyled {
     text-align: center;
-    font-family: "b0563e35d30b3d4c - subset of Pepi";
+    font-family: Arial, Helvetica, sans-serif;
     /* font-size: 50px; */
     font-style: normal;
     font-weight: 600;
@@ -4075,7 +4079,7 @@ body.is-preload #sidebar nav ul li {
     margin: 0;
     font-size: 34px;
     color: #f6f6f7;
-    font-family: "b0563e35d30b3d4c - subset of Pepi";
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #content-one .content-box p {
@@ -4083,7 +4087,7 @@ body.is-preload #sidebar nav ul li {
     font-size: 16px;
     line-height: 1.5;
     color: rgba(255, 255, 255, 0.55);
-    font-family: Inter;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .shape-left {
