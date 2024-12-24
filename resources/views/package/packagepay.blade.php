@@ -37,8 +37,8 @@
                       <p>Choose bank to payment:</p>
                     @endif
                     <select class="form-select" name="method" id="bankSelect" required>
-                      <option value="" disabled selected>Select for details</option>
                       @if (isset($orderpackage->id_transaction_banks))
+                        <option value="" disabled selected>Select for details</option>
                         <option value="{{ $orderpackage->transactionBank }}"
                           data-name="{{ $orderpackage->transactionBank->name }}"
                           data-logo="{{ asset($orderpackage->transactionBank->logo) }}"

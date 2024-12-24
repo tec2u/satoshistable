@@ -191,7 +191,7 @@ class RegisterController extends Controller
         $count = 1;
         $primeiro_id = $user->id;
         $fato_gerador = $user->id;
-        // ini_set('max_execution_time', '300');
+
         while ($sair == 1) {
             $nivel_self = User::where('id', $fato_gerador)->first();
             if ($nivel_self->recommendation_user_id == NULL)
