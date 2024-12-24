@@ -390,6 +390,12 @@ Route::prefix('admin')->middleware(['auth', 'is.admin'])->name('admin')->group(f
 
    Route::get('/home', [App\Http\Controllers\HomeAdminController::class, 'indexAdmin'])->name('.home');
 
+   Route::prefix('credit')->name('.credit')->group(function () {
+      Route::controller(App\Http\Controllers\Admin\OrderAdmin\AdminOrderController::class)->group(function () {
+         Route::get('/add-credit', 'addCredit')->name('.credit_add');
+      });
+   });
+
    Route::prefix('order-admin')->name('.order-admin')->group(function () {
       Route::controller(App\Http\Controllers\Admin\OrderAdmin\AdminOrderController::class)->group(function () {
          Route::get('/', 'index')->name('.order-admin.home');

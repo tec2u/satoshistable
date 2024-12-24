@@ -342,10 +342,10 @@ return [
                'text' => 'members_list',
                'url'  => 'admin/users',
             ],
-            // [
-            //    'text' => 'ban_members_list',
-            //    'url'  => 'admin/users/ban',
-            // ],
+            [
+               'text' => 'Members Credit',
+               'url'  => 'admin/credit/add-credit',
+            ],
             // [
             //    'text' => 'inactive_members_list',
             //    'url'  => 'admin/users/inactive',

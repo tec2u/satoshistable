@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\OrderAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BancoCredit;
 use App\Models\Package;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,6 +14,18 @@ class AdminOrderController extends Controller
     {
         $packages = Package::all();
         return view('admin.order-admin.index', compact('packages'));
+    }
+
+    public function addCredit(Request $request)
+    {
+        $membersWithCreditQuery = User::with('bancoCredit');
+        $login = $request->login ?? '';
+        if($request->login) {
+            $membersWithCreditQuery->where('name', 'like', "%$request->login%")->orWhere('login', $request->login);
+        }
+        $membersWithCredit = $membersWithCreditQuery->paginate(15);
+        // return response()->json($membersWithCredit);
+        return view('admin.members.membersCredit', compact('membersWithCredit', 'login'));
     }
 
 

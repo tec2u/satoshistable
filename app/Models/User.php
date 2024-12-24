@@ -140,6 +140,11 @@ class User extends Authenticatable
         return $this->hasMany(Banco::class);
     }
 
+    public function bancoCredit()
+    {
+        return $this->hasMany(BancoCredit::class);
+    }
+
     public function score()
     {
         return $this->hasMany(HistoricScore::class);

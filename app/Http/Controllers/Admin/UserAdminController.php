@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SearchRequest;
 use App\Models\Banco;
+use App\Models\BancoCredit;
 use App\Models\HistoricScore;
 use App\Models\OrderPackage;
 use App\Models\Rede;
@@ -28,6 +29,22 @@ class UserAdminController extends Controller
     {
         $users = User::orderBy('id', 'DESC')->paginate(9);
         return view('admin.users.users', compact('users'));
+    }
+    public function addCredit(Request $request) {
+        $credit = BancoCredit::where('user_id', $request->userID)->where('description', 77)->first();
+        if(isset($credit)){
+            $credit->price = floatval($request->newPrice);
+            $credit->save();
+        } else {
+            BancoCredit::create([
+                'user_id' => $request->userID,
+                'order_id' => 1,
+                'description' => 77, //description para credito adicionado coloquei o 77 no momento
+                'status' => 'received',
+                'price' => floatval($request->newPrice)
+            ]);
+        }
+        return response()->json($request);
     }
     public function searchUsers(SearchRequest $request)
     {
