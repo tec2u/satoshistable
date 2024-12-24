@@ -208,7 +208,8 @@ class RegisterController extends Controller
                             'description' => 'Contador',
                             'level_from' => $count,
                             'orders_package_id' => 0,
-                            'user_id_from' => $primeiro_id
+                            'user_id_from' => $primeiro_id,
+                            'leg' => "R"
                         ]);
                         if ($soma_qty1->qty == NULL) {
                             User::where('id', $nivel_self->recommendation_user_id)->update(['qty' => 1]);
