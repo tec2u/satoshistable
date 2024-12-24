@@ -114,40 +114,7 @@
         <h1 class="textStyled">Innovation in Action by Our Development Team</h1>
       </div>
 
-      <div class="cards">
-        <div class="card"
-          style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/images/blockchain.gif);">
-          <div>
-            <h2>Blockchain</h2>
-            <p>The Foundation of Secure Transactions</p>
-            <p class="new-p">Our experts implement blockchain to ensure every transaction is secure, transparent, and
-              decentralized, instilling trust and accountability across all digital interaction within the ecosystem.
-            </p> <!-- Novo <p> -->
-          </div>
-        </div>
-
-        <div class="card"
-          style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/images/smart-contracts.gif);">
-          <div>
-            <h2>Smart Contracts</h2>
-            <p>The Future of Automated Efficiency</p>
-            <p class="new-p">With precision and innovation, our team develop smart contracts to automate complex
-              processes, ensuring efficiency and reliability while reducing dependence on intermediaries</p>
-            <!-- Novo <p> -->
-          </div>
-        </div>
-
-        <div class="card"
-          style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/images/artificial-intelligence.gif);">
-          <div>
-            <h2>Artificial Intelligence</h2>
-            <p>Powering Intelligent, User-Centric Experiences</p>
-            <p class="new-p">Crafting intelligent,user-centric solutions,our team uses AI to optimize platform
-              performance, delivering personalized tools and actionable insights that empower users to make smarter
-              decisions</p> <!-- Novo <p> -->
-          </div>
-        </div>
-      </div>
+      @include('components.cards')
     </section>
 
 
@@ -341,39 +308,8 @@
   </div>
 
   <!-- Footer -->
-  <footer id="footer" class="wrapper style4 fadeup">
-    <div class="content">
-      <div class="bg-shape"></div>
-      <div class="footer-1">
-        <h4>About us</h4>
-        <p>We are pioneering a new era in affiliate partnerships, leveraging transparency, trust, and innovation. Our
-          mission is to transform traditional affiliate models into an efficient system that empowers businesses and
-          affiliates alike. We are committed to building a fairer, more transparent marketplace for sustainable growth
-          and reliable results.</p>
-      </div>
-      <div class="footer-2">
-        <h4>Legal Agreements</h4>
-        <ul>
-          <li><a href="/#two">What we do</a></li>
-          <li><a href="/#one">About Us</a></li>
-          <li><a href="{{ asset('/images/presentation.pdf') }}" target="_blank">Business Plan</a></li>
-          <li><a href="{{ route('login') }}">Login</a></li>
-          <li><a href="{{ route('register') }}">Register</a></li>
-        </ul>
-      </div>
-      <div class="footer-3">
-        <h4>Connect with us</h4>
-        <div>
-          <input type="text" placeholder="Email" />
-          <button>Subscribe</button>
-        </div>
-      </div>
-    </div>
-    <div class="inner">
-      <ul class="menu">
-        <li>&copy; Untitled. All rights reserved.</li>
-      </ul>
-    </div>
+  <footer id="footer">
+    @include('components.footer')
   </footer>
 
   <!-- Scripts -->

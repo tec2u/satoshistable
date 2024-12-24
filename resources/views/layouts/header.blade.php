@@ -152,23 +152,23 @@
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar font" style="background-color: #020801;">
+  <aside id="sidebar" class="sidebar font" style="background-color: #fff;">
     <a href="{{ route('home.home') }}">
       <img class="imagetest2" style="width: 250px" src="{{ asset('images/tigle_logo2.png') }}" alt="">
     </a>
     </br></br>
 
     <ul class="sidebar-nav" id="sidebar-nav">
-      @if (auth()->user()->payFirstOrder())
-        <li class="nav-item">
-          <a class="nav-link " href="{{ route('home.home') }}">
-            <i class="bi bi-grid"></i>
-            <span>Home</span>
-          </a>
-        </li><!-- End Dashboard Nav -->
-      @endif
+      {{-- @if (auth()->user()->payFirstOrder()) --}}
+      <li class="nav-item">
+        <a class="nav-link " href="{{ route('home.home') }}">
+          <i class="bi bi-grid"></i>
+          <span>Home</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+      {{-- @endif --}}
 
-      <!--<li class="nav-item">
+      <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#minting-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-clipboard2-minus"></i><span>@lang('header.purchase')</span><i
             class="bi bi-chevron-down ms-auto"></i>
@@ -179,18 +179,19 @@
               <i class="bi bi-circle"></i><span>@lang('header.products')</span>
             </a>
           </li>
-          <li>
+
+          {{-- <li>
             <a href="{{ route('packages.packagelog') }}">
               <i class="bi bi-circle"></i><span>BOT ORDERS</span>
             </a>
-          </li>
-          <li>
+          </li> --}}
+          {{-- <li>
             <a href="{{ route('packages.packagesprofit') }}">
               <i class="bi bi-circle"></i><span>PROFIT SHARE</span>
             </a>
-          </li>
+          </li> --}}
         </ul>
-      </li><!-- End Components Nav -->
+      </li>
 
       <li class="nav-item">
         <a class="nav-link " href="{{ route('packages.packagelog') }}">
@@ -198,92 +199,92 @@
 
         </a>
       </li>
-      @if (auth()->user()->payFirstOrder())
+      {{-- @if (auth()->user()->payFirstOrder()) --}}
 
-        {{-- <!-- End Products Nav --> --}}
+      {{-- <!-- End Products Nav --> --}}
 
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#networks-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-people"></i><span>@lang('header.referral_program')</span><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="networks-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-            <li>
-              <a href="{{ route('networks.mytree', Auth::id()) }}">
-                <i class="bi bi-circle"></i><span>Visualização Rede</span>
-              </a>
-            </li>
-            <li>
-              <a href="{{ route('networks.associatesReport') }}">
-                <i class="bi bi-circle"></i><span>@lang('header.my_team')</span>
-              </a>
-            </li>
-            <li>
-              <a href="{{ route('withdraws.withdrawRequests') }}">
-                <i class="bi bi-circle"></i><span>@lang('header.withdraw_request')</span>
-              </a>
-            </li>
-            <li>
-              <a href="{{ route('withdraws.withdrawLog') }}">
-                <i class="bi bi-circle"></i><span>@lang('header.withdraw_log')</span>
-              </a>
-            </li>
-            <li>
-              <a href="{{ route('reports.transactions') }}">
-                <i class="bi bi-circle"></i><span>@lang('header.transaction')</span>
-              </a>
-            </li>
-            <!--<li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#networks-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-people"></i><span>@lang('header.referral_program')</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="networks-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('networks.mytree', Auth::id()) }}">
+              <i class="bi bi-circle"></i><span>Visualização Rede</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('networks.associatesReport') }}">
+              <i class="bi bi-circle"></i><span>@lang('header.my_team')</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('withdraws.withdrawRequests') }}">
+              <i class="bi bi-circle"></i><span>@lang('header.withdraw_request')</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('withdraws.withdrawLog') }}">
+              <i class="bi bi-circle"></i><span>@lang('header.withdraw_log')</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('reports.transactions') }}">
+              <i class="bi bi-circle"></i><span>@lang('header.transaction')</span>
+            </a>
+          </li>
+          <!--<li>
                     <a href="{{ route('networks.associatesReport') }}">
                         <i class="bi bi-circle"></i><span>@lang('header.associates')</span>
                     </a>
                 </li>-->
-          </ul>
-        </li>
+        </ul>
+      </li>
 
-        <li class="nav-item">
-          <a class="nav-link " href="{{ route('supports.supporttickets') }}">
-            <i class="bi bi-question-octagon"></i>
-            <span>@lang('header.support')</span>
-          </a>
-        </li>
+      <li class="nav-item">
+        <a class="nav-link " href="{{ route('supports.supporttickets') }}">
+          <i class="bi bi-question-octagon"></i>
+          <span>@lang('header.support')</span>
+        </a>
+      </li>
 
-        {{-- <li class="nav-item">
+      {{-- <li class="nav-item">
             <a class="nav-link " href="{{ url('/marketing') }}">
         <i class="bi bi-bag"></i>
         <span>@lang('header.marketing')</span>
         </a>
         </li> --}}
-        @if (auth()->user()->isAllowed())
-          <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#report-nav" data-bs-toggle="collapse" href="#">
-              <i class="bi bi-bar-chart"></i><span>@lang('header.report')</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="report-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <!-- <li>
+      {{-- @if (auth()->user()->isAllowed()) --}}
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#report-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>@lang('header.report')</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="report-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <!-- <li>
                <a href="{{ route('reports.signupcommission') }}">
                   <i class="bi bi-circle"></i><span>@lang('header.signup_commission')</span>
                </a>
             </li> -->
-              <!-- <li>
+          <!-- <li>
                <a href="{{ route('reports.levelIncome') }}">
                   <i class="bi bi-circle"></i><span>@lang('header.level_income')</span>
                </a>
             </li> -->
-              <!-- <li>
+          <!-- <li>
                     <a href="{{ route('reports.signupcommission') }}">
                         <i class="bi bi-circle"></i><span>@lang('header.referral_comission')</span>
                     </a>
                 </li> -->
 
-              <li>
-                <a href="{{ route('reports.bonusdaily') }}">
-                  <i class="bi bi-circle"></i><span>
-                    {{-- @lang('header.referral_comission') --}}
-                    DAILY PROFIT
-                  </span>
-                </a>
-              </li>
-              <!-- <li>
+          <li>
+            <a href="{{ route('reports.bonusdaily') }}">
+              <i class="bi bi-circle"></i><span>
+                {{-- @lang('header.referral_comission') --}}
+                DAILY PROFIT
+              </span>
+            </a>
+          </li>
+          <!-- <li>
                     <a href="{{ route('reports.poolcommission') }}">
                         <i class="bi bi-circle"></i><span>@lang('header.pool_commission')</span>
                     </a>
@@ -292,7 +293,7 @@
 
 
 
-              {{-- <li>
+          {{-- <li>
                <a href="{{ route('reports.stakingRewards') }}">
                 <i class="bi bi-circle"></i><span>@lang('header.stacking_rewards')</span>
                 </a>
@@ -302,20 +303,20 @@
                 <i class="bi bi-circle"></i><span>@lang('header.monthly_coins')</span>
             </a>
         </li> --}}
-              <!-- <li>
+          <!-- <li>
                <a href="{{ route('reports.rankReward') }}">
                   <i class="bi bi-circle"></i><span>@lang('header.rank_reward')</span>
                </a>
             </li> -->
-              {{-- <li>
+          {{-- <li>
                 <a href="{{ route('reports.transactions') }}">
                   <i class="bi bi-circle"></i><span>@lang('header.transaction')</span>
                 </a>
               </li> --}}
-            </ul>
-          </li>
-        @endif
-      @endif
+        </ul>
+      </li>
+      {{-- @endif --}}
+      {{-- @endif --}}
       <!--<li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#daily-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-calendar-day"></i><span>DAILY MAIN REPORT</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -394,7 +395,7 @@
         </section> -->
   </main>
   @yield('content')
-
+  @include('components.footer')
   {{-- <script src="{{ mix('js/app.js') }}" defer></script> --}}
 </body>
 

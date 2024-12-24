@@ -19,12 +19,12 @@ class IsAdmin
     {
         if (auth()->user()->rule === 'RULE_USER') {
             $user = User::find(auth()->user()->id);
-            if($user->getAdessao($user->id) >= 1){
-               return redirect()->route('home.home'); 
-            }else{
-                return redirect()->route('packages.index');
+            if ($user->getAdessao($user->id) >= 1) {
+                return redirect()->route('home.home');
+            } else {
+                return redirect()->route('home.home');
             }
-            
+
         }
         return $next($request);
     }

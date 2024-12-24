@@ -15236,7 +15236,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 .sidebar-dark-warning .nav-sidebar > .nav-item > .nav-link.active,
 .sidebar-light-warning .nav-sidebar > .nav-item > .nav-link.active {
     background-color: #020801;
-    color: #1f2d3d;
+    color: #fff;
 }
 
 .sidebar-dark-warning .nav-sidebar.nav-legacy > .nav-item > .nav-link.active,
@@ -15415,7 +15415,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 .sidebar-dark-yellow .nav-sidebar > .nav-item > .nav-link.active,
 .sidebar-light-yellow .nav-sidebar > .nav-item > .nav-link.active {
     background-color: #020801;
-    color: #1f2d3d;
+    color: #fff;
 }
 
 .sidebar-dark-yellow .nav-sidebar.nav-legacy > .nav-item > .nav-link.active,
@@ -20845,7 +20845,7 @@ body.text-sm .control-sidebar {
 
 .navbar-warning {
     background-color: #020801;
-    color: #1f2d3d;
+    color: #fff;
 }
 
 .navbar-warning.navbar-light .form-control-navbar::-webkit-input-placeholder {
@@ -22620,7 +22620,7 @@ body.text-sm .control-sidebar {
 
 .navbar-yellow {
     background-color: #020801;
-    color: #1f2d3d;
+    color: #fff;
 }
 
 .navbar-yellow.navbar-light .form-control-navbar::-webkit-input-placeholder {

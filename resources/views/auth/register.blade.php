@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+  @php
+    $questions = App\Models\Question::get();
+  @endphp
+
+
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
   <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
   <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
@@ -43,24 +48,32 @@
     }
   </style>
   <video autoplay muted loop class="bg_video">
-    <source src="/videos/tigervideo.mp4" type="video/mp4">
+    {{-- <source src="/videos/tigervideo.mp4" type="video/mp4"> --}}
+    <source src="{{ asset('videos/wave-video.mp4') }}" type="video/mp4">
   </video>
   @include('flash::message')
   <div class="limiter py-5">
     <div class="container-login100">
-      <div class="wrap-login100" style="width: 800px;">
+      <div class="wrap-login100" style="width: 900px;">
+        @if (isset($id))
+          <h4 class="title-login mb-5">{{ __('Register with ') . $user->login }}</h4>
+        @else
+          <h4 class="title-login mb-5">{{ __('Register') }}</h4>
+        @endif
+        <div style="height: 70vh;width: 100%">
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/ZD1tzNqouY8?si=dKEs9RGfBP1nr2Yy"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <br>
         <form class="login100-form validate-form" method="POST" action="{{ route('register') }}">
           @csrf
           <span class="login100-form-title p-b-48">
             <img class="imagetest2" style="filter: brightness(9);" src="{{ asset('images/tigle_logo2.png') }}"
               alt="">
           </span>
-          @if (isset($id))
-            <h4 class="title-login mb-5">{{ __('Register with ') . $user->login }}</h4>
-          @else
-            <h4 class="title-login mb-5">{{ __('Register') }}</h4>
-          @endif
-          <div class="row g-3 px-2">
+          <div id="stepForm01" style="" class="row g-3 px-2">
 
             <div class="col-lg-6">
               <label for="name" class="form-label teste1234">First Name<span style="color: brown">*</span></label>
@@ -88,34 +101,7 @@
                 </span>
               @enderror
             </div>
-            {{-- <div class="mb-3 mt-3">
-                                <label for="address1" class="form-label teste1234">Address 1 <span style="color: brown">
-                                        *</span>:</label>
-                                <input id="address1" type="text"
-                                    class="form-control form-register @error('address1') is-invalid @enderror"
-                                    placeholder="Address 1" name="address1" value="{{ old('address1') }}" required
-                    autocomplete="address1" tabindex="3">
-                    <span for="address1" class="focus-input100"></span>
-                    @error('address1')
-                    <span class="invalid-feedback " role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                    --}}
-            {{-- <div class="mb-3 mt-3">
-                                <label for="postcode " class="form-label teste1234">Postcode <span style="color: brown">
-                                        *</span>:</label>
-                                <input id="postcode" type="text"
-                                    class="form-control form-register @error('postcode') is-invalid @enderror"
-                                    placeholder="Postcode" name="postcode" value="{{ old('postcode') }}" required
-                    autocomplete="postcode" tabindex="5">
-                    <span for="postcode" class="focus-input100"></span>
-                    @error('postcode')
-                    <span class="invalid-feedback " role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div> --}}
+
             <div class="col-lg-6">
               <label class="form-label teste1234">Country <span style="color: brown">*</span></label>
               <select class="teste1234 form-register form-control" required name="country" tabindex="7">
@@ -703,7 +689,7 @@
             <div class="col-lg-6">
               <label for="cell" class="form-label teste1234">Phone<span style="color: brown">* </span>
                 (Just Numbers)</label>
-              <input id="cell" type="cell"
+              <input id="cell" type="number" step="1"
                 class="form-control form-register @error('cell') is-invalid @enderror" placeholder="Phone"
                 name="cell" value="{{ old('cell') }}" required autocomplete="cell" tabindex="10">
               <span for="cell" class="focus-input100"></span>
@@ -726,7 +712,7 @@
                 <label for="recommendation_user_id" class="form-label teste1234">Referral Username</label>
                 <input id="recommendation_user_id" type="text" class="form-control form-register"
                   name="recommendation_user_id" placeholder="Referral Username"
-                  value="{{ old('recommendation_user_id') }}" autofocus tabindex="18"
+                  value="{{ old('recommendation_user_id') }}" autofocus tabindex="18" required
                   onkeypress="allowAlphaNumeric(event)">
                 <span for="recommendation_user_id" class="focus-input100"></span>
               </div>
@@ -774,147 +760,96 @@
               <span for="password-confirm" class="focus-input100"></span>
             </div>
 
-            {{-- <div class="mb-3 mt-3">
-                                <label for="telephone" class="form-label teste1234">Telephone <span style="color: brown">
-                                    </span>:</label>
-                                <input id="telephone" type="telephone"
-                                    class="form-control form-register @error('telephone') is-invalid @enderror"
-                                    placeholder="Telephone" name="telephone" value="{{ old('telephone') }}"
-                autocomplete="telephone" tabindex="9">
-                <span for="telephone" class="focus-input100"></span>
-                @error('telephone')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-        </div> --}}
-            {{-- <div class="mb-3 mt-3">
-                                <label for="birthday" class="form-label teste1234">Date of birth <span
-                                        style="color: brown"> *</span>:</label>
-                                <input id="birthday" type="text"
-                                    class="form-control form-register @error('birthday') is-invalid @enderror"
-                                    name="birthday" value="{{ old('birthday') }}" readonly="readonly" required
-        autocomplete="birthday" placeholder="dd/mm/yyyy" value="" tabindex="11">
-        <span id="lblError" style="color:Red"></span>
-        @error('birthday')
-        <span class="invalid-feedback " role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-        @enderror
-    </div> --}}
+
 
 
           </div>
-          <div class="p-4">
 
-            {{-- <div class="mb-3 mt-3">
-                                <label for="address2" class="form-label teste1234">Address 2:</label>
-                                <input id="address2" type="text"
-                                    class="form-control form-register @error('address2') is-invalid @enderror"
-                                    placeholder="Address 2" name="address2" value="{{ old('address2') }}"
-    autocomplete="address2" tabindex="4">
-    <span for="address2" class="focus-input100"></span>
-    @error('address2')
-    <span class="invalid-feedback " role="alert">
-        <strong>{{ $message }}</strong>
-    </span>
-    @enderror
-</div> --}}
+          <div id="stepForm02" style="display: none" class="row g-3 px-2">
+            <br>
+            <h4 class="title-login mb-5">{{ __('Questionnaire') }}</h4>
 
-            {{-- <div class="mb-3 mt-3">
-                                <label for="state" class="form-label teste1234">State <span style="color: brown">
-                                        *</span>:</label>
-                                <input id="state" type="text"
-                                    class="form-control form-register @error('state') is-invalid @enderror"
-                                    placeholder="State" name="state" value="{{ old('state') }}" required
-autocomplete="state" tabindex="6">
-<span for="state" class="focus-input100"></span>
-@error('state')
-<span class="invalid-feedback " role="alert">
-    <strong>{{ $message }}</strong>
-</span>
-@enderror
-</div> --}}
 
-            {{-- <div class="mb-3 mt-3">
-                                <label class="form-label teste1234">Gender <span style="color: brown"> *</span>:</label>
-                                <select class="teste1234 form-register form-control" required name="gender"
-                                    tabindex="12">
-                                    <option>Select</option>
-                                    <option value="M" @if (old('gender') == 'M') selected="selected" @endif>
-                                        Male</option>
-                                    <option value="F" @if (old('gender') == 'F') selected="selected" @endif>
-                                        Female</option>
-                                </select>
-                            </div> --}}
+            @foreach ($questions as $question)
+              <div class="col-lg-12">
+                <div class="form-floating">
+                  <p>{{ $loop->iteration }}) {{ $question->text }}</p>
 
-            {{-- <div class="mb-3 mt-3">
-                            <label for="ssn" class="form-label teste1234">SSN <span style="color: brown"> *</span>:</label>
-                            <input id="ssn" type="text" class="form-control form-register @error('ssn') is-invalid @enderror" placeholder="SSN" name="ssn" value="{{ old('ssn') }}" required autocomplete="ssn">
-<span for="ssn" class="focus-input100"></span>
-@error('ssn')
-<span class="invalid-feedback " role="alert">
-    <strong>{{ $message }}</strong>
-</span>
-@enderror
-</div> --}}
+                  @if ($question->type === 'multiple_choice' && isset($question->options))
+                    @foreach ($question->options as $option)
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question_{{ $question->id }}"
+                          id="question_{{ $question->id }}_{{ $loop->iteration }}" value="{{ $option }}"
+                          required>
+                        <label class="form-check-label" for="question_{{ $question->id }}_{{ $loop->iteration }}"
+                          style="color: #fff">
+                          {{ $option }}
+                        </label>
+                      </div>
+                    @endforeach
+                  @elseif ($question->type === 'text')
+                    <textarea class="form-control" name="question_{{ $question->id }}" id="question_{{ $question->id }}"
+                      placeholder="Your answer" required></textarea>
+                  @elseif ($question->type === 'number')
+                    <input class="form-control" type="number" name="question_{{ $question->id }}"
+                      id="question_{{ $question->id }}" placeholder="Enter a number" required>
+                  @endif
+                </div>
+              </div>
+            @endforeach
+
+            <button type="submit" class="login100-form-btn btn btn-primary rounded-pill">
+              {{ __('Register') }}
+            </button>
 
           </div>
-          {{-- <div class="row my-5">
-                            <div class="col-12 my-2 py-2 fontregi">
-                                <div id="carouselExampleControls" class="carousel carousel-fade" data-interval="0"
-                                    data-bs-touch="false">
-                                    <div class="carousel-inner">
-                                        @foreach ($packages as $package)
-                                            <div class="text-center">
-                                                <div
-                                                    class="carousel-item @if ($loop->index == 0) active @endif">
-                                                    <h5 class="text-center mb-4 colorpkg">Tell us for our statistics which card you might order when we go live (this is no order):</h5>
-                                                    <img src="{{ asset('storage/' . $package->img) }}" class="img-fluid"
-style="width: 50%;" alt="...">
-<h3 class="text-center mb-4 colorpkg">{{ $package->name }}</h3>
-<div class="d-block mt-4">
-    <input type="checkbox" class="check_teste" id="flexCheckChecked" name="id_card" value="{{ $package->id }}">
-    <label class="label_check colorpkg" for="flexCheckChecked">Choose</label>
-</div>
-<h5 class="text-center mb-4 colorpkg">${{ $package->price }}</h5>
-<h5 class="text-center mb-4 colorpkg" style="font-size: 12px;">
-    {!! $package->long_description !!}</h5>
-</div>
-</div>
-@endforeach
-</div>
-<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon colorpkg" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-</button>
-<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-</button>
-</div>
-<!-- <div class="text-center">
-                                                                                <input type="radio" class="btn-check" name="options-outlined" id="card-1" autocomplete="off" checked>
-                                                                                <label class="btn btn-outline-success" for="card-1">Card 1</label>
-                                                                                <input type="radio" class="btn-check" name="options-outlined" id="card-2" autocomplete="off">
-                                                                                <label class="btn btn-outline-success" for="card-2">Card 2</label>
-                                                                                <input type="radio" class="btn-check" name="options-outlined" id="card-3" autocomplete="off">
-                                                                                <label class="btn btn-outline-success" for="card-3">Card 3</label>
-                                                                            </div> -->
-</div>
-</div> --}}
-          <div class="container-login100-form-btn">
-            <div class="wrap-login100-form-btn">
-              <div class="login100-form-bgbtn"></div>
-              <button type="submit" class="login100-form-btn btn btn-primary rounded-pill">
-                {{ __('Register') }}
-              </button>
-            </div>
-          </div>
+
+
         </form>
+        <div class="container-login100-form-btn">
+          <div class="wrap-login100-form-btn">
+            <div class="login100-form-bgbtn"></div>
+            <button type="button" id="nextButton" class="login100-form-btn btn btn-primary rounded-pill">
+              {{ __('Next') }}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
+  <script>
+    document.getElementById('nextButton').addEventListener('click', function() {
+      const stepForm = document.getElementById('stepForm01');
+      const inputs = stepForm.querySelectorAll('input, select');
+      let allValid = true;
+
+      // Verifica todos os inputs/selects dentro do form
+      inputs.forEach(input => {
+        if (input.hasAttribute('required') && !input.value.trim()) {
+          allValid = false;
+
+          // Adiciona classe de erro se o campo não for preenchido
+          input.classList.add('is-invalid');
+          input.addEventListener('input', function() {
+            if (input.value.trim()) {
+              input.classList.remove('is-invalid');
+            }
+          });
+        }
+      });
+
+      if (allValid) {
+        // Esconde a div se todos os campos estiverem preenchidos
+        // stepForm.style.display = 'none';
+        document.getElementById('stepForm02').style.display = 'block';
+        document.getElementById('nextButton').style.display = 'none';
+        // alert('Form completed. Moving to the next step.');
+      } else {
+        alert('Please fill all required fields before proceeding.');
+      }
+    });
+  </script>
 
 
   <script>

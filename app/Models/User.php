@@ -414,7 +414,7 @@ class User extends Authenticatable
 
     public function getVolume($id)
     {
-        $rede_raiz = MatrizForcada::where('id_dados',$id )->first();
+        $rede_raiz = MatrizForcada::where('id_dados', $id)->first();
 
         if (!empty($rede_raiz)) {
             $rede = DB::select(
@@ -422,8 +422,8 @@ class User extends Authenticatable
                     SELECT id, id_dados, upline, ciclo, qty, 1 AS level
                     FROM matriz_forcada3x10
                     WHERE upline = " .
-                    $rede_raiz->id .
-                    "
+                $rede_raiz->id .
+                "
 
                     UNION ALL
 
@@ -437,8 +437,8 @@ class User extends Authenticatable
                 COUNT(CASE WHEN u.id IS NULL THEN 1 END) AS indirect_count
             FROM downline d
             LEFT JOIN users u ON u.id = d.id_dados AND u.recommendation_user_id = " .
-                    $rede_raiz->id_dados .
-                    '',
+                $rede_raiz->id_dados .
+                '',
             );
         }
 
@@ -644,7 +644,7 @@ class User extends Authenticatable
         $getadessao = $this->getAdessao($id);
 
         $getpackages = $this->getPackages($id);
-
+        $tag = "";
         if (!$pay) {
             $tag = "Inactive";
         }

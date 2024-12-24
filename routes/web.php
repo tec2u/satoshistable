@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\IpWhitelistAdminController;
 use App\Http\Controllers\Admin\IpBlacklistAdminController;
 use App\Http\Controllers\Admin\PackageAdminController;
 use App\Http\Controllers\Admin\PercentageAdminController;
+use App\Http\Controllers\Admin\TransactionBankAdminController;
 use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Admin\WithdrawsAdminController;
 use App\Http\Controllers\Admin\ReportsAdminController;
@@ -97,18 +98,6 @@ Route::controller(StepByStepController::class)->group(function () {
 //    return view('welcome.create_new_bot_step5');
 // });
 
-
-Route::get('/download/presentation', function () {
-   $headers = [
-      'Content-Type' => 'application/pdf',
-   ];
-
-   $fileName = "presentation.pdf";
-   $file = asset("/images/presentation.pdf");
-   dd($file);
-
-   return response()->download($file, $fileName, $headers);
-})->name('download.presentation');
 
 Route::get('/partners', function () {
    return view('welcome.partners');
@@ -588,6 +577,17 @@ Route::prefix('admin')->middleware(['auth', 'is.admin'])->name('admin')->group(f
       Route::controller(IpBlacklistAdminController::class)->group(function () {
          Route::get('/blacklist', 'blacklist')->name('.blacklist');
          Route::delete('/{id}/remove', 'destroy')->name('.delete');
+      });
+   });
+
+   Route::prefix('banks')->name('.banks')->group(function () {
+      Route::controller(TransactionBankAdminController::class)->group(function () {
+         Route::get('/list', 'index')->name('.index');
+         Route::get('/edit/{id}', 'edit')->name('.edit');
+         Route::get('/create', 'create')->name('.create');
+         Route::post('/store', 'store')->name('.store');
+         Route::put('/update/{id}', 'update')->name('.update');
+         Route::post('/delete/{id}', 'delete')->name('.delete');
       });
    });
 

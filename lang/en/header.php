@@ -38,7 +38,7 @@ return [
     'logout' => 'Logout',
     'ai_next_level_club' => 'Satoshistable',
     'add_new_account' => 'Add New Account',
-    'my_accounts' => 'My Accounts',
+    'my_accounts' => 'Orders',
     'profit_share' => 'Profit Share',
     'referral_program' => 'Referral Program',
     'join_our' => 'join_our',

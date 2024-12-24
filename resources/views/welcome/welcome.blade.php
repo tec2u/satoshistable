@@ -70,9 +70,9 @@
               href="{{ route('login') }}">@lang('leadpage.btn.login')</a>
             @if (Route::has('register'))
               <!-- <a role="button" class="btn btn-warning ms-md-2 btnnav"
-                                              style="border: solid 2px #020801; color: #ffffff; background: #020801;" href="{{ route('register') }}"
-                                              data-aos="zoom-in-down" data-aos-duration="1600" data-aos-delay="2200"
-                                              data-aos-once="true">@lang('leadpage.btn.join')</a>-->
+                                                  style="border: solid 2px #020801; color: #ffffff; background: #020801;" href="{{ route('register') }}"
+                                                  data-aos="zoom-in-down" data-aos-duration="1600" data-aos-delay="2200"
+                                                  data-aos-once="true">@lang('leadpage.btn.join')</a>-->
             @endif
           @endauth
         @endif

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MatrizForcadaController;
 use App\Mail\UserRegisteredEmail;
+use App\Models\Answer;
 use App\Models\HistoricScore;
 use App\Models\Rede;
 use App\Providers\RouteServiceProvider;
@@ -121,6 +122,8 @@ class RegisterController extends Controller
         $login = $data['login'];
         $password = $data['password'];
 
+
+
         $verify = $this->verifyBlacklist($ip, $login, $password);
 
         // if ($verify != 'IP_BLOCK') {
@@ -158,6 +161,19 @@ class RegisterController extends Controller
         ]);
 
 
+        foreach ($data as $key => $value) {
+            if (str_starts_with($key, 'question_')) {
+                $questionId = str_replace('question_', '', $key);
+
+                Answer::create([
+                    'question_id' => $questionId,
+                    'user_id' => $user->id,
+                    'answer' => $value,
+                ]);
+            }
+        }
+
+
         $rede_recommedation = Rede::where('user_id', $recommendation)->first();
 
         $user->rede()->create([
@@ -175,42 +191,43 @@ class RegisterController extends Controller
         $count = 1;
         $primeiro_id = $user->id;
         $fato_gerador = $user->id;
-        // ini_set('max_execution_time', '300');
-        while ($sair == 1) {
-           $nivel_self = User::where('id', $fato_gerador)->first();
-           if ($nivel_self->recommendation_user_id == NULL)
-              break;
-           $soma_qty1 = User::where('id', $nivel_self->recommendation_user_id)->first();
-           if ($soma_qty1 != NULL && $soma_qty1->recommendation_user_id >= 0) {
-              if ($nivel_self->name != "") {
-                 $check_existe = HistoricScore::where('user_id_from', $primeiro_id)->where('user_id', $soma_qty1->id)->where('description', '6')->first();
-                 if ($check_existe == NULL) {
-                    HistoricScore::create([
-                       'score' => '1',
-                       'user_id' => $soma_qty1->id,
-                       'status' => '1',
-                       'description' => 'Contador',
-                       'level_from' => $count,
-                       'orders_package_id' => 0,
-                       'user_id_from' => $primeiro_id
-                    ]);
-                    if ($soma_qty1->qty == NULL) {
-                       User::where('id', $nivel_self->recommendation_user_id)->update(['qty' => 1]);
-                    } else {
-                       User::where('id', $nivel_self->recommendation_user_id)->increment('qty', 1);
-                    }
-                 }
-              }
-              $nivel1 = User::where('id', $nivel_self->recommendation_user_id)->first();
-              $nivel12 = User::where('recommendation_user_id', $nivel1->recommendation_user_id)->first();
-              $count++;
-              $fato_gerador = $nivel12->id;
-           }
-        }
 
-        $matrizController = new MatrizForcadaController();
-        $matrizController->matriz_forcada($user->id);
+        // while ($sair == 1) {
+        //     $nivel_self = User::where('id', $fato_gerador)->first();
+        //     if ($nivel_self->recommendation_user_id == NULL)
+        //         break;
+        //     $soma_qty1 = User::where('id', $nivel_self->recommendation_user_id)->first();
+        //     if ($soma_qty1 != NULL && $soma_qty1->recommendation_user_id >= 0) {
+        //         if ($nivel_self->name != "") {
+        //             $check_existe = HistoricScore::where('user_id_from', $primeiro_id)->where('user_id', $soma_qty1->id)->where('description', '6')->first();
+        //             if ($check_existe == NULL) {
+        //                 HistoricScore::create([
+        //                     'score' => '1',
+        //                     'user_id' => $soma_qty1->id,
+        //                     'status' => '1',
+        //                     'description' => 'Contador',
+        //                     'level_from' => $count,
+        //                     'orders_package_id' => 0,
+        //                     'user_id_from' => $primeiro_id
+        //                 ]);
+        //                 if ($soma_qty1->qty == NULL) {
+        //                     User::where('id', $nivel_self->recommendation_user_id)->update(['qty' => 1]);
+        //                 } else {
+        //                     User::where('id', $nivel_self->recommendation_user_id)->increment('qty', 1);
+        //                 }
+        //             }
+        //         }
+        //         $nivel1 = User::where('id', $nivel_self->recommendation_user_id)->first();
+        //         $nivel12 = User::where('recommendation_user_id', $nivel1->recommendation_user_id)->first();
+        //         $count++;
+        //         $fato_gerador = $nivel12->id;
+        //     }
+        // }
+
+        // $matrizController = new MatrizForcadaController();
+        // $matrizController->matriz_forcada($user->id);
         // ini_set('max_execution_time', '60');
+
 
         //Mail::to($user->email)->send(new UserRegisteredEmail($user));
         return $user;

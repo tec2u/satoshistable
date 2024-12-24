@@ -209,40 +209,40 @@ class PackageAdminController extends Controller
 
                     $valor = (($array_unilevel[1] / 100) * $Orderpackage->price);
 
-                // dd($array_unilevel[1]);
+                    // dd($array_unilevel[1]);
 
-                $data = [
-                    "price" => $valor,
-                    "status" => 1,
-                    "description" => "9",
-                    "user_id" => $recommendation->id,
-                    "order_id" => $Orderpackage->id,
-                    "user_id_from" => $userrec->id,
-                    "level_from" => "1",
-                ];
+                    $data = [
+                        "price" => $valor,
+                        "status" => 1,
+                        "description" => "9",
+                        "user_id" => $recommendation->id,
+                        "order_id" => $Orderpackage->id,
+                        "user_id_from" => $userrec->id,
+                        "level_from" => "1",
+                    ];
 
 
 
-                $banco = Banco::create($data);
+                    $banco = Banco::create($data);
 
-                $check_ja_existe = Banco::where('user_id', $userrec->recommendation_user_id)->where('order_id', $Orderpackage->id)->count();
+                    $check_ja_existe = Banco::where('user_id', $userrec->recommendation_user_id)->where('order_id', $Orderpackage->id)->count();
                 }
 
-                $this->createPaymentLog('Payment processed successfully', 200, 'success', $id, "Payment made by Admin");
+                // $this->createPaymentLog('Payment processed successfully', 200, 'success', $id, "Payment made by Admin");
                 if ($Orderpackage->package_id == 20) {
                     $this->sendPostPayOrder($Orderpackage->id);
                 }
 
             }
 
-            
-            if($Orderpackage->payment_status == 1 && $package->type_product !== 'products'){
+
+            if ($Orderpackage->payment_status == 1 && $package->type_product !== 'products') {
                 $matriz = MatrizForcada::where('id_dados', $Orderpackage->user_id)->first();
                 $matrizController = new MatrizForcadaController();
                 $matrizController->bonusDivisao($matriz->id, $Orderpackage->id);
             }
 
-            $this->createLog('OrderPackage updated successfully', 200, 'success', auth()->user()->id);
+            // $this->createLog('OrderPackage updated successfully', 200, 'success', auth()->user()->id);
             flash(__('admin_alert.pkgupdate'))->success();
             return redirect()->route('admin.packages.orderPackages');
         } catch (Exception $e) {
@@ -324,25 +324,7 @@ class PackageAdminController extends Controller
 
     public function orderPackages()
     {
-        $orderpackages = OrderPackage::select(
-            DB::raw('orders_package.id as id'),
-            DB::raw('orders_package.created_at as created_at'),
-            DB::raw('users.name as name'),
-            DB::raw('users.login as login'),
-            DB::raw('orders_package.user as user'),
-            DB::raw('orders_package.price as price'),
-            DB::raw('orders_package.reference as reference'),
-            DB::raw('orders_package.printscreen as printscreen'),
-            DB::raw('orders_package.link as link'),
-            DB::raw('orders_package.server as server'),
-            DB::raw('orders_package.updated_at as updated_at'),
-            DB::raw('orders_package.pass as pass'),
-            DB::raw('orders_package.status as status')
-        )
-            ->orderBy('orders_package.id', 'DESC')
-            ->where('package_id', '<>', 20)
-            ->join('users', 'users.id', '=', 'orders_package.user_id')
-            ->paginate(50);
+        $orderpackages = OrderPackage::orderBy('id', 'DESC')->paginate(9);
 
         return view('admin.packages.orders', compact('orderpackages'));
     }

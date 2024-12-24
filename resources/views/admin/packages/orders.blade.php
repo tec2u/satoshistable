@@ -90,8 +90,10 @@
 
             <th>@lang('admin.orders.order.col3')</th>
             <th>@lang('admin.orders.orders.last_update')</th>
-            <th>@lang('admin.orders.orders.server')</th>
-            <th>@lang('admin.orders.orders.requested_date')</th>
+            {{-- <th>@lang('admin.orders.orders.server')</th> --}}
+            {{-- <th>@lang('admin.orders.orders.requested_date')</th> --}}
+            <th>Name Bank transfer</th>
+            <th>Reference Bank transfer</th>
             <th>@lang('admin.orders.order.col5')</th>
             <th>@lang('admin.orders.order.col6')</th>
             <th></th>
@@ -105,20 +107,34 @@
           @forelse($orderpackages as $orderpackage)
             <tr>
               <th>{{ $orderpackage->id }}</th>
-               <th>{{ $orderpackage->login}}</th>
-              <td>{{ $orderpackage->name }}</td>
+              <th>{{ $orderpackage->user->login }}</th>
+              <td>{{ $orderpackage->user->name }}</td>
               <td>{{ $orderpackage->reference }}</td>
               <td>{{ number_format($orderpackage->price, 2, ',', '.') }}</td>
               <th>{{ $orderpackage->updated_at }}</th>
-              <th>{{ $orderpackage->user }} / {{ $orderpackage->pass }} </br> Server: {{ $orderpackage->server }} </th>
-              <td><a href="/images/printscreen/{{ $orderpackage->printscreen }}" target="_blank"> @lang('admin.orders.orders.printscreen')</a></td>
+              {{-- <th>{{ $orderpackage->user }} / {{ $orderpackage->pass }} </br> Server: {{ $orderpackage->server }} </th>
+              <td><a href="/images/printscreen/{{ $orderpackage->printscreen }}" target="_blank"> @lang('admin.orders.orders.printscreen')</a>
+              </td> --}}
+              <td>
+                @if (isset($orderpackage->id_transaction_banks))
+                  <img src="{{ asset($orderpackage->transactionBank->logo) }}" alt="" width="100px">
+                  <br>
+                  {{ $orderpackage->transactionBank->name }}
+                @endif
+              </td>
+
+              <td>
+                @if (isset($orderpackage->id_transaction_banks))
+                  {{ $orderpackage->id }}+{{ $orderpackage->user->login }}
+                @endif
+              </td>
               <td>
                 @if ($orderpackage->status == 2)
                   <button class="btn btn-danger btn-sm m-0">@lang('admin.orders.orders.deactivated')</button>
                 @elseif($orderpackage->status == 1)
                   <button class="btn btn-success btn-sm m-0">@lang('admin.orders.orders.activated')</button>
                 @else
-                  <button class="btn btn-warning btn-sm m-0">@lang('admin.orders.orders.pending')</button>
+                  <button class="btn btn-warning btn-sm m-0" style="color: white">@lang('admin.orders.orders.pending')</button>
                 @endif
               </td>
               <td>
