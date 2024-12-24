@@ -484,6 +484,8 @@ class NetworkController extends Controller
             $countPackages = count($openProduct);
         }
 
+        // dd($networks);
+
         return view('network.associatesReport', compact('networks', 'countPackages', 'id_user', 'month', 'year'));
     }
 

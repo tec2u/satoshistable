@@ -67,4 +67,6 @@ class Rede extends Model
         $rede = $this::find($id);
         return $rede->user->name;
     }
+
+
 }
