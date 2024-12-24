@@ -71,7 +71,7 @@
                 {{ $package->name }}
               </div>
               <div class="card-body pt-0">
-                <img src="{{ asset('storage/' . $package->img) }}" alt="package-cover" class="img-fluid">
+                <img src="{{ asset($package->img) }}" alt="package-cover" class="img-fluid">
                 <hr>
                 {{-- {!! $package->long_description !!} --}}
                 {!! htmlspecialchars($package->long_description, ENT_QUOTES, 'UTF-8', false) !!}

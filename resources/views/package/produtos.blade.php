@@ -11,7 +11,7 @@
               @forelse($packages as $package)
                 <div class="col-sm-4 card-deck hover ">
                   <div class="card ">
-                    <img src='/img/packages/{{ $package->img }}' class="card-img-top" alt="...">
+                    <img src='{{ asset($package->img) }}' class="card-img-top" alt="...">
                     <h5 class="card-title">{{ $package->name }}</h5>
                     {{-- <h6 class="card-title">$ {{ $package->price }}</h6> --}}
                     <h6 class="card-body">

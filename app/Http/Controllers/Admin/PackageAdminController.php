@@ -72,9 +72,14 @@ class PackageAdminController extends Controller
         try {
 
             if ($request->hasFile('image')) {
-                $images = $request->file('image')->store('admin/package', 'public');
-                $data['img'] = $images;
+                $imageName = time() . '_' . $request->file('image')->getClientOriginalName(); // Gera um nome único
+                $request->file('image')->move(public_path('admin/package'), $imageName);
+
+                // Salva o caminho no banco de dados
+                $data['img'] = 'admin/package/' . $imageName;
             }
+
+
             $package = Package::create($data);
 
             $this->createLog('Package created successfully', 201, 'success', auth()->user()->id);
@@ -135,10 +140,18 @@ class PackageAdminController extends Controller
 
             $package = package::find($id);
 
-
             if ($request->hasFile('image')) {
-                $images = $request->file('image')->store('admin/package', 'public');
-                $data['img'] = $images;
+                // Exclui a imagem antiga, se existir
+                if ($package->img && file_exists(public_path($package->img))) {
+                    unlink(public_path($package->img));
+                }
+
+                // Gera um novo nome e move o arquivo
+                $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+                $request->file('image')->move(public_path('admin/package'), $imageName);
+
+                // Salva o caminho da nova imagem no banco de dados
+                $data['img'] = 'admin/package/' . $imageName;
             }
 
             $package->update($data);

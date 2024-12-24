@@ -8,7 +8,7 @@
           <div class="row justify-content-evenly">
             <div class="card shadow " style="width: 28rem;">
 
-              <img src='/img/packages/{{ $package->img }}' class="card-img-top" alt="...">
+              <img src='{{ asset($package->img) }}' class="card-img-top" alt="...">
 
               <div class="card-body">
                 <h5 class="card-title">{{ $package->name }}</h5>
