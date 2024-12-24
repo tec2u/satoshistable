@@ -1,6 +1,7 @@
 <style>
   #footer {
     background-color: #000600;
+    overflow: hidden;
   }
 
   #footer .content {
@@ -57,6 +58,12 @@
       display: flex;
       flex-direction: column;
     }
+
+    .bg-shape {
+      max-width: 100%;
+      left: 0;
+      overflow: hidden;
+    }
   }
 
   #footer .content .footer-1 {
@@ -75,6 +82,7 @@
   #footer .content .footer-3 div {
     display: flex;
     height: 35px;
+    flex-wrap: wrap;
   }
 
   #footer .content .footer-3 div input {
@@ -83,6 +91,7 @@
     border: 1px solid #94be3d !important;
     border-radius: 0 !important;
     background-color: transparent !important;
+    padding-left: 10px;
   }
 
   #footer .content .footer-3 div button {
