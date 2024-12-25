@@ -5,6 +5,8 @@ return [
     'language' => 'Idioma',
     'english' => 'Inglés',
     'spanish' => 'Español',
+    'india' => 'Hindi',
+    'china' => 'Chino',
     'german' => 'Alemán',
     'french' => 'Francés',
     'sign_out' => 'Cerrar Sesión',

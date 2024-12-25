@@ -331,7 +331,7 @@
             <div class="info-box mb-4 shadow elevation c1 card_color">
               <span class="info-box-icon "><i class="bi bi-caret-up card_text"></i></span>
               <div class="info-box-content font">
-                <span class="info-box-text card_text" style="text-transform: uppercase">Total Indirect referrals</span>
+                <span class="info-box-text card_text" style="text-transform: uppercase">@lang('home.total_indirect_referral')</span>
                 <span class="info-box-number card_text">{{ $totalMembros }}</span>
               </div>
             </div>
@@ -347,7 +347,7 @@
             <div class="info-box mb-4 shadow c1 card_color">
               <span class="info-box-icon"><i class="bi bi-arrow-down-up card_text"></i></span>
               <div class="info-box-content font">
-                <span class="info-box-text card_text" style="text-transform: uppercase">Personal volume</span>
+                <span class="info-box-text card_text" style="text-transform: uppercase">@lang('home.personal_volume')</span>
                 <span class="info-box-number card_text">{{ number_format($totalComission, 2, ',', '.') }}</span>
               </div>
             </div>
@@ -365,7 +365,7 @@
             <div class="info-box mb-4 shadow elevation c1 card_color">
               <span class="info-box-icon "><i class="bi bi-caret-up card_text"></i></span>
               <div class="info-box-content font">
-                <span class="info-box-text card_text" style="text-transform: uppercase">Rank </span>
+                <span class="info-box-text card_text" style="text-transform: uppercase">@lang('home.rank')</span>
                 <span class="info-box-number card_text">Satoshi Plan</span>
               </div>
             </div>

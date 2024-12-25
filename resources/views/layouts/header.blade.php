@@ -80,9 +80,9 @@
 
       <ul class="d-flex align-items-center">
 
-        <li class=" pe-4"><a href="https://t.me/+CrAniOfZICU1MzI0" target="_blank" class=""><i
+        <li class=" pe-4"><a href="https://t.me/satoshistable" target="_blank" class=""><i
               class="lab la-telegram iconhead" style="color: #ffffff;"></i> </a> </li>
-        <li class=" pe-4"><a href="https://t.me/+CrAniOfZICU1MzI0" target="_blank" class="">
+        <li class=" pe-4"><a href="https://t.me/satoshistable" target="_blank" class="">
             <h6 class="text-dark-50 joinhead" style="color: #ffffff;">@lang('header.join_our') </br>@lang('header.telegram_channel')</h6>
           </a> </li>
 
@@ -109,6 +109,14 @@
                 <a class="dropdown-item" href="/setlocale/fr"><img src="{{ asset('assetsWelcome/images/flagfr.png') }}"
                     style="width: 18px;margin-right:10px" alt="...">@lang('header.french')</a>
               </li>
+              <li>
+                <a class="dropdown-item" href="/setlocale/ch"><img src="{{ asset('assetsWelcome/images/flagchi.png') }}"
+                    style="width: 18px;margin-right:10px" alt="...">@lang('header.china')</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/setlocale/in"><img src="{{ asset('assetsWelcome/images/flagin.png') }}"
+                    style="width: 18px;margin-right:10px" alt="...">@lang('header.india')</a>
+              </li>
             </ul>
           </div>
         </li>
@@ -117,7 +125,7 @@
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
 
             @if (!empty(auth()->user()->image_path))
-              <img src="{{ asset('storage/' . auth()->user()->image_path) }}" alt="Profile" class="rounded-circle">
+              <img src="/assetsWelcome/images/user.png" alt="Profile" class="rounded-circle">
             @else
               <img src="../../../assetsWelcome/images/favicon.png" alt="Profile" class="rounded-circle">
             @endif
@@ -163,7 +171,7 @@
       <li class="nav-item">
         <a class="nav-link " href="{{ route('home.home') }}">
           <i class="bi bi-grid"></i>
-          <span>Home</span>
+          <span>@lang('header.dashboard')</span>
         </a>
       </li><!-- End Dashboard Nav -->
       {{-- @endif --}}
@@ -208,11 +216,11 @@
           <i class="bi bi-people"></i><span>@lang('header.referral_program')</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="networks-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-          <li>
+          {{--<li>
             <a href="{{ route('networks.mytree', Auth::id()) }}">
               <i class="bi bi-circle"></i><span>Visualização Rede</span>
             </a>
-          </li>
+          </li>--}}
           <li>
             <a href="{{ route('networks.associatesReport') }}">
               <i class="bi bi-circle"></i><span>@lang('header.my_team')</span>

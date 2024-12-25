@@ -26,6 +26,10 @@ return [
     'referral_link' => 'Enlace de referencia',
     'latest_orders' => 'Últimos pedidos',
     'name' => 'Nombre',
+    'personal_volume' => 'Volumen Personal',
+'rank' => 'Rango',
+'total_indirect_referral' => 'Total de Referidos Indirectos',
+
     'img' => 'Imagen',
     'product_price' => 'Precio del producto',
     'daily_return' => 'Retorno Diario',

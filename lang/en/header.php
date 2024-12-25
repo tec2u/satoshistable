@@ -1,12 +1,14 @@
 <?php
 
 return [
-    'infinity_clubcards' => 'Tiger Investor',
+    'infinity_clubcards' => 'SatoshiStable',
     'language' => 'Language',
     'english' => 'English',
     'spanish' => 'Spanish',
     'german' => 'German',
     'french' => 'French',
+    'india' => 'Hindi',
+    'china' => 'Chinese',
     'sign_out' => 'Sign Out',
     'dashboard' => 'Dashboard',
     'purchase' => 'Purchase',
