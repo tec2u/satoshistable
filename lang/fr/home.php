@@ -17,6 +17,10 @@ return [
     'level_commission' => 'Niveau de commission',
     'received_coins' => 'Pièces reçues',
     'current_package' => 'Forfait actuel',
+    'personal_volume' => 'Volume Personnel',
+'rank' => 'Rang',
+'total_indirect_referral' => 'Total des parrainages indirects',
+
     'current_rank' => 'Classement actuel',
     'membership_status' => "Statut d'adhésion",
     'active' => 'ACTIF',

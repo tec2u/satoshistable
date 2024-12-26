@@ -6,6 +6,7 @@ use App\Models\CustomLog;
 use App\Models\Documents;
 use App\Models\Package;
 use App\Models\PaymentLog;
+use App\Models\TransactionBank;
 use App\Models\Wallet;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -422,110 +423,16 @@ class PackageController extends Controller
 
     public function packagepayNode($packageid)
     {
-
-
-        // dd($data);
-
-        // $controller = new CronPagamento;
-        // $controller->index();
-
         $packages = Package::orderBy('id', 'DESC')->where('id', $packageid);
-
         $orderpackage = OrderPackage::find($packageid);
-
-        // dd($orderpackage);
-
-        // YZPVFNYyKjsoZKjR0kRCsQ==1kya9pQ2C4ykWAiM
-
-        // $myWallets = Wallet::where('user_id', Auth::id())->get();
-        // $wallet = null;
-
-        // if (count($myWallets) > 0) {
-        //     # code...
-        //     $ids = [];
-        //     foreach ($myWallets as $w) {
-        //         array_push($ids, $w->id);
-        //     }
-
-        //     $idSorteado = $ids[array_rand($ids)];
-
-        //     $wallet = Wallet::where('id', $idSorteado)->first();
-
-        // }
-
-        // if (isset($orderpackage->wallet)) {
-        //     if (isset($wallett)) {
-        //         $wallet = $wallett;
-        //     }
-        // }
-
-        $wallet = null;
-        $moedas = null;
-        $value_btc = null;
-
-        if (isset($orderpackage->wallet) && $orderpackage->wallet != "---") {
-
-            $ewallet = Wallet::where('id', $orderpackage->wallet)->first();
-            if (isset($ewallet)) {
-                $wallet = $ewallet;
-            } else {
-                $wallet = new stdClass();
-                $wallet->wallet = $orderpackage->wallet;
-                $wallet->coin = $orderpackage->transaction_code;
-                $wallet->address = $orderpackage->wallet;
-            }
-
-        } else {
-            $wallet = null;
-        }
-
-
-        if (isset($orderpackage->price_crypto) && $orderpackage->payment_status != 2) {
-            $value_btc = $orderpackage->price_crypto;
-
-            $moedas = [
-                "USDT_TRC20" => number_format($orderpackage->price / 1, 2),
-            ];
-        } else {
-
-            $api_key = 'ca699a34-d3c2-4efc-81e9-6544578433f8';
-
-            $response = Http::withHeaders([
-                'X-CMC_PRO_API_KEY' => $api_key,
-                'Content-Type' => 'application/json',
-            ])->get('https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?symbol=btc,eth,trx,trc20,USDT');
-
-            $data = $response->json();
-
-            // dd($data);
-
-            // $bitcoin = $result->bitcoin->usd;
-            $price_order = $orderpackage->price;
-            // $value_btc = $price_order / $bitcoin;
-
-            $btc = $data['data']['BTC'][0]['quote']['USD']['price'];
-            $erc20 = 1;
-            $trx = $data['data']['TRX'][0]['quote']['USD']['price'];
-            $eth = $data['data']['ETH'][0]['quote']['USD']['price'];
-            $trc20 = 1;
-
-            $moedas = [
-                // "BITCOIN" => number_format($price_order / $btc, 5),
-                // "ETH" => number_format($price_order / $eth, 4),
-                // "USDT_ERC20" => number_format($price_order / $erc20, 2),
-                "TRX" => number_format($price_order / $trx, 2),
-                "USDT_TRC20" => number_format($price_order / $trc20, 2),
-            ];
-
-        }
 
         $user = User::find(Auth::id());
         $adesao = !$user->getAdessao($user->id) >= 1;
 
-        // dd($wallet);
+        $banks = TransactionBank::where('activated', 1)->get();
 
 
-        return view('package.packagepay', compact('moedas', 'packages', 'adesao', 'user', 'orderpackage', 'value_btc', 'wallet'));
+        return view('package.packagepay', compact('packages', 'adesao', 'user', 'orderpackage', 'banks'));
     }
 
     public function genUrlCryptoNode($method, $order)
@@ -755,73 +662,14 @@ class PackageController extends Controller
 
     public function payCryptoNode(Request $request)
     {
-        $order = OrderPackage::where('id', $request->id)->first();
 
-        // $walletGen = $this->filterWallet($request->method);
-
-        if (isset($request->retry) && $request->retry == 1) {
-            $rorder = OrderPackage::where('id', $request->id)->first();
-            $rorder->payment_status = 0;
-            $rorder->status = 0;
-            $rorder->wallet = null;
-            $rorder->payment = null;
-            $order->price_crypto = null;
-            $rorder->save();
-        }
-
-        // dd($request);
-
-        if (strlen($request->price) < 7) {
-            $price = floatval(str_replace(',', '.', $request->price));
-        } else {
-            $valorSemSeparadorMilhar = str_replace('.', '', $request->price);
-            $price = str_replace(',', '.', $valorSemSeparadorMilhar);
-        }
-
-        $price = $request->price;
-
-        $order->price_crypto = $request->{$request->method};
-        $order->save();
-        // dd($order);
-        $postNode = $this->genUrlCryptoNode($request->method, $order);
-
-        if (!$postNode) {
-            // dd($postNode);
-            $order = OrderPackage::where('id', $request->id)->first();
-            $order->price_crypto = null;
-            $order->wallet = null;
-            $order->save();
-
+        if (!isset($request->id) || !isset($request->bank)) {
             return redirect()->back();
         }
 
-        // $eWallet = Wallet::where('address', $postNode->wallet)->first();
-
-        // if (isset($eWallet)) {
-        //     $order = OrderPackage::where('id', $request->id)->first();
-        //     $order->wallet = $eWallet->id;
-        //     $order->transaction_wallet = $postNode->merchant_id;
-        //     $order->save();
-
-        // } else {
-
-        //     $wallet = new Wallet;
-        //     $wallet->user_id = Auth::id();
-        //     $wallet->wallet = $postNode->wallet;
-        //     $wallet->description = 'wallet';
-        //     $wallet->address = $postNode->wallet;
-        //     $wallet->key = '';
-        //     $wallet->mnemonic = '';
-        //     $wallet->coin = $request->method;
-        //     $wallet->save();
-
         $order = OrderPackage::where('id', $request->id)->first();
-        $order->wallet = $postNode->wallet;
-        $order->transaction_code = $request->method;
-        $order->transaction_wallet = $postNode->merchant_id;
+        $order->id_transaction_banks = $request->bank;
         $order->save();
-        // }
-
 
         return redirect()->back();
 

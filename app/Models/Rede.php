@@ -20,14 +20,14 @@ class Rede extends Model
     ];
 
     /**
-    * Relacionamento de Tabelas
-    */
+     * Relacionamento de Tabelas
+     */
     #region relacionamento
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    
+
     // public function upline() {
     //     return $this->hasMany(rede::class,'id');
     // }
@@ -36,23 +36,23 @@ class Rede extends Model
     public function getTypeActivated($id)
     {
         $rede = $this::find($id);
-        
+
         $pay = OrderPackage::where('user_id', $rede->user->id)->where('status', 1)->where('payment_status', 1)->first();
-        
+
         $getadessao = $rede->user->getAdessao($rede->user->id);
 
         $getpackages = $rede->user->getPackages($rede->user->id);
-
-        if(!$pay){
+        $tag = "";
+        if (!$pay) {
             $tag = "Inactive";
         }
-        if($getadessao > 0){
+        if ($getadessao > 0) {
             $tag = "PreRegistration";
         }
-        if($getpackages > 0){
+        if ($getpackages > 0) {
             $tag = "AllCards";
         }
-        
+
         return $tag;
     }
 
@@ -64,7 +64,9 @@ class Rede extends Model
 
     public function getReferalName($id)
     {
-        $rede =  $this::find($id);
+        $rede = $this::find($id);
         return $rede->user->name;
     }
+
+
 }

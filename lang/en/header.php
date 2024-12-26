@@ -1,12 +1,14 @@
 <?php
 
 return [
-    'infinity_clubcards' => 'Tiger Investor',
+    'infinity_clubcards' => 'SatoshiStable',
     'language' => 'Language',
     'english' => 'English',
     'spanish' => 'Spanish',
     'german' => 'German',
     'french' => 'French',
+    'india' => 'Hindi',
+    'china' => 'Chinese',
     'sign_out' => 'Sign Out',
     'dashboard' => 'Dashboard',
     'purchase' => 'Purchase',
@@ -38,7 +40,7 @@ return [
     'logout' => 'Logout',
     'ai_next_level_club' => 'Satoshistable',
     'add_new_account' => 'Add New Account',
-    'my_accounts' => 'My Accounts',
+    'my_accounts' => 'Orders',
     'profit_share' => 'Profit Share',
     'referral_program' => 'Referral Program',
     'join_our' => 'join_our',

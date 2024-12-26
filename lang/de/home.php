@@ -27,6 +27,10 @@ return [
     'latest_orders' => 'Neueste Bestellungen',
     'name' => 'Name',
     'img' => 'Bild',
+    'personal_volume' => 'Persönliches Volumen',
+'rank' => 'Rang',
+'total_indirect_referral' => 'Gesamte indirekte Empfehlungen',
+
     'product_price' => 'Produktpreis',
     'daily_return' => 'Tägliche Rückkehr',
     'yearly_return_coin' => 'Jährliche Rückgabemünze',

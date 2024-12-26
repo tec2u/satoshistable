@@ -46,6 +46,8 @@
                             $user_qr = Illuminate\Support\Facades\DB::select('SELECT * FROM users where id=?;', [
                                 $network->user_id,
                             ]);
+
+                            // dd($network->user_id);
                             $user_final = isset($user_qr[0]->{'name'}) ? $user_qr[0]->{'name'} : 0;
                             $user_country = isset($user_qr[0]->{'country'}) ? $user_qr[0]->{'country'} : 0;
                             $user_email = isset($user_qr[0]->{'email'}) ? $user_qr[0]->{'email'} : 0;
@@ -57,6 +59,8 @@
                             $indirectVolume = isset($indirectVolume[0]->{'total'}) ? $indirectVolume[0]->{'total'} : 0;
 
                             $totalVolume = $indirectVolume;
+
+                            // dd($user_final);
 
                           @endphp
 

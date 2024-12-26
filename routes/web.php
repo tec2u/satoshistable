@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\IpWhitelistAdminController;
 use App\Http\Controllers\Admin\IpBlacklistAdminController;
 use App\Http\Controllers\Admin\PackageAdminController;
 use App\Http\Controllers\Admin\PercentageAdminController;
+use App\Http\Controllers\Admin\TransactionBankAdminController;
 use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Admin\WithdrawsAdminController;
 use App\Http\Controllers\Admin\ReportsAdminController;
@@ -96,7 +97,6 @@ Route::controller(StepByStepController::class)->group(function () {
 // Route::get('/create_new_bot_step5', function () {
 //    return view('welcome.create_new_bot_step5');
 // });
-
 
 
 Route::get('/partners', function () {
@@ -238,7 +238,7 @@ Route::prefix('packages')->middleware('auth')->name('packages')->group(function 
       Route::get('/packages', 'index')->name('.index');
       Route::get('/packagesActivator', 'packagesActivator')->name('.packagesActivator');
       Route::get('/packageslog', 'package')->name('.packagelog');
-    Route::get('/packagesprofit', 'packageprofit')->name('.packagesprofit');
+      Route::get('/packagesprofit', 'packageprofit')->name('.packagesprofit');
       Route::get('/packagesprofit/invoice/{id}', 'invoice')->name('.invoice');
       Route::post('/packagepay/crypto', 'payCrypto')->name('.payCrypto');
       Route::post('/packagepay/crypto/new', 'payCryptoNode')->name('.payCryptoNode');
@@ -583,6 +583,17 @@ Route::prefix('admin')->middleware(['auth', 'is.admin'])->name('admin')->group(f
       Route::controller(IpBlacklistAdminController::class)->group(function () {
          Route::get('/blacklist', 'blacklist')->name('.blacklist');
          Route::delete('/{id}/remove', 'destroy')->name('.delete');
+      });
+   });
+
+   Route::prefix('banks')->name('.banks')->group(function () {
+      Route::controller(TransactionBankAdminController::class)->group(function () {
+         Route::get('/list', 'index')->name('.index');
+         Route::get('/edit/{id}', 'edit')->name('.edit');
+         Route::get('/create', 'create')->name('.create');
+         Route::post('/store', 'store')->name('.store');
+         Route::put('/update/{id}', 'update')->name('.update');
+         Route::post('/delete/{id}', 'delete')->name('.delete');
       });
    });
 

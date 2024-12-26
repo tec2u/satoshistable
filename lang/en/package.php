@@ -107,7 +107,7 @@ return [
     'next' => 'Next',
     'choose_different_image' => 'Choose different image',
     'prev' => 'Prev',
-    'my_accounts' => 'MY ACCOUNTS',
+    'my_accounts' => 'Orders',
     'account_id' => 'ACCOUNT ID',
     'account_type' => 'ACCOUNT TYPE',
     'date' => 'DATE',

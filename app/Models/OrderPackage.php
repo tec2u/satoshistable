@@ -27,23 +27,32 @@ class OrderPackage extends Model
         'wallet',
         'hide',
         'subscription_id',
-        'date_save'
+        'date_save',
+        'id_transaction_banks'
     ];
 
     /**
      * Relacionamentos de Tabelas
      */
     #region relacionamento
-    public function user() {
-        return $this->belongsTo(User::class,'user_id');
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function package(){
+    public function package()
+    {
         return $this->belongsTo(Package::class);
     }
 
-    public function wallet(){
+    public function wallet()
+    {
         return $this->hasMany(Wallet::class);
+    }
+
+    public function transactionBank()
+    {
+        return $this->belongsTo(TransactionBank::class, 'id_transaction_banks');
     }
     #endregion
 }

@@ -69,11 +69,10 @@ class MatrizForcadaController extends Controller
         $startDate = Carbon::now()->startOfMonth();
         $endDate = Carbon::now()->endOfMonth();
         $orders = OrderPackage::where('payment_status', 1)->where('status', 1)
-        ->whereBetween('created_at', [$startDate, $endDate])
-        ->get();
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->get();
 
-        foreach($orders as $order)
-        {
+        foreach ($orders as $order) {
             $matriz = MatrizForcada::where('id_dados', $order->user_id)->first();
             $this->bonusDivisao($matriz->id, $order->id);
         }
@@ -81,7 +80,12 @@ class MatrizForcadaController extends Controller
 
     function bonusDivisao($fato_gerador, $number_order)
     {
-        $this->link_DB = mysqli_connect('127.0.0.1', 'satoshi', 'satoshi') or die(mysqli_error($this->link_DB));
+        $host = config('database.connections.mysql.host');
+        $user = config('database.connections.mysql.username');
+        $database = config('database.connections.mysql.database');
+        $password = config('database.connections.mysql.password');
+
+        $this->link_DB = mysqli_connect($host, $user, $password) or die(mysqli_error($this->link_DB));
         $GLOBALS['link_DB'] = $this->link_DB;
 
         if (!$this->link_DB) {
@@ -90,7 +94,7 @@ class MatrizForcadaController extends Controller
             echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
             exit;
         }
-        mysqli_select_db($this->link_DB, 'satoshi');
+        mysqli_select_db($this->link_DB, $database);
 
         mysqli_query($this->link_DB, "SET NAMES 'utf8'");
 
@@ -125,16 +129,16 @@ class MatrizForcadaController extends Controller
             }
 
             if ($soma_qty1 && $soma_qty1['id_dados'] >= 1) {
-                    Banco::create([
-                        'price' => $price,
-                        'user_id' => $soma_qty1['id_dados'],
-                        'order_id' => $number_order,
-                        'status' => 1,
-                        'description' => 1,
-                        'level_from' => $count,
-                        'origin_bonus' => $user_gerou_package['id_dados'],
+                Banco::create([
+                    'price' => $price,
+                    'user_id' => $soma_qty1['id_dados'],
+                    'order_id' => $number_order,
+                    'status' => 1,
+                    'description' => 1,
+                    'level_from' => $count,
+                    'origin_bonus' => $user_gerou_package['id_dados'],
 
-                    ]);
+                ]);
             }
             $nivel1 = mysqli_fetch_array(mysqli_query($this->link_DB, "select * from matriz_forcada3x10 where id='" . $nivel_self['upline'] . "' order by id asc limit 1"));
             $nivel12 = [];
@@ -242,7 +246,13 @@ class MatrizForcadaController extends Controller
 
     public function matriz_forcada($id)
     {
-        $this->link_DB = mysqli_connect('127.0.0.1', 'moments4_SCI', 'scimkt.com.br') or die(mysqli_error($this->link_DB));
+
+        $host = config('database.connections.mysql.host');
+        $user = config('database.connections.mysql.username');
+        $password = config('database.connections.mysql.password');
+        $database = config('database.connections.mysql.database');
+
+        $this->link_DB = mysqli_connect($host, $user, $password) or die(mysqli_error($this->link_DB));
 
         $GLOBALS['link_DB'] = $this->link_DB;
 
@@ -252,7 +262,7 @@ class MatrizForcadaController extends Controller
             echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
             exit;
         }
-        mysqli_select_db($this->link_DB, 'moments4_SCI');
+        mysqli_select_db($this->link_DB, $database);
 
         mysqli_query($this->link_DB, "SET NAMES 'utf8'");
 

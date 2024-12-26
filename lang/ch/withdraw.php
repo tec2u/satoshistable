@@ -1,0 +1,31 @@
+<?php
+
+return [
+   'withdraw_bonus' => '提款',
+'new_request' => '新请求',
+'search' => '搜索',
+'id' => '编号',
+'value' => '金额',
+'processing_time' => '处理时间',
+'status' => '状态',
+'date' => '日期',
+'days' => '天',
+'approved' => '已批准',
+'awaiting_payment' => '等待付款',
+'any_withdraw_registered' => '您没有注册任何提款！',
+'withdraw_amount' => '提款金额',
+'close' => '关闭',
+'current_balance' => '当前余额',
+'amount' => '金额',
+'amount_bonus' => '奖金金额',
+'enter_amount' => '输入金额',
+'note' => '备注',
+'minimum_withdraw_amount' => '最低提款金额为 50 美元',
+'submit' => '提交',
+'close' => '关闭',
+'withdraw_history' => '提款历史',
+'withdraw_fund' => '提款资金',
+'withdraw_request' => '提款请求',
+'link' => '链接',
+
+];

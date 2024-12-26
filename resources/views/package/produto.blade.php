@@ -7,22 +7,13 @@
         <div class="container-fluid">
           <div class="row justify-content-evenly">
             <div class="card shadow " style="width: 28rem;">
-              @if ($package->id == 18)
-                <img src="{{ asset('/images/bot1.jpg') }}" class="card-img-top" alt="...">
-              @else
-                <img src="{{ asset('/images/bot2.jpg') }}" class="card-img-top" alt="...">
-              @endif
+
+              <img src='{{ asset($package->img) }}' class="card-img-top" alt="...">
+
               <div class="card-body">
                 <h5 class="card-title">{{ $package->name }}</h5>
               </div>
               {!! htmlspecialchars($package->long_description, ENT_QUOTES, 'UTF-8', false) !!}
-
-
-
-
-
-
-
 
               <div class="card-body">
                 @if ($package->plan_id == null)

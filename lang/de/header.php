@@ -7,6 +7,9 @@ return [
     'spanish' => 'Spanisch',
     'german' => 'Deutsch',
     'french' => 'Französisch',
+    'india' => 'Hindi',
+'china' => 'Chinesisch',
+
     'sign_out' => 'Abmelden',
     'dashboard' => 'Übersicht',
     'purchase' => 'Kaufen',

@@ -1,0 +1,31 @@
+<?php
+
+return [
+'withdraw_bonus' => 'निकासी',
+'new_request' => 'नया अनुरोध',
+'search' => 'खोजें',
+'id' => 'आईडी',
+'value' => 'मूल्य',
+'processing_time' => 'प्रसंस्करण समय',
+'status' => 'स्थिति',
+'date' => 'तारीख',
+'days' => 'दिन',
+'approved' => 'स्वीकृत',
+'awaiting_payment' => 'भुगतान की प्रतीक्षा में',
+'any_withdraw_registered' => 'आपके पास कोई पंजीकृत निकासी नहीं है!',
+'withdraw_amount' => 'निकासी राशि',
+'close' => 'बंद करें',
+'current_balance' => 'वर्तमान शेष',
+'amount' => 'राशि',
+'amount_bonus' => 'बोनस राशि',
+'enter_amount' => 'राशि दर्ज करें',
+'note' => 'नोट',
+'minimum_withdraw_amount' => 'न्यूनतम निकासी राशि 50 USD है',
+'submit' => 'जमा करें',
+'close' => 'बंद करें',
+'withdraw_history' => 'निकासी इतिहास',
+'withdraw_fund' => 'निकासी धनराशि',
+'withdraw_request' => 'निकासी अनुरोध',
+'link' => 'लिंक',
+
+];

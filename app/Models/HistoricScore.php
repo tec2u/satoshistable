@@ -19,6 +19,7 @@ class HistoricScore extends Model
         'status',
         'user_id_from',
         'level_from',
+        'leg'
     ];
 
     /**
@@ -30,12 +31,14 @@ class HistoricScore extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function order(){
+    public function order()
+    {
         return $this->hasMany(OrderPackage::class);
     }
 
-    public function config_bonus(){
-        return $this->belongsTo(ConfigBonus::class,'description');
+    public function config_bonus()
+    {
+        return $this->belongsTo(ConfigBonus::class, 'description');
     }
 
     public function getUserFrom($id)

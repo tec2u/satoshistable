@@ -32,7 +32,7 @@ class UserController extends Controller
 
       $wallet = Wallet::where('user_id', $id)->latest()->first();
 
-      $user->wallet = $wallet->wallet;
+      $user->wallet = $wallet->wallet ?? null;
 
       return view('user.myinfo', compact('user'));
    }
