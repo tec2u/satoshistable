@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\SearchRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MatrizForcadaController;
 use App\Models\Banco;
+use App\Models\BancoCredit;
 use App\Models\ConfigBonus;
 use App\Models\ConfigBonusunilevel;
 use App\Models\CustomLog;
@@ -186,9 +187,21 @@ class PackageAdminController extends Controller
                 "payment_status" => $payment_status
             ];
 
-
             $Orderpackage = OrderPackage::find($id);
             $package = Package::find($Orderpackage->package_id);
+
+            if ($request->pay_with_user_credit === 'pay') {
+                if ($request->user_credit >= $Orderpackage->price) {
+                    BancoCredit::where('user_id', $Orderpackage->user_id)->update(['price' => $request->user_credit - $Orderpackage->price]);
+                    $data = [
+                        "status" => 1,
+                        "payment_status" => 1
+                    ];
+                } else {
+                    return redirect()->back()->withErros('Insufficient customer credit to pay for order');
+                }
+            }
+
             // dd($Orderpackage->id);
 
             $Orderpackage->update($data);
@@ -245,7 +258,6 @@ class PackageAdminController extends Controller
                 if ($Orderpackage->package_id == 20) {
                     $this->sendPostPayOrder($Orderpackage->id);
                 }
-
             }
 
 
@@ -266,13 +278,9 @@ class PackageAdminController extends Controller
         }
     }
 
-    public function payall()
-    {
-    }
+    public function payall() {}
 
-    static public function orderUpdateKYC()
-    {
-    }
+    static public function orderUpdateKYC() {}
 
     /**
      * Remove the specified resource from storage.
@@ -337,8 +345,17 @@ class PackageAdminController extends Controller
 
     public function orderPackages()
     {
-        $orderpackages = OrderPackage::orderBy('id', 'DESC')->paginate(9);
+        $orderpackages = OrderPackage::with('user')
+            ->orderBy('id', 'DESC')
+            ->paginate(9);
 
+        $orderpackages->getCollection()->transform(function ($orderpackage) {
+            $orderpackage->total_credit = $orderpackage->user
+                ? $orderpackage->user->credit()->sum('price')
+                : 0;
+            return $orderpackage;
+        });
+        // return response()->json($orderpackages);
         return view('admin.packages.orders', compact('orderpackages'));
     }
 
@@ -500,10 +517,8 @@ class PackageAdminController extends Controller
             $log->route = "payd order by admin";
             $log->status = "SUCCESS";
             $log->save();
-
         } catch (\Throwable $th) {
             return false;
         }
-
     }
 }

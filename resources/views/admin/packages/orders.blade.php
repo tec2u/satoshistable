@@ -177,7 +177,7 @@
           </div>
           <div class="modal-body">
             <form class="row g-3" action="{{ route('admin.packages.orderupdate', ['id' => $orderpackage->id]) }}"
-              method="POST">
+              method="POST" id="formData">
               @csrf
               @method('PUT')
               <table class="table table-hover table-bordered responsive col-md-6">
@@ -219,6 +219,12 @@
                 </tbody>
               </table>
               <div class="col-md-6">
+                <div class="d-flex justify-content-between">
+                    <label for="user_credit">
+                        User credit
+                    </label>
+                    <div><h5>Credit: {{ $orderpackage->total_credit }}</h5></div>
+                </div>
                 <label for="payment_status">@lang('admin.orders.status.subtitle')</label>
                 <select id="payment_status" name="payment_status" class="form-control">
 
@@ -255,8 +261,14 @@
                   @endif
 
                 </select>
-
-                <button type="submit" class="btn btn-primary mt-3">@lang('admin.orders.status.processed')</button>
+                <input type="hidden" name="user_credit" id="user_credit" value="{{ $orderpackage->total_credit  }}">
+                <input type="hidden" name="pay_with_user_credit" id="pay_with_user_credit" value="no_pay">
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary mt-3">@lang('admin.orders.status.processed')</button>
+                    @if(($orderpackage->payment_status == 0 || $orderpackage->payment_status == 2) && $orderpackage->total_credit >= $orderpackage->price)
+                        <button type="button" class="btn btn-primary mt-3" onclick="payWithUserCredit()">Pay with user credit</button>
+                    @endif
+                </div>
               </div>
             </form>
           </div>
@@ -303,6 +315,10 @@
   integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 @section('js')
   <script>
+    function payWithUserCredit() {
+        $('#pay_with_user_credit').val('pay')
+        $('#formData').submit()
+    }
     $(document).ready(function() {
       $(".search").keyup(function() {
         var searchTerm = $(".search").val();

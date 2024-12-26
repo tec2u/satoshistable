@@ -105,6 +105,10 @@ class User extends Authenticatable
         return $this->hasMany(Leilao::class);
     }
 
+    public function credit()
+    {
+        return $this->hasMany(BancoCredit::class);
+    }
     public function order()
     {
         return $this->hasMany(Order::class);
