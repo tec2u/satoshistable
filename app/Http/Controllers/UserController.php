@@ -191,13 +191,8 @@ class UserController extends Controller
       if (!isset($user)) {
          Alert::error('User not found!');
          return view('auth.register_must_active');
-      }
-
-      if ($user->payFirstOrder()) {
-         return view('auth.register', compact('id', 'packages', 'user'));
       } else {
-         Alert::error("Your referral is not active yet. Please refresh this page as soon as it's active to continue the registration process.");
-         return view('auth.register_must_active');
+         return view('auth.register', compact('id', 'packages', 'user'));
       }
    }
 }
