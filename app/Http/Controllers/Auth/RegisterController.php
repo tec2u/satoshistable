@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\BinarioController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MatrizForcadaController;
 use App\Mail\UserRegisteredEmail;
 use App\Models\Answer;
 use App\Models\HistoricScore;
+use App\Models\MatrizForcada;
 use App\Models\Rede;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -19,6 +21,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
@@ -118,23 +122,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         $ip = $this->get_client_ip();
         $login = $data['login'];
         $password = $data['password'];
 
-
-
         $verify = $this->verifyBlacklist($ip, $login, $password);
-
-        // if ($verify != 'IP_BLOCK') {
-
-        // $data['birthday'] = str_replace("/", "-", $data['birthday']);
 
         $user_rec = DB::table('users')->where('id', $data['recommendation_user_id'])->orWhere('login', $data['recommendation_user_id'])->first();
         // dd($user_rec);
         $recommendation = $user_rec != null ? $user_rec->id : '3';
-
-        // $data['telephone'] = ($data['telephone']=='') ? 0 :  $data['telephone'];
 
         $user = User::create([
             'name' => $data['name'],
@@ -150,14 +147,7 @@ class RegisterController extends Controller
             'country' => $data['country'],
             'city' => $data['city'],
             'last_name' => $data['last_name'],
-            // 'telephone' => $data['telephone'],
-            // 'gender'   => $data['gender'],
-            // 'address1' => $data['address1'],
-            // 'address2' => $data['address2'],
-            // 'postcode' => $data['postcode'],
-            // 'state'    => $data['state'],
-            // 'birthday' => date('Y-m-d', strtotime($data['birthday'])),
-            // 'id_card' => $data['id_card']
+            'perna_cad' => "L",
         ]);
 
 
@@ -174,65 +164,24 @@ class RegisterController extends Controller
         }
 
 
-        $rede_recommedation = Rede::where('user_id', $recommendation)->first();
+        $binarioController = new BinarioController;
+        $registerBinario = $binarioController->registerBinario($user->id);
 
-        $user->rede()->create([
-            "upline_id" => $rede_recommedation->id,
-            "qty" => 0,
-            "ciclo" => 1,
-            "saque" => 0
-        ]);
+        if (!is_null($user->recommendation_user_id)) {
+            // Find the sponsor in matriz_forcada3x10
+            $sponsor = MatrizForcada::where('id_dados', $user->recommendation_user_id)->first();
 
-        $rede_recommedation->update([
-            "qty" => $rede_recommedation->qty + 1
-        ]);
-
-        $sair = 1;
-        $count = 1;
-        $primeiro_id = $user->id;
-        $fato_gerador = $user->id;
-
-        while ($sair == 1) {
-            $nivel_self = User::where('id', $fato_gerador)->first();
-            if ($nivel_self->recommendation_user_id == NULL)
-                break;
-            $soma_qty1 = User::where('id', $nivel_self->recommendation_user_id)->first();
-            if ($soma_qty1 != NULL && $soma_qty1->recommendation_user_id >= 0) {
-                if ($nivel_self->name != "") {
-                    $check_existe = HistoricScore::where('user_id_from', $primeiro_id)->where('user_id', $soma_qty1->id)->where('description', '6')->first();
-                    if ($check_existe == NULL) {
-                        HistoricScore::create([
-                            'score' => '1',
-                            'user_id' => $soma_qty1->id,
-                            'status' => '1',
-                            'description' => 'Contador',
-                            'level_from' => $count,
-                            'orders_package_id' => 0,
-                            'user_id_from' => $primeiro_id,
-                            'leg' => "R"
-                        ]);
-                        if ($soma_qty1->qty == NULL) {
-                            User::where('id', $nivel_self->recommendation_user_id)->update(['qty' => 1]);
-                        } else {
-                            User::where('id', $nivel_self->recommendation_user_id)->increment('qty', 1);
-                        }
-                    }
-                }
-                $nivel1 = User::where('id', $nivel_self->recommendation_user_id)->first();
-                $nivel12 = User::where('recommendation_user_id', $nivel1->recommendation_user_id)->first();
-                $count++;
-                $fato_gerador = $nivel12->id;
+            if ($sponsor) {
+                // Insert a new record into matriz_forcada3x10
+                MatrizForcada::create([
+                    'id_dados' => $user->id,
+                    'upline' => $sponsor->id,
+                ]);
             }
         }
 
-        $matrizController = new MatrizForcadaController();
-        $matrizController->matriz_forcada($user->id);
-        // ini_set('max_execution_time', '60');
-
-
-        //Mail::to($user->email)->send(new UserRegisteredEmail($user));
         return $user;
-        // }
+
     }
 
     function get_client_ip()

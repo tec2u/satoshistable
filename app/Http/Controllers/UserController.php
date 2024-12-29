@@ -148,7 +148,11 @@ class UserController extends Controller
          return redirect()->route('users.index');
       }
    }
-
+   public function updateBinaryPositionIndication(Request $request)
+   {
+      User::where('id', auth()->user()->id)->update(['perna_cad' => $request['position']]);
+      return response()->json('success');
+   }
    public function changePassword(Request $request)
    {
       $data = $request->only([

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\OrderAdmin\AdminOrderController;
 use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\BinarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,12 +17,13 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/registerBinario/{id}', [BinarioController::class, 'registerBinario'])->name('api.registerBinario');
 
-Route::controller(PaymentController::class)->group(function(){
-    Route::post('/notity','notity')->name('notity');//autentica login de usuarios
+Route::controller(PaymentController::class)->group(function () {
+    Route::post('/notity', 'notity')->name('notity');//autentica login de usuarios
 });
 
-Route::controller(UserAdminController::class)->group(function(){
-    Route::post('/add-credit','addCredit')->name('api.add_credit');//autentica login de usuarios
+Route::controller(UserAdminController::class)->group(function () {
+    Route::post('/add-credit', 'addCredit')->name('api.add_credit');//autentica login de usuarios
 });
 

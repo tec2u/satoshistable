@@ -45,5 +45,5 @@ return [
     'referral_program' => 'Referral Program',
     'join_our' => 'join_our',
     'telegram_channel' => 'telegram_channel',
-    'my_team' => 'my_team'
+    'my_team' => 'my team'
 ];

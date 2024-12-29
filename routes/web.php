@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\VerifyOrderUserAdminController;
 use App\Http\Controllers\Admin\VideoAdminController;
 use App\Http\Controllers\Admin\DocumentsAdminController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\AffiliateNetworkController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\HistoricScoreController;
 use App\Http\Controllers\HomeController;
@@ -359,6 +360,16 @@ Route::prefix('payment')->middleware('auth')->name('payment')->group(function ()
    });
 });
 
+Route::post('/update-binary-position', [UserController::class, 'updateBinaryPositionIndication'])->name('update_binary_position');
+
+Route::prefix('affiliate-network')->middleware('auth')->name('affiliate')->group(function () {
+   Route::controller(AffiliateNetworkController::class)->group(function () {
+      Route::get('/program', 'theProgramm')->name('.program');
+      Route::get('/binary/{userId?}', 'binary')->name('.binary');
+      Route::get('/', 'myAffiliateLinks')->name('.links.redir');
+      Route::get('/transactions', 'transactions')->name('.transactions');
+   });
+});
 
 /**
  * Admin Route
