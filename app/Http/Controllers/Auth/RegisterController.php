@@ -150,6 +150,19 @@ class RegisterController extends Controller
             'perna_cad' => "B",
         ]);
 
+        $rede_recommedation = Rede::where('user_id', $recommendation)->first();
+
+        $user->rede()->create([
+            "upline_id" => $rede_recommedation->id,
+            "qty" => 0,
+            "ciclo" => 1,
+            "saque" => 0
+        ]);
+
+        $rede_recommedation->update([
+            "qty" => $rede_recommedation->qty + 1
+        ]);
+
 
         foreach ($data as $key => $value) {
             if (str_starts_with($key, 'question_')) {
