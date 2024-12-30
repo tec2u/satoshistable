@@ -42,7 +42,9 @@
                         <option value="{{ $orderpackage->transactionBank }}"
                           data-name="{{ $orderpackage->transactionBank->name }}"
                           data-logo="{{ asset($orderpackage->transactionBank->logo) }}"
-                          data-description="{{ htmlspecialchars($orderpackage->transactionBank->description) }}">
+                          data-description="{{ htmlspecialchars($orderpackage->transactionBank->description) }}"
+                          data-multiplier="{{ $orderpackage->transactionBank->multiplicador_local  }}"
+                          data-description="{{ $orderpackage->transactionBank->description }}">>
                           <img src="{{ asset($orderpackage->transactionBank->logo) }}" alt="" width="100px">
                           {{ $orderpackage->transactionBank->name }}
                         </option>
@@ -51,6 +53,8 @@
                         @foreach ($banks as $item)
                           <option value="{{ $item->id }}" data-name="{{ $item->name }}"
                             data-logo="{{ asset($item->logo) }}"
+                            data-coin="{{ $item->moeda_local }}"
+                            data-multiplier="{{ $item->multiplicador_local  }}"
                             data-description="{{ htmlspecialchars($item->description) }}">
                             {{ $item->name }}
                           </option>
@@ -94,11 +98,13 @@
           Please select a bank to view its details.
         </div>
 
-
+        <div>
+            Coin: <span id="coin-type" class="mr-2">{{  }}</span>: <strong id="price-final"></strong>
+        </div>
         <form action="{{ route('packages.payCryptoNode') }}" method="POST" id="formChooseBank">
           @csrf
           <input type="hidden" value="{{ $orderpackage->id }}" name="id">
-          <input type="hidden" value="{{ $orderpackage->price }}" name="price">
+          <input type="hidden" value="{{ $orderpackage->price }}" name="price" id="price_order">
           <!-- Este campo será atualizado com o banco selecionado -->
           <input type="hidden" id="bankInput" value="" name="bank">
         </form>
@@ -148,7 +154,16 @@
         const bankName = selectedOption.getAttribute('data-name');
         const bankDescription = selectedOption.getAttribute('data-description');
         const banklogo = selectedOption.getAttribute('data-logo');
+        const bankMultiplier = selectedOption.getAttribute('data-multiplier');
+        const bankCoin = selectedOption.getAttribute('data-coin');
 
+        let priceInput = document.getElementById('price_order')
+        let coinType = document.getElementById('coin-type')
+        let finalPrice = document.getElementById('price-final')
+
+        coinType.textContent = bankCoin
+        finalPrice.textContent = parseFloat(priceInput.value) * parseFloat(bankMultiplier)
+        priceInput.value = parseFloat(priceInput.value) * parseFloat(bankMultiplier)
         modalTitle.textContent = `Bank Details: ${bankName}`;
         modalBody.innerHTML = bankDescription; // Processa o HTML do description
 

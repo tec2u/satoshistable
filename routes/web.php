@@ -237,6 +237,8 @@ Route::post('/packages/packagepay/notify', [PackageController::class, 'notify'])
 Route::prefix('packages')->middleware('auth')->name('packages')->group(function () {
    Route::controller(PackageController::class)->group(function () {
       Route::get('/packages', 'index')->name('.index');
+      Route::get('/pay-with-credit', 'payWithCredit')->name('.pay_with_credit');
+      Route::post('/pay-order', 'payOrder')->name('.pay_order');
       Route::get('/packagesActivator', 'packagesActivator')->name('.packagesActivator');
       Route::get('/packageslog', 'package')->name('.packagelog');
       Route::get('/packagesprofit', 'packageprofit')->name('.packagesprofit');

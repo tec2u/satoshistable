@@ -31,11 +31,7 @@ class UserAdminController extends Controller
         return view('admin.users.users', compact('users'));
     }
     public function addCredit(Request $request) {
-        $credit = BancoCredit::where('user_id', $request->userID)->where('description', 77)->first();
-        if(isset($credit)){
-            $credit->price = floatval($request->newPrice);
-            $credit->save();
-        } else {
+
             BancoCredit::create([
                 'user_id' => $request->userID,
                 'order_id' => 1,
@@ -43,8 +39,8 @@ class UserAdminController extends Controller
                 'status' => 'received',
                 'price' => floatval($request->newPrice)
             ]);
-        }
-        return response()->json($request);
+
+        return response()->json(['price' => floatval($request->newPrice)]);
     }
     public function searchUsers(SearchRequest $request)
     {

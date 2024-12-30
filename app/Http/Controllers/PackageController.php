@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BancoCredit;
 use App\Models\CustomLog;
 use App\Models\Documents;
 use App\Models\Package;
@@ -38,6 +39,50 @@ class PackageController extends Controller
         //  }
 
         return view('package.produtos', compact('packages', 'adesao', 'user'));
+    }
+
+    public function payWithCredit()
+    {
+        return view('package.pay_with_credit');
+    }
+
+    public function payOrder(Request $request)
+    {
+        $order = OrderPackage::find($request->order_id);
+        $user =  User::with('credit')->where('id', auth()->user()->id)->first();
+        if (!$order) {
+            return redirect()
+                ->route('packages.pay_with_credit')
+                ->withErrors(['error' => 'No order found with that id']);
+        }
+
+        if ($user->totalCredit() <= $order->price) {
+            return redirect()
+            ->route('packages.pay_with_credit')
+            ->withErrors(['error' => 'You do not have enough credits to pay for this order: '.$user->totalCredit()]);
+        }
+
+        $paymentSuccess = BancoCredit::create([
+                'user_id' => auth()->user()->id,
+                'order_id' => $order->id,
+                'description' => 78, //description para pedido pago adicionado coloquei o 78 no momento
+                'status' => 'order_payment',
+                'price' => -floatval($order->price)
+        ]);
+
+        if ($paymentSuccess) {
+            $order->payment_status = 1;
+            $order->status = 1;
+            $order->save();
+            return redirect()
+            ->route('packages.pay_with_credit')
+            ->with('success', 'Order paid successfully!');
+
+        } else {
+            return redirect()
+                ->route('packages.pay_with_credit')
+                ->withErrors(['error' => 'An error occurred while trying to pay for the order']);
+        }
     }
 
     public function packagesActivator()

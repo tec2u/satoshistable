@@ -40,8 +40,8 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Login</th>
-                <th>Credit</th>
-                <th>Updated at</th>
+                <th>Total credit</th>
+                <th>Add Credit</td>
             </tr>
         </thead>
         <tbody>
@@ -56,12 +56,16 @@
                     <div style="font-size: 16px;">{{$member->login}}</div>
                 </td>
                 <td>
+                    <div style="font-size: 16px;">
+                        {{ $member->total_credit }}
+                    </div>
+                </td>
+                <td>
                     <div class="d-flex">
-                        <input type="number" name="credit" id="credit_{{ $member->id }}" class="form-control" value="{{ isset($member->bancoCredit) && count($member->bancoCredit) > 0 ? $member->bancoCredit[0]->price : 0 }}">
+                        <input type="number" name="credit" id="credit_{{ $member->id }}" class="form-control" value="">
                         <button class="btn btn-primary ml-2" type="button" onclick="addCreditToMember('credit_{{ $member->id }}', '{{ $member->id }}')">ADD</button>
                     </div>
                 </td>
-                <td>{{ isset($member->bancoCredit) && count($member->bancoCredit) > 0 ? date('H:i d/m/Y ', strtotime($member->bancoCredit[0]->updated_at)) : '' }}</td>
             </tr>
             @empty
             <p class="m-4 fst-italic">Not found</p>

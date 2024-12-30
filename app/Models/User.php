@@ -110,6 +110,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(BancoCredit::class);
     }
+
+    public function totalCredit()
+    {
+        return $this->credit()->sum('price');
+    }
+
     public function order()
     {
         return $this->hasMany(Order::class);
@@ -432,8 +438,8 @@ class User extends Authenticatable
                     SELECT id, id_dados, upline, ciclo, qty, 1 AS level
                     FROM matriz_forcada3x10
                     WHERE upline = " .
-                $rede_raiz->id .
-                "
+                    $rede_raiz->id .
+                    "
 
                     UNION ALL
 
@@ -447,8 +453,8 @@ class User extends Authenticatable
                 COUNT(CASE WHEN u.id IS NULL THEN 1 END) AS indirect_count
             FROM downline d
             LEFT JOIN users u ON u.id = d.id_dados AND u.recommendation_user_id = " .
-                $rede_raiz->id_dados .
-                '',
+                    $rede_raiz->id_dados .
+                    '',
             );
         }
 
@@ -685,13 +691,13 @@ class User extends Authenticatable
     {
         $count =
             DB::table('orders_package')
-                ->join('users', 'orders_package.user_id', 'users.id')
-                ->join('packages', 'orders_package.package_id', '=', 'packages.id')
-                ->where("recommendation_user_id", $id)
-                ->where('type', 'packages')
-                ->where("status", 1)
-                ->where("payment_status", 1)
-                ->count(DB::raw('DISTINCT user_id'));
+            ->join('users', 'orders_package.user_id', 'users.id')
+            ->join('packages', 'orders_package.package_id', '=', 'packages.id')
+            ->where("recommendation_user_id", $id)
+            ->where('type', 'packages')
+            ->where("status", 1)
+            ->where("payment_status", 1)
+            ->count(DB::raw('DISTINCT user_id'));
         return $count;
     }
 }

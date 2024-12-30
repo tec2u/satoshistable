@@ -24,6 +24,9 @@ class AdminOrderController extends Controller
             $membersWithCreditQuery->where('name', 'like', "%$request->login%")->orWhere('login', $request->login);
         }
         $membersWithCredit = $membersWithCreditQuery->paginate(15);
+        foreach ($membersWithCredit as $member) {
+            $member->total_credit = $member->bancoCredit->sum('price');
+        }
         // return response()->json($membersWithCredit);
         return view('admin.members.membersCredit', compact('membersWithCredit', 'login'));
     }

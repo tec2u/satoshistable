@@ -187,6 +187,11 @@
               <i class="bi bi-circle"></i><span>@lang('header.products')</span>
             </a>
           </li>
+          <li>
+            <a href="{{ route('packages.pay_with_credit') }}">
+              <i class="bi bi-circle"></i><span>Pay with credit</span>
+            </a>
+          </li>
 
           {{-- <li>
             <a href="{{ route('packages.packagelog') }}">

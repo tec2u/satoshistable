@@ -189,19 +189,6 @@ class PackageAdminController extends Controller
 
             $Orderpackage = OrderPackage::find($id);
             $package = Package::find($Orderpackage->package_id);
-
-            if ($request->pay_with_user_credit === 'pay') {
-                if ($request->user_credit >= $Orderpackage->price) {
-                    BancoCredit::where('user_id', $Orderpackage->user_id)->update(['price' => $request->user_credit - $Orderpackage->price]);
-                    $data = [
-                        "status" => 1,
-                        "payment_status" => 1
-                    ];
-                } else {
-                    return redirect()->back()->withErros('Insufficient customer credit to pay for order');
-                }
-            }
-
             // dd($Orderpackage->id);
 
             $Orderpackage->update($data);
