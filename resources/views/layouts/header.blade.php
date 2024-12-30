@@ -229,7 +229,7 @@
           <li>
             <a href=" {{ route('affiliate.binary') }} ">
               <i class="bi bi-circle"></i><span>
-                Binary Network
+                Network
               </span>
             </a>
           </li>
