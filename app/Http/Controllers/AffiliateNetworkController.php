@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Rede;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,70 +38,53 @@ class AffiliateNetworkController extends Controller
 
 
 
-    public function binary($userId = null)
+    public function binary($id_user = null)
     {
-        $userId = $userId ?? Auth::id();
+        // Exemplo de estrutura de nó:
+        // {
+        //     id: 3,
+        //     pid: 1,
+        //     "Employee Name": "Caden Ellison",
+        //     Title: "Dev Manager",
+        //     Photo: "https://cdn.balkan.app/shared/4.jpg"
+        // }
 
-        // SQL pega usuario e rede binaria
-        $fetchUserAndImage = function ($userId) {
-            $user = DB::table('users')
-                ->join('binary_network', 'binary_network.user_id', '=', 'users.id')
-                ->where('binary_network.user_id', $userId)
-                ->select('users.id', 'users.login', 'users.qty_total_left', 'users.qty_total_right', 'binary_network.l_u', 'binary_network.r_u')
-                ->first();
+        $id_user ??= Auth::id();
+        $rede = Rede::where('user_id', $id_user)->first();
+        $networks = [];
 
-            $imageUrl = !empty($user) && !empty($user->login)
-                ? 'https://cdn-icons-png.flaticon.com/512/1144/1144709.png'
-                : 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
+        // Função recursiva para buscar diretos e indiretos
+        $fetchNetwork = function ($id_user, $parent_id = null) use (&$fetchNetwork) {
+            $results = [];
+            $user = User::find($id_user);
 
-            return ['user' => $user, 'image' => $imageUrl];
+            if ($user) {
+                $results[] = array(
+                    "id" => $id_user,
+                    "pid" => $parent_id,
+                    "login" => $user->login,
+                    "email" => $user->email,
+                    "Name" => $user->login,
+                    "Photo" => asset("/assetsWelcome/images/user.png"),
+                    "Title" => $user->name,
+                    "tags" => ["profile"]
+                );
+
+                $rede = Rede::where('upline_id', Rede::where('user_id', $id_user)->value('id'))->get();
+
+                foreach ($rede as $value) {
+                    $results = array_merge($results, $fetchNetwork($value->user_id, $id_user));
+                }
+            }
+
+            return $results;
         };
 
+        // Buscar toda a rede a partir do usuário principal
+        $networks = $fetchNetwork($id_user);
+        $networks = count($networks) > 0 ? json_encode($networks) : [];
 
-
-        $total_left = HistoricScore::select(DB::raw('SUM(score) as total'))
-            ->where('leg', 'L')
-            ->where('status', 1)
-            ->where('user_id', $userId)
-            ->first();
-        $total_right = HistoricScore::select(DB::raw('SUM(score) as total'))
-            ->where('leg', 'R')
-            ->where('status', 1)
-            ->where('user_id', $userId)
-            ->first();
-        $total_earned = Banco::select(DB::raw('SUM(price) as total'))
-            ->where('user_id', $userId)
-            ->where('description', 1)
-            ->first();
-
-        // Linha 1
-        $l1 = $fetchUserAndImage($userId);
-
-        // Linha 2
-        $l2p1 = $fetchUserAndImage($l1['user']->l_u ?? null);
-        $l2p2 = $fetchUserAndImage($l1['user']->r_u ?? null);
-
-        //dd($l1['user']->r_u );
-
-        // Linha 3
-        $l3p1 = $fetchUserAndImage($l2p1['user']->l_u ?? null);
-        $l3p2 = $fetchUserAndImage($l2p1['user']->r_u ?? null);
-        $l3p3 = $fetchUserAndImage($l2p2['user']->l_u ?? null);
-        $l3p4 = $fetchUserAndImage($l2p2['user']->r_u ?? null);
-
-        // Linha 4
-        $l4p1 = $fetchUserAndImage($l3p1['user']->l_u ?? null);
-        $l4p2 = $fetchUserAndImage($l3p1['user']->r_u ?? null);
-        $l4p3 = $fetchUserAndImage($l3p2['user']->l_u ?? null);
-        $l4p4 = $fetchUserAndImage($l3p2['user']->r_u ?? null);
-        $l4p5 = $fetchUserAndImage($l3p3['user']->l_u ?? null);
-        $l4p6 = $fetchUserAndImage($l3p3['user']->r_u ?? null);
-        $l4p7 = $fetchUserAndImage($l3p4['user']->l_u ?? null);
-        $l4p8 = $fetchUserAndImage($l3p4['user']->r_u ?? null);
-
-
-        return view('network.binary', compact('l1', 'l2p1', 'l2p2', 'l3p1', 'l3p2', 'l3p3', 'l3p4', 'l4p1', 'l4p2', 'l4p3', 'l4p4', 'l4p5', 'l4p6', 'l4p7', 'l4p8', 'total_left', 'total_right', 'total_earned'));
-
-
+        return view('network.binary', compact('networks'));
     }
+
 }
