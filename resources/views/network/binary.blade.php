@@ -48,7 +48,7 @@
     }
 
     /*We need to remove left-right connectors from elements without
-        any siblings*/
+          any siblings*/
     .tree li:only-child::after,
     .tree li:only-child::before {
       display: none;
@@ -60,7 +60,7 @@
     }
 
     /*Remove left connector from first child and
-        right connector from last child*/
+          right connector from last child*/
     .tree li:first-child::before,
     .tree li:last-child::after {
       border: 0 none;
@@ -141,11 +141,11 @@
             <div class="col-lg-6 align-self-center mobile-bottom-fix">
               <h1>BINARY NETWORK</h1>
             </div>
+            <h2>
+              Leg Preference:
+            </h2>
             <form id="binary-position-form"
               class="col-lg-6 d-flex align-items-center justify-content-end align-self-center mobile-bottom-fix">
-              <h2>
-                Leg Preference:
-              </h2>
               <div class="form-check ml-4">
                 <input class="form-check-input" type="radio" name="perna_cad" value="L"
                   {{ auth()->user()->perna_cad == 'L' ? 'checked' : '' }} onchange="submitForm()">
@@ -316,27 +316,27 @@
     }
 
     /*
-            @media (max-width: 1405px) {
-                .reponsive-binary-group {
-                    bottom: 0;
-                    padding: 0 !important;
-                    width: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                }
+              @media (max-width: 1405px) {
+                  .reponsive-binary-group {
+                      bottom: 0;
+                      padding: 0 !important;
+                      width: 100%;
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                  }
 
-                .message-responsive-alert {
-                    display: block;
-                }
+                  .message-responsive-alert {
+                      display: block;
+                  }
 
-                .hidde-top-line-border-responsive::before {
-                    border-top: none !important;
-                }
-                .hidde-top-line-border-responsive::after {
-                    border-top: none !important;
-                }
-            } */
+                  .hidde-top-line-border-responsive::before {
+                      border-top: none !important;
+                  }
+                  .hidde-top-line-border-responsive::after {
+                      border-top: none !important;
+                  }
+              } */
 
     .tree {
       width: 1077px;
