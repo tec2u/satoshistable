@@ -147,7 +147,7 @@ class RegisterController extends Controller
             'country' => $data['country'],
             'city' => $data['city'],
             'last_name' => $data['last_name'],
-            'perna_cad' => "L",
+            'perna_cad' => "B",
         ]);
 
 
