@@ -64,6 +64,6 @@ return [
     'amount' => 'Amount',
     'from_user' => 'From User',
     'no_package_registered' => 'You don\'t have any package registered!',
-    'daily_profit' => 'Daily Profit',
+    'daily_profit' => 'Daily Rewards',
     'no_registered' => "Don't have any registered!",
 ];

@@ -366,7 +366,7 @@
               <span class="info-box-icon "><i class="bi bi-caret-up card_text"></i></span>
               <div class="info-box-content font">
                 <span class="info-box-text card_text" style="text-transform: uppercase">@lang('home.rank')</span>
-                <span class="info-box-number card_text">Satoshi Plan</span>
+                <span class="info-box-number card_text">no rank acheived</span>
               </div>
             </div>
           </div>

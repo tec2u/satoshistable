@@ -537,7 +537,7 @@ return [
             'edit' => 'Edit',
             'status' => 'Status',
             'description' => 'Description',
-            'update_daily_profit' => 'Update Daily Profit',
+            'update_daily_profit' => 'Update Daily Rewards',
             'user' => 'User Activated',
             'value_percentage' => 'Value Percentage',
             'empty' => "You don't have any Bonus Configuration registered!",

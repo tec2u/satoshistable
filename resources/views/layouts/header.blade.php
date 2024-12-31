@@ -300,7 +300,7 @@
             <a href="{{ route('reports.bonusdaily') }}">
               <i class="bi bi-circle"></i><span>
                 {{-- @lang('header.referral_comission') --}}
-                DAILY PROFIT
+                Daily Rewards
               </span>
             </a>
           </li>
