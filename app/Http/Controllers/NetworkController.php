@@ -416,11 +416,17 @@ class NetworkController extends Controller
     {
         $id_user = Auth::id();
         $rede = Rede::where('user_id', $id_user)->first();
-        $networks = Rede::where('upline_id', $rede->id)->get();
 
-        if ($networks) {
-            return view('network.associatesReport', compact('networks'));
+        if ($rede) {
+            $networks = Rede::where('upline_id', $rede->id)->get();
+        } else {
+            $networks = [];
         }
+
+        // if ($networks) {
+        //     return view('network.associatesReport', compact('networks'));
+        // }
+        return view('network.associatesReport', compact('networks'));
     }
 
     public function pesquisa(Request $request)
