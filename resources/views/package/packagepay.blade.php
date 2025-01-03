@@ -99,7 +99,7 @@
         </div>
 
         <div>
-            Coin: <span id="coin-type" class="mr-2">{{  }}</span>: <strong id="price-final"></strong>
+            Coin: <span id="coin-type" class="mr-2"></span>: <strong id="price-final"></strong>
         </div>
         <form action="{{ route('packages.payCryptoNode') }}" method="POST" id="formChooseBank">
           @csrf
