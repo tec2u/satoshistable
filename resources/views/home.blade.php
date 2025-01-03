@@ -272,10 +272,10 @@
       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img class="d-block w-100" src="{{ asset('images/banner1.png') }}" alt="First slide" style="height: 75vh">
+            <img class="d-block w-100" src="{{ asset('images/banner1.png') }}" alt="First slide" style="height: 100%">
           </div>
           <div class="carousel-item">
-            <img class="d-block w-100" src="{{ asset('images/banner2.png') }}" alt="Second slide" style="height: 75vh">
+            <img class="d-block w-100" src="{{ asset('images/banner2.png') }}" alt="Second slide" style="height: 100%">
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
