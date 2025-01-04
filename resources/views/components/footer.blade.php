@@ -131,7 +131,29 @@
       <div>
         <input type="text" placeholder="Email" />
         <button>@lang('header.footer9')</button>
+</br>
+
       </div>
+      <a class="dropdown-item" href="/setlocale/en"><img src="{{ asset('assetsWelcome/images/flaguk.png') }}"
+                    style="width: 18px;margin-right:10px" alt="..."></a>
+              
+                <a class="dropdown-item" href="/setlocale/es"><img src="{{ asset('assetsWelcome/images/flagspa.png') }}"
+                    style="width: 18px;margin-right:10px" alt="..."></a>
+             
+                <a class="dropdown-item" href="/setlocale/de"><img src="{{ asset('assetsWelcome/images/flagger.png') }}"
+                    style="width: 18px;margin-right:10px" alt="..."></a>
+           
+                <a class="dropdown-item" href="/setlocale/fr"><img src="{{ asset('assetsWelcome/images/flagfr.png') }}"
+                    style="width: 18px;margin-right:10px" alt="..."></a>
+             
+                <a class="dropdown-item" href="/setlocale/ch"><img src="{{ asset('assetsWelcome/images/flagchi.png') }}"
+                    style="width: 18px;margin-right:10px" alt="..."></a>
+           
+                <a class="dropdown-item" href="/setlocale/in"><img src="{{ asset('assetsWelcome/images/flagin.png') }}"
+                    style="width: 18px;margin-right:10px" alt="..."></a>
+             
+                <a class="dropdown-item" href="/setlocale/ru"><img src="{{ asset('assetsWelcome/images/flagru.png') }}"
+                    style="width: 18px;margin-right:10px" alt="..."></a>
     </div>
   </div>
 </footer>
