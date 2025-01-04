@@ -113,27 +113,24 @@
   <div class="content">
     <div class="bg-shape"></div>
     <div class="footer-1">
-      <h4>About us</h4>
-      <p>We are pioneering a new era in affiliate partnerships, leveraging transparency, trust, and innovation. Our
-        mission is to transform traditional affiliate models into an efficient system that empowers businesses and
-        affiliates alike. We are committed to building a fairer, more transparent marketplace for sustainable growth
-        and reliable results.</p>
+      <h4>@lang('header.footer0')</h4>
+      <p>@lang('header.footer1')</p>
     </div>
     <div class="footer-2">
-      <h4>Legal Agreements</h4>
+      <h4>@lang('header.footer2')</h4>
       <ul>
-        <li><a href="/#two">What we do</a></li>
-        <li><a href="/#one">About Us</a></li>
-        <li><a href="{{ asset('/images/presentation.pdf') }}" target="_blank">Business Plan</a></li>
-        <li><a href="{{ route('login') }}">Login</a></li>
-        <li><a href="{{ route('register') }}">Register</a></li>
+        <li><a href="/#two">@lang('header.footer3')</a></li>
+        <li><a href="/#one">@lang('header.footer4')</a></li>
+        <li><a href="{{ asset('/images/presentation.pdf') }}" target="_blank">@lang('header.footer5')</a></li>
+        <li><a href="{{ route('login') }}">@lang('header.footer6')</a></li>
+        <li><a href="{{ route('register') }}">@lang('header.footer7')</a></li>
       </ul>
     </div>
     <div class="footer-3">
-      <h4>Connect with us</h4>
+      <h4>@lang('header.footer8')</h4>
       <div>
         <input type="text" placeholder="Email" />
-        <button>Subscribe</button>
+        <button>@lang('header.footer9')</button>
       </div>
     </div>
   </div>

@@ -104,5 +104,22 @@ return [
     'mam_pamm_accounts_title' => 'COMPTES MAM / PAMM',
     'mam_pamm_description' => "Gestionnaire de comptes multiples / Module de gestion des allocations en pourcentage Gérer Le gestionnaire de comptes multiples FxWinning vous permet de gérer l'argent de vos clients avec des méthodes sophistiquées, des rapports en temps réel sur les commissions et la performance opérationnelle.",
     'mam_pamm_description_2' => 'Le logiciel est parfait pour les traders ou les gestionnaires de fonds qui utilisent des conseillers experts (EA) et améliore la fonctionnalité de la plateforme, car il permet de gérer de nombreux comptes à partir de la même interface. Des milliers de comptes peuvent être négociés en un seul clic et pratiquement sans latence supplémentaire.',
+    'no_rank' => 'Aucun rang atteint',
+'noticia_1' => '<h2>Blockchain</h2>
+        <p>La base des transactions sécurisées</p>
+        <p class="new-p">Nos experts mettent en œuvre la blockchain pour garantir que chaque transaction soit sûre,
+          transparente et décentralisée, renforçant la confiance et la responsabilité dans toutes les interactions
+          numériques au sein de l’écosystème.</p>', 
+'noticia_2' => '<h2>Contrats intelligents</h2>
+        <p>L’avenir de l’efficacité automatisée</p>
+        <p class="new-p">Avec précision et innovation, notre équipe développe des contrats intelligents pour
+          automatiser des processus complexes, garantissant efficacité et fiabilité tout en réduisant la dépendance
+          aux intermédiaires.</p>', 
+'noticia_3' => '<h2>Intelligence Artificielle</h2>
+        <p>Alimenter des expériences intelligentes et centrées sur l’utilisateur</p>
+        <p class="new-p">Notre équipe crée des solutions intelligentes et centrées sur l’utilisateur, utilisant l’IA
+          pour optimiser les performances de la plateforme et offrir des outils personnalisés et des informations
+          exploitables qui permettent aux utilisateurs de prendre des décisions plus intelligentes.</p>',
+
 
 ];

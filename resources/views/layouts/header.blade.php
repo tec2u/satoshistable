@@ -117,6 +117,10 @@
                 <a class="dropdown-item" href="/setlocale/in"><img src="{{ asset('assetsWelcome/images/flagin.png') }}"
                     style="width: 18px;margin-right:10px" alt="...">@lang('header.india')</a>
               </li>
+              <li>
+                <a class="dropdown-item" href="/setlocale/ru"><img src="{{ asset('assetsWelcome/images/flagru.png') }}"
+                    style="width: 18px;margin-right:10px" alt="...">@lang('header.russian')</a>
+              </li>
             </ul>
           </div>
         </li>
@@ -189,20 +193,10 @@
           </li>
           <li>
             <a href="{{ route('packages.pay_with_credit') }}">
-              <i class="bi bi-circle"></i><span>Pay with credit</span>
+              <i class="bi bi-circle"></i><span>@lang('header.pay_with_credit')</span>
             </a>
           </li>
 
-          {{-- <li>
-            <a href="{{ route('packages.packagelog') }}">
-              <i class="bi bi-circle"></i><span>BOT ORDERS</span>
-            </a>
-          </li> --}}
-          {{-- <li>
-            <a href="{{ route('packages.packagesprofit') }}">
-              <i class="bi bi-circle"></i><span>PROFIT SHARE</span>
-            </a>
-          </li> --}}
         </ul>
       </li>
 
@@ -229,7 +223,7 @@
           <li>
             <a href=" {{ route('affiliate.binary') }} ">
               <i class="bi bi-circle"></i><span>
-                Network
+              @lang('header.my_tree')
               </span>
             </a>
           </li>
@@ -299,8 +293,8 @@
           <li>
             <a href="{{ route('reports.bonusdaily') }}">
               <i class="bi bi-circle"></i><span>
-                {{-- @lang('header.referral_comission') --}}
-                Daily Rewards
+               
+                @lang('header.daily_reward')
               </span>
             </a>
           </li>

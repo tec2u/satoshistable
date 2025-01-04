@@ -102,5 +102,20 @@ return [
     'metatrader_5_description' => 'MetaTrader 5 is a Multi Asset platform. It allows to trade currencies, bonds, indices, stocks, cryptocurrencies, etc. FxWinning offers you the most powerful and unique platform to make your life easier when trading. It allows 4 execution modes: instant, by request, market and exchange execution. It supports 2 market orders, 6 pending orders, and 2 stop orders.',
     'mam_pamm_accounts_title' => 'MAM / PAMM ACCOUNTS',
     'mam_pamm_description' => 'Multi-Account Manager / Percentage Allocation Management Module Manage The FxWinning Multiple Account manager allows you to manage your clients\' money with sophisticated methods, real-time reports of commissions and operational performance.',
-    'mam_pamm_description_2' => 'The Software is perfect for traders or fund managers who use Expert Advisors (EA) and improves the functionality of the platform, since it allows managing many accounts from the same interface. Thousands of accounts can be traded with a single click and with virtually no additional latency.'
+    'mam_pamm_description_2' => 'The Software is perfect for traders or fund managers who use Expert Advisors (EA) and improves the functionality of the platform, since it allows managing many accounts from the same interface. Thousands of accounts can be traded with a single click and with virtually no additional latency.',
+    'no_rank' => 'No Rank Acheived',
+'noticia_1' => '<h2>Blockchain</h2>
+        <p>The Foundation of Secure Transactions</p>
+        <p class="new-p">Our experts implement blockchain to ensure every transaction is secure, transparent, and
+          decentralized, instilling trust and accountability across all digital interaction within the ecosystem.
+        </p>', 
+'noticia_2' => '<h2>Smart Contracts</h2>
+        <p>The Future of Automated Efficiency</p>
+        <p class="new-p">With precision and innovation, our team develop smart contracts to automate complex
+          processes, ensuring efficiency and reliability while reducing dependence on intermediaries</p>', 
+'noticia_3' => '<h2>Artificial Intelligence</h2>
+        <p>Powering Intelligent, User-Centric Experiences</p>
+        <p class="new-p">Crafting intelligent,user-centric solutions,our team uses AI to optimize platform
+          performance, delivering personalized tools and actionable insights that empower users to make smarter
+          decisions</p>', 
 ];

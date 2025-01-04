@@ -9,9 +9,11 @@ return [
     'french' => 'French',
     'india' => 'Hindi',
     'china' => 'Chinese',
+    'russian' => 'Russian',
     'sign_out' => 'Sign Out',
     'dashboard' => 'Dashboard',
     'purchase' => 'Purchase',
+    'pay_with_credit' => 'Pay With Credits',
     'products' => 'Products',
     'orders' => 'Orders',
     'withdraw' => 'Withdraw',
@@ -41,9 +43,22 @@ return [
     'ai_next_level_club' => 'Satoshistable',
     'add_new_account' => 'Add New Account',
     'my_accounts' => 'Orders',
-    'profit_share' => 'Profit Share',
+    'daily_reward' => 'Daily Reward',
     'referral_program' => 'Referral Program',
     'join_our' => 'join_our',
     'telegram_channel' => 'telegram_channel',
-    'my_team' => 'my team'
+    'my_team' => 'my team',
+    'footer0'=>'About Us',
+'footer1'=>'We are pioneering a new era in affiliate partnerships, leveraging transparency, trust, and innovation. Our
+        mission is to transform traditional affiliate models into an efficient system that empowers businesses and
+        affiliates alike. We are committed to building a fairer, more transparent marketplace for sustainable growth
+        and reliable results.',
+'footer2'=>'Legal Agreements',
+'footer3'=>'What we do',
+'footer4'=>'About Us',
+'footer5'=>'Business Plan',
+'footer6'=>'Log In',
+'footer7'=>'Register',
+'footer8'=>'Connect With Us',
+'footer9'=>'Subscribe',
 ];

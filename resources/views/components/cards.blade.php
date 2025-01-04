@@ -114,33 +114,21 @@
     <div class="card-div"
       style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/images/blockchain.gif);">
       <div>
-        <h2>Blockchain</h2>
-        <p>The Foundation of Secure Transactions</p>
-        <p class="new-p">Our experts implement blockchain to ensure every transaction is secure, transparent, and
-          decentralized, instilling trust and accountability across all digital interaction within the ecosystem.
-        </p> <!-- Novo <p> -->
+      @lang('home.noticia_1')
       </div>
     </div>
 
     <div class="card-div"
       style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/images/smart-contracts.gif);">
       <div>
-        <h2>Smart Contracts</h2>
-        <p>The Future of Automated Efficiency</p>
-        <p class="new-p">With precision and innovation, our team develop smart contracts to automate complex
-          processes, ensuring efficiency and reliability while reducing dependence on intermediaries</p>
-        <!-- Novo <p> -->
+      @lang('home.noticia_2')
       </div>
     </div>
 
     <div class="card-div"
       style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/images/artificial-intelligence.gif);">
       <div>
-        <h2>Artificial Intelligence</h2>
-        <p>Powering Intelligent, User-Centric Experiences</p>
-        <p class="new-p">Crafting intelligent,user-centric solutions,our team uses AI to optimize platform
-          performance, delivering personalized tools and actionable insights that empower users to make smarter
-          decisions</p> <!-- Novo <p> -->
+      @lang('home.noticia_3')
       </div>
     </div>
   </div>
