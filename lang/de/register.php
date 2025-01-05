@@ -14,6 +14,7 @@ return [
 'questionnaire' => 'Fragebogen',
 'register' => 'Registrieren',
 'next' => 'Weiter',
+'referral' => 'Empfehlungs-Benutzername',
 
 'q5' => 'Im Jahr 2025 möchte ich zusätzlich passives Einkommen erzielen in Höhe von:',
 'q6' => 'Mit diesem zusätzlichen Geld möchte ich mein Leben verbessern und folgendes kaufen:',

@@ -14,6 +14,7 @@ return [
 'questionnaire' => 'Questionnaire',
 'register' => 'S inscrire',
 'next' => 'Suivant',
+'referral' => 'Nom d’utilisateur de parrainage',
 
 'q5' => 'En 2025, j aimerais gagner un revenu passif supplémentaire de :',
 'q6' => 'Avec cet argent supplémentaire, je souhaite améliorer ma vie et acheter :',

@@ -14,6 +14,7 @@ return [
 'questionnaire' => 'Cuestionario',
 'register' => 'Registrarse',
 'next' => 'Siguiente',
+'referral' => 'Nombre de usuario de referencia',
 
 'q5' => 'En 2025, me gustaría generar un ingreso pasivo adicional de:',
 'q6' => 'Con este dinero adicional, deseo mejorar mi vida y comprar:',
