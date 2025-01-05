@@ -777,13 +777,13 @@
               <div class="col-lg-12">
                 <div class="form-floating">
                   <p>{{ $loop->iteration }}) 
-                     @if($loop->iteration==5) 
+                     @if($loop->iteration==1) 
                       @lang('register.q5')
                     @endif
-                    @if($loop->iteration==6) 
+                    @if($loop->iteration==2) 
                       @lang('register.q6')
                     @endif
-                    @if($loop->iteration==7) 
+                    @if($loop->iteration==3) 
                       @lang('register.q7')
                     @endif</p>
 
