@@ -17,25 +17,35 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </head>
 
+
+
+
 <body class="is-preload">
 
   <!-- Sidebar -->
   <section id="sidebar">
     <div class="inner">
+    
       <nav>
         <ul>
-          <li><a href="#intro">Welcome</a></li>
-          <li><a href="#one">Who we are</a></li>
-          <li><a href="#news">News</a></li>
-          <li><a href="#ceo">CEO</a></li>
-          <li><a href="#partners">Partners</a></li>
-          <li><a href="#two">What we do</a></li>
-          <li><a href="#three">Get in touch</a></li>
-          <li><a href="{{ route('login') }}">Login</a></li>
-          <li><a href="{{ route('register') }}">Register</a></li>
+          <li><a href="#intro">@lang('site.welcome')</a></li>
+          <li><a href="#one">@lang('site.who_we_are')</a></li>
+          <li><a href="#news">@lang('site.news')</a></li>
+          <li><a href="#ceo">@lang('site.ceo')</a></li>
+         
+         
+          <li><a href="#two">@lang('site.what_we_do1')</a></li>
+          <li><a href="#three">@lang('site.get_in_touch')</a></li>
+          <li><a href="#footer">@lang('site.languages')</a></li>
+          <li><a href="{{ route('login') }}">@lang('site.login')</a></li>
+          <li><a href="{{ route('register') }}">@lang('site.register')</a></li>
         </ul>
       </nav>
     </div>
+    
+              
+             
+
   </section>
 
   <!-- Wrapper -->
@@ -51,13 +61,7 @@
 
       <div class="inner" style="display: flex;justify-content: center;flex-direction: column;text-align: center">
         <img src='/images/logo.png' style='width: 200px; margin:0 auto;'>
-        <h1 class="textStyled">Satoshi
-          Square Table</h1>
-        <p>Satoshi Group takes a thoughtful approach to innovation, studying the journeys of Hyper Capital, Trage,
-          Novatech, WAAS, and Empirex—their successes and challenges alike.</p>
-        <ul class="actions">
-          <li><a href="#one" class="button scrolly">Learn more</a></li>
-        </ul>
+        @lang('site.banner_main')
       </div>
     </section>
 
@@ -66,7 +70,7 @@
       <div class="shape-left"></div>
       <div class="shape-right"></div>
 
-      <h1 class="textStyled" style="padding: 10px 20px">About Us
+      <h1 class="textStyled" style="padding: 10px 20px">@lang('site.about_us')
       </h1>
 
 
@@ -76,43 +80,14 @@
           {{-- <img src="https://waas.network/assets/homepage/img/our-vision.png" alt=""> --}}
         </div>
         <div class="content-container">
-          <div class="content-box">
-            <h2>Satoshi Group</h2>
-            <p>
-              By analyzing what worked and refining what didn’t, we extract the best practices to:
-            </p>
-            <ul>
-              <li>Turbocharge disruptive business models</li>
-              <li>Create powerful value distribution mechanisms</li>
-              <li>Deliver win-win outcomes for all participants</li>
-            </ul>
-            <p>
-              With this foundation, Satoshi Group is setting a new benchmark for sustainable, inclusive growth in the
-              modern economy.
-            </p>
-          </div>
-          <div class="content-box">
-            <h2>Our Vision</h2>
-            <p>
-              To harness the transformative power of blockchain-driven consensus and unlock unparalleled wealth creation
-              opportunities.
-            </p>
-          </div>
-          <div class="content-box">
-            <h2>Our Mission</h2>
-            <p>
-              To integrate innovative value distribution models into cutting-edge tokenomics, accelerating the growth
-              and success of real-world businesses.
-
-            </p>
-          </div>
+@lang('site.about_content')
         </div>
       </div>
     </section>
 
     <section id="news" class="wrapper style4 fade-up">
       <div class="inner">
-        <h1 class="textStyled">Innovation in Action by Our Development Team</h1>
+        <h1 class="textStyled">@lang('site.news_title')</h1>
       </div>
 
       @include('components.cards')
@@ -126,11 +101,7 @@
         <div class="choose-us-box">
           <img src="{{ asset('/images/line-left.png') }}" alt="Owner">
           <p>
-            Sam Lee is the Founder and CEO of Blockchain Global, a leading multinational enterprise which focuses on the
-            commercialisation of blockchain technology through international blockchain investments, blockchain
-            innovation hubs, and network infrastructure services; through its offices in Australia, the U.S., Malaysia,
-            China, Switzerland and Japan. Blockchain Global has invested more than USD $300 million in 80
-            blockchain-enabled projects.
+            @lang('site.ceo_content')
             <img src="{{ asset('/images/line-right.png') }}" alt="Owner">
           </p>
         </div>
@@ -145,7 +116,7 @@
 
     <section id="partners" class="wrapper style4 fade-up">
       <div class="left">
-        <h1 class="textStyled">Partners</h1>
+        <h1 class="textStyled">@lang('site.partners_title')</h1>
       </div>
 
 
@@ -172,17 +143,13 @@
               <img src="{{ asset('images/bit.png') }}" alt="Logo">
             </li>
 
-            <li>
-              <img src="{{ asset('images/molecular.png') }}" alt="Logo">
-            </li>
+           
 
             <li>
               <img src="{{ asset('images/hyperdao.png') }}" alt="Logo">
             </li>
 
-            <li>
-              <img src="{{ asset('images/hoo.png') }}" alt="Logo">
-            </li>
+           
 
             <li>
               <img src="{{ asset('images/hyperpay.svg') }}" alt="Logo">
@@ -198,43 +165,13 @@
 
     <!-- Two -->
     <section id="two" class="wrapper style4 fade-up">
-      <div class="inner">
-        <h1 class="textStyled">What we do</h1>
-        <p style="width: 100%; text-align: center">Get rewarded faster than ever with our new Accelerated Referral
-          Reward System! 🎉</p>
-        <div class="features">
-          <section>
-            <span class="icon solid major fa-user"></span>
-            <h3>Refer a friend</h3>
-            <p>Share your unique referral link.</p>
-          </section>
-          <section>
-            <span class="icon solid major fa-plus"></span>
-            <h3>They join</h3>
-            <p>As soon as they sign up and deposit, you start earning.</p>
-          </section>
-          <section>
-            <span class="icon solid major fa-money-bill"></span>
-            <h3>Instant rewards</h3>
-            <p>
-              No waiting! Get your rewards at lightning speed.
-              <br>
-              💰 Why it's amazing:
-            <ul>
-              <li>Earn bigger rewards, faster than before.</li>
-              <li>No delays – see your earnings grow in real-time.</li>
-              <li>It's simple: Share. Earn. Repeat.</li>
-            </ul>
-            Don’t wait – start referring today and enjoy the most rewarding referral system around! 🌟
-            <br>
-            👉 Sign up and start earning now!
-            </p>
+      @lang('site.what_we_do')
           </section>
         </div>
         <ul class="actions">
           <li style="width: 100%;display:flex;justify-content: center"><a target="_blank"
               href="{{ asset('/images/presentation.pdf') }}"
-              style="background-color: white !important;color:#000 !important;" class="button">👉 see presentation!
+              style="background-color: white !important;color:#000 !important;" class="button">👉 @lang('site.presentation_link')
               🌟</a></li>
         </ul>
       </div>
@@ -242,48 +179,22 @@
 
     <!-- Three -->
     <section id="three" class="wrapper style1 fade-up">
-      <div class="inner">
-        <h1 class="textStyled">Get in touch</h1>
-        {{-- <p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada
-          quis. Aliquam dapibus, lacus eget hendrerit bibendum, urna est aliquam sem, sit amet imperdiet est velit quis
-          lorem.</p> --}}
-        <div class="split style1">
-          <section>
-            <form>
-              <div class="fields">
-                <div class="field half">
-                  <label for="name">Name</label>
-                  <input type="text" name="name" id="name" />
-                </div>
-                <div class="field half">
-                  <label for="email">Email</label>
-                  <input type="text" name="email" id="email" />
-                </div>
-                <div class="field">
-                  <label for="message">Message</label>
-                  <textarea name="message" id="message" rows="5"></textarea>
-                </div>
-              </div>
-              <ul class="actions">
-                <li><a href="" class="button submit">Send Message</a></li>
-              </ul>
-            </form>
+      @lang('site.get_in_touch_form')
           </section>
           <section>
             <ul class="contact">
               <li>
-                <h3>Address</h3>
-                <span>12345 Somewhere Road #654<br />
-                  Nashville, TN 00000-0000<br />
-                  USA</span>
+                <h3>@lang('site.contact_address')</h3>
+                <span>Dubai<br />
+        </span>
               </li>
               <li>
-                <h3>Email</h3>
-                <a href="#">user@untitled.tld</a>
+                <h3>@lang('site.contact_email')</h3>
+                <a href="#">contact@satoshistable.com</a>
               </li>
               <li>
-                <h3>Phone</h3>
-                <span>(000) 000-0000</span>
+                <h3>@lang('site.contact_phone')</h3>
+                <span>Soon whatsapp support</span>
               </li>
               <li>
                 <h3>Social</h3>

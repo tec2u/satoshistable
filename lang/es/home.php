@@ -103,4 +103,21 @@ return [
     'mam_pamm_accounts_title' => 'CUENTAS MAM / PAMM',
     'mam_pamm_description' => 'Multi-Account Manager / Percentage Allocation Management Module Manage El FxWinning Multiple Account Manager te permite gestionar el dinero de tus clientes con métodos sofisticados, informes en tiempo real de comisiones y rendimiento operativo.',
     'mam_pamm_description_2' => 'El software es perfecto para traders o gestores de fondos que utilizan Asesores Expertos (EA) y mejora la funcionalidad de la plataforma, ya que permite gestionar muchas cuentas desde la misma interfaz. Se pueden negociar miles de cuentas con un solo clic y prácticamente sin latencia adicional.',
+    'no_rank' => 'Sin rango alcanzado',
+'noticia_1' => '<h2>Blockchain</h2>
+        <p>La base de transacciones seguras</p>
+        <p class="new-p">Nuestros expertos implementan blockchain para garantizar que cada transacción sea segura,
+          transparente y descentralizada, fomentando confianza y responsabilidad en todas las interacciones digitales
+          dentro del ecosistema.</p>', 
+'noticia_2' => '<h2>Contratos inteligentes</h2>
+        <p>El futuro de la eficiencia automatizada</p>
+        <p class="new-p">Con precisión e innovación, nuestro equipo desarrolla contratos inteligentes para
+          automatizar procesos complejos, garantizando eficiencia y fiabilidad mientras se reduce la dependencia de
+          intermediarios.</p>', 
+'noticia_3' => '<h2>Inteligencia Artificial</h2>
+        <p>Impulsando experiencias inteligentes y centradas en el usuario</p>
+        <p class="new-p">Nuestro equipo crea soluciones inteligentes y centradas en el usuario, utilizando IA para
+          optimizar el rendimiento de la plataforma y ofrecer herramientas personalizadas e información procesable que
+          empoderen a los usuarios para tomar decisiones más inteligentes.</p>',
+
 ];

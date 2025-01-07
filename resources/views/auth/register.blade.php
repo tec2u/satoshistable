@@ -13,6 +13,9 @@
   <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet"
     type="text/css" />
   <style>
+    .dropdown-item {
+      display:contents
+    }
     input[type="date"]::-webkit-calendar-picker-indicator {
       cursor: pointer;
       filter: invert(0.8) brightness(50%) sepia(100%) saturate(10000%) hue-rotate(20deg);
@@ -56,9 +59,9 @@
     <div class="container-login100">
       <div class="wrap-login100" style="width: 900px;">
         @if (isset($id))
-          <h4 class="title-login mb-5">{{ __('Register with ') . $user->login }}</h4>
+          <h4 class="title-login mb-5">@lang('register.register_with') {{ $user->login }}</h4>
         @else
-          <h4 class="title-login mb-5">{{ __('Register') }}</h4>
+          <h4 class="title-login mb-5">@lang('register.register')</h4>
         @endif
         <div style="height: 70vh;width: 100%">
           <iframe width="100%" height="100%" src="https://www.youtube.com/embed/ZD1tzNqouY8?si=dKEs9RGfBP1nr2Yy"
@@ -76,7 +79,7 @@
           <div id="stepForm01" style="" class="row g-3 px-2">
 
             <div class="col-lg-6">
-              <label for="name" class="form-label teste1234">First Name<span style="color: brown">*</span></label>
+              <label for="name" class="form-label teste1234">@lang('register.name')<span style="color: brown">*</span></label>
               <input id="name" type="text" class="form-control form-register @error('name') is-invalid @enderror"
                 placeholder="First Name" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus
                 tabindex="1">
@@ -89,7 +92,7 @@
             </div>
 
             <div class="col-lg-6">
-              <label for="last_name" class="form-label teste1234">Last Name<span style="color: brown">*</span></label>
+              <label for="last_name" class="form-label teste1234">@lang('register.last_name')<span style="color: brown">*</span></label>
               <input id="last_name" type="text"
                 class="form-control form-register @error('last_name') is-invalid @enderror" placeholder="Last Name"
                 name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus
@@ -658,7 +661,7 @@
               </select>
             </div>
             <div class="col-lg-6">
-              <label for="city" class="form-label teste1234">City<span style="color: brown">*
+              <label for="city" class="form-label teste1234">@lang('register.city')<span style="color: brown">*
                 </span></label>
               <input id="city" type="text"
                 class="form-control form-register @error('city') is-invalid @enderror" placeholder="City"
@@ -672,7 +675,7 @@
             </div>
 
             <div class="col-lg-6">
-              <label for="login" class="form-label teste1234">Username<span style="color: brown">*
+              <label for="login" class="form-label teste1234">@lang('register.username')<span style="color: brown">*
                 </span></label>
               <input id="login" type="text"
                 class="form-control form-register login @error('login') is-invalid @enderror" placeholder="Username"
@@ -687,8 +690,8 @@
             </div>
 
             <div class="col-lg-6">
-              <label for="cell" class="form-label teste1234">Phone<span style="color: brown">* </span>
-                (Just Numbers)</label>
+              <label for="cell" class="form-label teste1234">@lang('register.phone')<span style="color: brown">* </span>
+                </label>
               <input id="cell" type="number" step="1"
                 class="form-control form-register @error('cell') is-invalid @enderror" placeholder="Phone"
                 name="cell" value="{{ old('cell') }}" required autocomplete="cell" tabindex="10">
@@ -709,7 +712,7 @@
               </div>
             @else
               <div class="col-lg-6">
-                <label for="recommendation_user_id" class="form-label teste1234">Referral Username</label>
+                <label for="recommendation_user_id" class="form-label teste1234">@lang('register.referral')</label>
                 <input id="recommendation_user_id" type="text" class="form-control form-register"
                   name="recommendation_user_id" placeholder="Referral Username"
                   value="{{ old('recommendation_user_id') }}" autofocus tabindex="18" required
@@ -719,7 +722,7 @@
             @endif
 
             <div class="col-lg-6">
-              <label for="email" class="form-label teste1234">Email<span style="color: brown">*</span></label>
+              <label for="email" class="form-label teste1234">@lang('register.email')<span style="color: brown">*</span></label>
               <input id="email" type="email"
                 class="form-control form-register @error('email') is-invalid @enderror" placeholder="Email"
                 name="email" value="{{ old('email') }}" required autocomplete="email" tabindex="14">
@@ -732,7 +735,7 @@
             </div>
 
             <div class="col-lg-6">
-              <label for="password" class="form-label teste1234">Password<span style="color: brown">*</span></label>
+              <label for="password" class="form-label teste1234">@lang('register.password')<span style="color: brown">*</span></label>
               <span class="btn-show-pass d-inline-flex ps-2">
                 <i class="fa fa-eye" id="togglePassword"></i>
               </span>
@@ -749,7 +752,7 @@
             </div>
 
             <div class="col-lg-6">
-              <label for=" password-confirm" class="form-label teste1234">Confirm Password<span
+              <label for=" password-confirm" class="form-label teste1234">@lang('register.confirm_password')<span
                   style="color: brown">*</span></label>
               <span class="btn-show-pass d-inline-flex ps-2">
                 <i class="fa fa-eye" id="togglePasswordconfim"></i>
@@ -767,13 +770,22 @@
 
           <div id="stepForm02" style="display: none" class="row g-3 px-2">
             <br>
-            <h4 class="title-login mb-5">{{ __('Questionnaire') }}</h4>
+            <h4 class="title-login mb-5">@lang('register.questionnaire')</h4>
 
 
             @foreach ($questions as $question)
               <div class="col-lg-12">
                 <div class="form-floating">
-                  <p>{{ $loop->iteration }}) {{ $question->text }}</p>
+                  <p>{{ $loop->iteration }}) 
+                     @if($loop->iteration==1) 
+                      @lang('register.q5')
+                    @endif
+                    @if($loop->iteration==2) 
+                      @lang('register.q6')
+                    @endif
+                    @if($loop->iteration==3) 
+                      @lang('register.q7')
+                    @endif</p>
 
                   @if ($question->type === 'multiple_choice' && isset($question->options))
                     @foreach ($question->options as $option)
@@ -799,7 +811,7 @@
             @endforeach
 
             <button type="submit" class="login100-form-btn btn btn-primary rounded-pill">
-              {{ __('Register') }}
+            @lang('register.register')
             </button>
 
           </div>
@@ -810,14 +822,17 @@
           <div class="wrap-login100-form-btn">
             <div class="login100-form-bgbtn"></div>
             <button type="button" id="nextButton" class="login100-form-btn btn btn-primary rounded-pill">
-              {{ __('Next') }}
+            @lang('register.next')
             </button>
           </div>
         </div>
       </div>
     </div>
+   
   </div>
-
+  <footer id="footer">
+    @include('components.footer')
+  </footer>
   <script>
     document.getElementById('nextButton').addEventListener('click', function() {
       const stepForm = document.getElementById('stepForm01');

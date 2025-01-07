@@ -272,10 +272,10 @@
       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img class="d-block w-100" src="{{ asset('images/banner1.png') }}" alt="First slide" style="height: 75vh">
+            <img class="d-block w-100" src="{{ asset('images/banner1.png') }}" alt="First slide" style="height: 100%">
           </div>
           <div class="carousel-item">
-            <img class="d-block w-100" src="{{ asset('images/banner2.png') }}" alt="Second slide" style="height: 75vh">
+            <img class="d-block w-100" src="{{ asset('images/banner2.png') }}" alt="Second slide" style="height: 100%">
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -366,7 +366,7 @@
               <span class="info-box-icon "><i class="bi bi-caret-up card_text"></i></span>
               <div class="info-box-content font">
                 <span class="info-box-text card_text" style="text-transform: uppercase">@lang('home.rank')</span>
-                <span class="info-box-number card_text">no rank acheived</span>
+                <span class="info-box-number card_text">@lang('home.no_rank')</span>
               </div>
             </div>
           </div>
@@ -382,7 +382,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body">
-            aa<img src="" alt="Image" class="img-fluid" id="modalImage" style="width: 100%;">
+            <img src="" alt="Image" class="img-fluid" id="modalImage" style="width: 100%;">
           </div>
         </div>
       </div>
@@ -423,7 +423,7 @@
 
 
   @if (isset($n_pago) && $n_pago == true)
-    <script>
+   <!-- <script>
       setTimeout(() => {
         Swal.fire({
           "title": "",
@@ -455,6 +455,6 @@
           "animation": false
         });
       }, 7000);
-    </script>
+    </script>-->
   @endif
 @endsection
