@@ -193,52 +193,34 @@ class PackageAdminController extends Controller
 
             $Orderpackage->update($data);
 
+            $bonusTotal = $Orderpackage->price * 0.15;
+
             if ($Orderpackage->status == 1 && $Orderpackage->payment_status == 1) {
-                ####POPULA A ARRAY COM O BONUS UNILEVEL PARA ENVIAR PRA FUNÇÃO
+                $config_unilevel = ConfigBonusunilevel::get();
 
-                $array_unilevel = array();
-                $array_unilevel_peoples = array();
-                $pega_config_unilevel = ConfigBonusunilevel::get();
-
-                foreach ($pega_config_unilevel as $pega_config_unilevel) {
-
-                    if ($pega_config_unilevel->status == 1) {
-                        $array_unilevel_peoples[$pega_config_unilevel->level] = $pega_config_unilevel->minimum_users;
-                        $array_unilevel[$pega_config_unilevel->level] = $pega_config_unilevel->value_percent;
-                    } else {
-                        $array_unilevel_peoples[$pega_config_unilevel->level] = "";
-                        $array_unilevel[$pega_config_unilevel->level] = "";
-                    }
-                }
-
-                ####CHECA SE ACHA O USUARIO COM O PEDIDO NA TABELA BANCO
                 $userrec = User::find($Orderpackage->user_id);
-
-
-
-                if ($userrec->recommendation_user_id >= 0 && !empty($userrec->recommendation_user_id) && $Orderpackage->package_id == 20) {
-
-                    $recommendation = User::find($userrec->recommendation_user_id);
-
-                    $valor = (($array_unilevel[1] / 100) * $Orderpackage->price);
-
-                    // dd($array_unilevel[1]);
-
-                    $data = [
-                        "price" => $valor,
-                        "status" => 1,
-                        "description" => "9",
-                        "user_id" => $recommendation->id,
-                        "order_id" => $Orderpackage->id,
-                        "user_id_from" => $userrec->id,
-                        "level_from" => "1",
-                    ];
-
-
-
-                    $banco = Banco::create($data);
-
+                foreach ($config_unilevel as $config) {
+                    $valor = ($config->value_percent / 100) * $bonusTotal;
                     $check_ja_existe = Banco::where('user_id', $userrec->recommendation_user_id)->where('order_id', $Orderpackage->id)->count();
+                    if ($check_ja_existe <= 0) {
+                        if ($config->status == 1) {
+                            if ($userrec->recommendation_user_id >= 0) {
+                                $data = [
+                                    "price" => $valor,
+                                    "status" => 1,
+                                    "description" => "9",
+                                    "user_id" => $userrec->recommendation_user_id,
+                                    "order_id" => $Orderpackage->id,
+                                    "user_id_from" => $userrec->id,
+                                    "level_from" => "1",
+                                ];
+                                Banco::create($data);
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                    $userrec = User::find($userrec->recommendation_user_id);
                 }
 
                 // $this->createPaymentLog('Payment processed successfully', 200, 'success', $id, "Payment made by Admin");
