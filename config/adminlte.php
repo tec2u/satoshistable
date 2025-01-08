@@ -359,13 +359,13 @@ return [
          'submenu' => [
 
             [
-               'text' => 'bot_orders',
+               'text' => 'Orders',
                'url' => 'admin/packages/orderPackages',
             ],
-            [
-               'text' => 'profit_orders',
-               'url' => 'admin/packages/orderProfit',
-            ],
+            // [
+            //    'text' => 'profit_orders',
+            //    'url' => 'admin/packages/orderProfit',
+            // ],
             [
                'text' => 'create_pkg_order',
                'url' => "/admin/order-admin",

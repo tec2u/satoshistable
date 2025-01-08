@@ -25,10 +25,15 @@ class UserAdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::orderBy('id', 'DESC')->paginate(9);
-        return view('admin.users.users', compact('users'));
+        $search = $request->search ?? null;
+        if ($search) {
+            $users = User::where('name', 'like', "%$search%")->orWhere('login', 'like', "%$search%")->orderBy('id', 'DESC')->paginate(9)->appends(['search' => $search]);;
+        } else {
+            $users = User::orderBy('id', 'DESC')->paginate(9);
+        }
+        return view('admin.users.users', compact('users', 'search'));
     }
     public function addCredit(Request $request) {
 

@@ -18,11 +18,11 @@
     <div class="card-body table-responsive">
       <div class="row">
         <div class="col-sm-12 col-md-6">
-          <form action="{{ route('admin.users.searchUsers') }}" method="GET">
+          <form action="{{ route('admin.users.index') }}" method="GET">
             @csrf
             <div class="input-group input-group-lg">
               <input type="text" name="search" class="form-control @error('search') is-invalid @enderror"
-                placeholder="@lang('admin.members.search')">
+                placeholder="@lang('admin.members.search')" value="{{ $search ?? '' }}">
               <span class="input-group-append">
                 <button type="submit" class="btn btn-info btn-flat">@lang('admin.btn.search')</button>
               </span>
