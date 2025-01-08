@@ -23,14 +23,14 @@ class CompensationController extends Controller
         }
 
         if ($daily_percentage == null) {
-            $daily_percentage = json_decode(json_encode(array('value_perc' => 0.5)));
+            $daily_percentage = json_decode(json_encode(array('value_perc' => 0.005)));
         }
 
         if ($investment > 0) {
             $data = [
                 "user_id" => $user->id,
                 "order_id" => 0,
-                "description" => 16,
+                "description" => 2,
                 "price" => ($investment * $daily_percentage->value_perc),
                 "status" => 1,
                 "level_from" => 0

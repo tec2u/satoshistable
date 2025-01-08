@@ -20,12 +20,6 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->call(function () {
-            PayWithdrawAdminController::update();
-        })->everyFiveMinutes();
-        $schedule->call(function () {
-            PackageAdminController::orderUpdateKYC();
-        })->everyFiveMinutes();
-        $schedule->call(function () {
             CompensationController::dailyCron();
         })->dailyAt('00:00');
     }

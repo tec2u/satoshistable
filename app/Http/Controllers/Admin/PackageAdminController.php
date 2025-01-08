@@ -204,15 +204,14 @@ class PackageAdminController extends Controller
                     $check_ja_existe = Banco::where('user_id', $userrec->recommendation_user_id)->where('order_id', $Orderpackage->id)->count();
                     if ($check_ja_existe <= 0) {
                         if ($config->status == 1) {
-                            if ($userrec->recommendation_user_id >= 0) {
+                            if ($userrec->recommendation_user_id) {
                                 $data = [
                                     "price" => $valor,
                                     "status" => 1,
-                                    "description" => "9",
+                                    "description" => 1,
                                     "user_id" => $userrec->recommendation_user_id,
                                     "order_id" => $Orderpackage->id,
-                                    "user_id_from" => $userrec->id,
-                                    "level_from" => "1",
+                                    "level_from" => $config->level,
                                 ];
                                 Banco::create($data);
                             } else {
@@ -222,19 +221,14 @@ class PackageAdminController extends Controller
                     }
                     $userrec = User::find($userrec->recommendation_user_id);
                 }
-
-                // $this->createPaymentLog('Payment processed successfully', 200, 'success', $id, "Payment made by Admin");
-                if ($Orderpackage->package_id == 20) {
-                    $this->sendPostPayOrder($Orderpackage->id);
-                }
             }
 
 
-            if ($Orderpackage->payment_status == 1 && $package->type_product !== 'products') {
-                $matriz = MatrizForcada::where('id_dados', $Orderpackage->user_id)->first();
-                $matrizController = new MatrizForcadaController();
-                $matrizController->bonusDivisao($matriz->id, $Orderpackage->id);
-            }
+            // if ($Orderpackage->payment_status == 1 && $package->type_product !== 'products') {
+            //     $matriz = MatrizForcada::where('id_dados', $Orderpackage->user_id)->first();
+            //     $matrizController = new MatrizForcadaController();
+            //     $matrizController->bonusDivisao($matriz->id, $Orderpackage->id);
+            // }
 
             // $this->createLog('OrderPackage updated successfully', 200, 'success', auth()->user()->id);
             flash(__('admin_alert.pkgupdate'))->success();

@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\VideoAdminController;
 use App\Http\Controllers\Admin\DocumentsAdminController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\AffiliateNetworkController;
+use App\Http\Controllers\CompensationController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\HistoricScoreController;
 use App\Http\Controllers\HomeController;
@@ -363,6 +364,8 @@ Route::prefix('payment')->middleware('auth')->name('payment')->group(function ()
 });
 
 Route::post('/update-binary-position', [UserController::class, 'updateBinaryPositionIndication'])->name('update_binary_position');
+
+Route::get('/compensation-run', [CompensationController::class, 'dailyCron'])->name('compensation_run');
 
 Route::prefix('affiliate-network')->middleware('auth')->name('affiliate')->group(function () {
    Route::controller(AffiliateNetworkController::class)->group(function () {
