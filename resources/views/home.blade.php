@@ -297,7 +297,7 @@
               <div class="col-10">
                 <div class="input-group mb-3 font">
                   <input type="text" class="form-control" id="referral"
-                    value="{{ route('indication.register', auth()->user()->id) }}">
+                    value="http://register.satoshistable.com/{{ auth()->user()->login }}">
                   <button class="up btn  orderbtn linkcopy px-4" type="button"
                     style="background-color: #99c147;color:white" onclick=" FunctionCopy2()">@lang('home.copy')</button>
                 </div>
