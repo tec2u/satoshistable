@@ -595,6 +595,17 @@ class User extends Authenticatable
         return false;
     }
 
+    public function verifyAlredyPayBonusToday() {
+        $startOfDay = Carbon::now()->startOfDay();
+        $endOfDay = Carbon::now()->endOfDay();
+
+        $bonusToday = Banco::where('user_id', $this->id)
+        ->where('description', 2)
+        ->whereBetween('created_at', [$startOfDay, $endOfDay])
+        ->count();
+        
+        return $bonusToday === 0;
+    }
     public function isActivedUser($user_id)
     {
         $OpenMenuOrders = OrderPackage::where('user_id', $user_id)

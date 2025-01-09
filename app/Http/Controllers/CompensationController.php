@@ -44,7 +44,7 @@ class CompensationController extends Controller
         $users = User::get();
 
         foreach ($users as $user) {
-            if ($user->payFirstOrder()) {
+            if ($user->verifyAlredyPayBonusToday()) {
                 CompensationController::dailyCompensation($user->id);
             }
         }
