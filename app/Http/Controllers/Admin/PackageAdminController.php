@@ -16,6 +16,7 @@ use App\Models\MatrizForcada;
 use App\Models\Order;
 use App\Models\OrderPackage;
 use App\Models\Package;
+use App\Models\Rede;
 use App\Models\User;
 use App\Traits\CustomLogTrait;
 use App\Traits\OrderBonusTrait;
@@ -202,18 +203,22 @@ class PackageAdminController extends Controller
                 foreach ($config_unilevel as $config) {
                     $valor = ($config->value_percent / 100) * $bonusTotal;
                     $check_ja_existe = Banco::where('user_id', $userrec->recommendation_user_id)->where('order_id', $Orderpackage->id)->count();
+
                     if ($check_ja_existe <= 0) {
                         if ($config->status == 1) {
                             if ($userrec->recommendation_user_id) {
-                                $data = [
-                                    "price" => $valor,
-                                    "status" => 1,
-                                    "description" => 1,
-                                    "user_id" => $userrec->recommendation_user_id,
-                                    "order_id" => $Orderpackage->id,
-                                    "level_from" => $config->level,
-                                ];
-                                Banco::create($data);
+                                $rede = Rede::where('user_id', $userrec->recommendation_user_id)->first();
+                                if ($rede->qty >= $config->minimum_users) {
+                                    $data = [
+                                        "price" => $valor,
+                                        "status" => 1,
+                                        "description" => 1,
+                                        "user_id" => $userrec->recommendation_user_id,
+                                        "order_id" => $Orderpackage->id,
+                                        "level_from" => $config->level,
+                                    ];
+                                    Banco::create($data);
+                                }
                             } else {
                                 break;
                             }

@@ -179,20 +179,8 @@ class RegisterController extends Controller
 
         $binarioController = new BinarioController;
         $registerBinario = $binarioController->registerBinario($user->id);
-
-        if (!is_null($user->recommendation_user_id)) {
-            // Find the sponsor in matriz_forcada3x10
-            $sponsor = MatrizForcada::where('id_dados', $user->recommendation_user_id)->first();
-
-            if ($sponsor) {
-                // Insert a new record into matriz_forcada3x10
-                MatrizForcada::create([
-                    'id_dados' => $user->id,
-                    'upline' => $sponsor->id,
-                ]);
-            }
-        }
-
+        $matrizController = new MatrizForcadaController();
+        $matrizController->matriz_forcada($user->id);
         return $user;
 
     }
