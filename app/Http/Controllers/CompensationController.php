@@ -67,18 +67,27 @@ class CompensationController extends Controller
         $today = Carbon::now(); // Data atual
         $dias = [];
         $bonus = [];
+
         foreach ($users as $user) {
             // Iterar sobre cada dia do mês até hoje
-            for ($date = $startOfMonth; $date <= $today; $date->addDay()) {
-                $dias[] = $date;
-                if ($user->verifyAlredyPayBonusSpecificDay($date)) {
-                    $bonus['user_id'] = $user->id;
+            for ($date = $startOfMonth->copy(); $date <= $today; $date->addDay()) {
+                $currentDate = $date->copy(); // Clonar a data atual
+                $dias[] = $currentDate->toDateString(); // Adicionar a data no array de dias
+
+                if ($user->verifyAlredyPayBonusSpecificDay($currentDate)) {
+                    $bonus[] = [
+                        'user_id' => $user->id,
+                        'date' => $currentDate->toDateString(),
+                    ];
                     $compensation = new CompensationController();
-                    $compensation->dailyCompensation($user->id, $date);
+                    $compensation->dailyCompensation($user->id, $currentDate);
                 }
             }
         }
 
-        return response()->json([$bonus, $dias]);
+        return response()->json([
+            'bonus' => $bonus,
+            'dias' => $dias,
+        ]);
     }
 }
