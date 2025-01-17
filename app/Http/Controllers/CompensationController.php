@@ -41,19 +41,11 @@ class CompensationController extends Controller
 
     static function dailyCron()
     {
-        $users = User::get();
+        $users = User::where('id', 260)->get();
         $count = 0;
         foreach ($users as $user) {
             if ($user->verifyAlredyPayBonusToday()) {
-                $data = [
-                    "user_id" => $user->id,
-                    "order_id" => 0,
-                    "description" => 2,
-                    "price" => 20.00,
-                    "status" => 1,
-                    "level_from" => 0
-                ];
-                Banco::create($data);
+              CompensationController::dailyCompensation($user->id);
               if ($count >= 3) {
                 break;
               }
