@@ -39,17 +39,13 @@ class CompensationController extends Controller
         }
     }
 
-    public function dailyCron()
+    static function dailyCron()
     {
         $users = User::get();
 
         foreach ($users as $user) {
-            if ($user->payFirstOrder()) {
-                $response = [];
-                $compensation = new CompensationController();
-                $response['resposta'] = $compensation->dailyCompensation($user->id);
-                $response['user_id'] = $user->id;
-                return response()->json($response);
+            if ($user->verifyAlredyPayBonusToday()) {
+              CompensationController::dailyCompensation($user->id);
             }
         }
     }
