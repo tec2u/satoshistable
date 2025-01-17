@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\Banco;
 use App\Models\DailyPercentage;
 use App\Models\OrderPackage;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 class CompensationController extends Controller
 {

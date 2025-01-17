@@ -619,7 +619,7 @@ class User extends Authenticatable
 
         return $bonusCount === 0; // Retorna true se nenhum bônus foi pago
     }
-    
+
     public function isActivedUser($user_id)
     {
         $OpenMenuOrders = OrderPackage::where('user_id', $user_id)
