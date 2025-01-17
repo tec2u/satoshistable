@@ -40,8 +40,12 @@ class CompensationController extends Controller
                 "description" => 2,
                 "price" => ($investment * $daily_percentage->value_perc),
                 "status" => 1,
-                "level_from" => 0
+                "level_from" => 0,
             ];
+            if ($date) {
+                $data['created_at'] = $date;
+                $data['updated_at'] = $date;
+            }
             $response = Banco::create($data);
             return $response;
         }
