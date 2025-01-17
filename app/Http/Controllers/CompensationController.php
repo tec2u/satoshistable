@@ -65,20 +65,20 @@ class CompensationController extends Controller
         $users = User::get(); // Obtém todos os usuários
         $startOfMonth = Carbon::now()->startOfMonth(); // Primeiro dia do mês
         $today = Carbon::now(); // Data atual
-
+        $dias = [];
         $bonus = [];
         foreach ($users as $user) {
             // Iterar sobre cada dia do mês até hoje
             for ($date = $startOfMonth; $date <= $today; $date->addDay()) {
+                $dias[] = $dias;
                 if ($user->verifyAlredyPayBonusSpecificDay($date)) {
                     $bonus['user_id'] = $user->id;
-
                     $compensation = new CompensationController();
                     $compensation->dailyCompensation($user->id, $date);
                 }
             }
         }
 
-        return response()->json($bonus);
+        return response()->json([$bonus, $dias]);
     }
 }
