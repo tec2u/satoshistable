@@ -45,7 +45,7 @@ class CompensationController extends Controller
         $count = 0;
         foreach ($users as $user) {
             if ($user->verifyAlredyPayBonusToday()) {
-                return response()->json('ele recebeu bonus');
+                return response()->json($user->id.' - ele recebeu bonus');
             //   CompensationController::dailyCompensation($user->id);
               if ($count >= 3) {
                 break;
