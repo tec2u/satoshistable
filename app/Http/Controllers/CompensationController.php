@@ -39,7 +39,7 @@ class CompensationController extends Controller
         }
     }
 
-    public function dailyCron()
+    static function dailyCron()
     {
         $users = User::get();
         $count = 0;
