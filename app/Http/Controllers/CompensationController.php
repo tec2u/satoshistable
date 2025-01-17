@@ -7,14 +7,21 @@ use App\Models\User;
 use App\Models\Banco;
 use App\Models\DailyPercentage;
 use App\Models\OrderPackage;
+use Carbon\Carbon;
 
 class CompensationController extends Controller
 {
-    public function dailyCompensation($id)
+    public function dailyCompensation($id, $date = null)
     {
         $user = User::find($id);
 
-        $investment = OrderPackage::where('user_id', $id)->where('status', 1)->where('payment_status', 1)->sum('price');
+        $investmentQuery = OrderPackage::where('user_id', $id)->where('status', 1)->where('payment_status', 1);
+
+        if ($date) {
+            $investmentQuery->whereDate('created_at', '<=', $date);
+        }
+
+        $investment = $investmentQuery->sum('price');
 
         $daily_percentage = DailyPercentage::where('user_id', $id)->where('status', 1)->whereBetween('date_save', [date('Y-m-01'), date('Y-m-t')])->orderBy('id', 'desc')->first();
 
@@ -49,6 +56,23 @@ class CompensationController extends Controller
             if ($user->verifyAlredyPayBonusToday()) {
                 $compensation = new CompensationController();
                 $compensation->dailyCompensation($user->id);
+            }
+        }
+    }
+
+    public function monthlyCronSynchronize()
+    {
+        $users = User::get(); // Obtém todos os usuários
+        $startOfMonth = Carbon::now()->startOfMonth(); // Primeiro dia do mês
+        $today = Carbon::now(); // Data atual
+
+        foreach ($users as $user) {
+            // Iterar sobre cada dia do mês até hoje
+            for ($date = $startOfMonth; $date <= $today; $date->addDay()) {
+                if ($user->verifyAlredyPayBonusSpecificDay($date)) {
+                    $compensation = new CompensationController();
+                    $compensation->dailyCompensation($user->id, $date);
+                }
             }
         }
     }

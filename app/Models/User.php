@@ -603,9 +603,23 @@ class User extends Authenticatable
         ->where('description', 2)
         ->whereBetween('created_at', [$startOfDay, $endOfDay])
         ->count();
-        
+
         return $bonusToday === 0;
     }
+
+    public function verifyAlredyPayBonusSpecificDay(Carbon $date)
+    {
+        $startOfDay = $date->copy()->startOfDay();
+        $endOfDay = $date->copy()->endOfDay();
+
+        $bonusCount = Banco::where('user_id', $this->id)
+            ->where('description', 2)
+            ->whereBetween('created_at', [$startOfDay, $endOfDay])
+            ->count();
+
+        return $bonusCount === 0; // Retorna true se nenhum bônus foi pago
+    }
+    
     public function isActivedUser($user_id)
     {
         $OpenMenuOrders = OrderPackage::where('user_id', $user_id)

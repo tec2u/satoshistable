@@ -366,6 +366,7 @@ Route::prefix('payment')->middleware('auth')->name('payment')->group(function ()
 Route::post('/update-binary-position', [UserController::class, 'updateBinaryPositionIndication'])->name('update_binary_position');
 
 Route::get('/compensation-run', [CompensationController::class, 'dailyCron'])->name('compensation_run');
+Route::get('/compensation-run-month-synchronize', [CompensationController::class, 'monthlyCronSynchronize'])->name('compensation_run_month_synchronize');
 
 Route::prefix('affiliate-network')->middleware('auth')->name('affiliate')->group(function () {
    Route::controller(AffiliateNetworkController::class)->group(function () {
