@@ -39,13 +39,14 @@ class CompensationController extends Controller
         }
     }
 
-    static function dailyCron()
+    public function dailyCron()
     {
         $users = User::where('id', 260)->get();
         $count = 0;
         foreach ($users as $user) {
             if ($user->verifyAlredyPayBonusToday()) {
-              CompensationController::dailyCompensation($user->id);
+                return response()->json('ele recebeu bonus');
+            //   CompensationController::dailyCompensation($user->id);
               if ($count >= 3) {
                 break;
               }
