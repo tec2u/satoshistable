@@ -3,7 +3,7 @@
 @section('title', 'Transactions')
 
 @section('content_header')
-<div class="alignHeader"> 
+<div class="alignHeader">
     <h4>@lang('admin.transaction.title')</h4>
 </div>
       <i class="fa fa-home ml-3"></i> - @lang('admin.transaction.title2')
@@ -14,34 +14,25 @@
 <div class="card">
    <div class="card-header">
       <div class="row">
-         <div class="col-sm-12 col-md-4">
-            <form action="{{route('admin.reports.searchTransactions')}}" method="GET">
-               @csrf
-               <div class="input-group input-group-lg">
-                  <input type="text" name="search" class="form-control @error('search') is-invalid @enderror" placeholder="@lang('admin.transaction.searchuser')">
-                  <span class="input-group-append">
-                     <button type="submit" class="btn btn-info btn-flat">@lang('admin.btn.search')</button>
-                  </span>
-                  @error('search')
-                  <span class="error invalid-feedback">{{$message}}</span>
-                  @enderror
-               </div>
-            </form>
-         </div>
          <div class="col-12 col-md-8">
-            <form class="row g-3" method="GET" action="{{route('admin.reports.getDateTransactions')}}">
+            <form class="row g-3" method="GET" action="{{route('admin.reports.transactions')}}">
                @csrf
-               <div class="col-auto">
-                  <label>@lang('admin.btn.firstdate'):</label>
+               <div class="col">
+                  <input type="text" name="search" value="{{ $search ?? '' }}" class="form-control @error('search') is-invalid @enderror" placeholder="@lang('admin.transaction.searchuser')">
                </div>
                <div class="col">
-                  <input type="date" class="form-control" name="fdate">
-               </div>
-               <div class="col-auto">
-                  <label>@lang('admin.btn.seconddate'):</label>
+                  <input type="date" class="form-control" name="fdate" value="{{ $fdate ?? '' }}">
                </div>
                <div class="col">
-                  <input type="date" class="form-control" name="sdate">
+                  <input type="date" class="form-control" name="sdate" value="{{ $sdate ?? '' }}">
+               </div>
+               <div class="col">
+                  <select name="bonus_config_id" id="bonus_config_id" class="form-control">
+                    @foreach($config_bonus as $config)
+                        <option value="">(select)</option>
+                        <option value="{{ $config->id }}" {{ isset($bonus_config_id) && $config->id == $bonus_config_id ? 'selected' : '' }}> {{ $config->description }}</option>
+                    @endforeach
+                  </select>
                </div>
                <input type="submit" value="@lang('admin.btn.search')" class="btn btn-info">
             </form>
@@ -105,12 +96,12 @@
     var searchTerm = $(".search").val();
     var listItem = $('.results tbody').children('tr');
     var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
-    
+
   $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
         return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
     }
   });
-    
+
   $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function(e){
     $(this).attr('visible','false');
   });

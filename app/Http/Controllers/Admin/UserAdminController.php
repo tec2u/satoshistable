@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SearchRequest;
 use App\Models\Banco;
 use App\Models\BancoCredit;
+use App\Models\ConfigBonus;
 use App\Models\HistoricScore;
 use App\Models\OrderPackage;
 use App\Models\Rede;
