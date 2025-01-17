@@ -10,7 +10,7 @@ use App\Models\OrderPackage;
 
 class CompensationController extends Controller
 {
-    static function dailyCompensation($id)
+    public function dailyCompensation($id)
     {
         $user = User::find($id);
 
@@ -46,7 +46,8 @@ class CompensationController extends Controller
         foreach ($users as $user) {
             if ($user->payFirstOrder()) {
                 $response = [];
-                $response['resposta'] = CompensationController::dailyCompensation($user->id);
+                $compensation = new CompensationController();
+                $response['resposta'] = $compensation->dailyCompensation($user->id);
                 $response['user_id'] = $user->id;
                 return response()->json($response);
             }
