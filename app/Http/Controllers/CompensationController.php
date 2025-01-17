@@ -44,7 +44,7 @@ class CompensationController extends Controller
 
     public function dailyCron()
     {
-        $users = User::where('id', 260)->get();
+        $users = User::get();
         foreach ($users as $user) {
             if ($user->verifyAlredyPayBonusToday()) {
                 $compensation = new CompensationController();
