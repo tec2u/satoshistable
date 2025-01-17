@@ -45,8 +45,8 @@ class CompensationController extends Controller
 
         foreach ($users as $user) {
             if ($user->payFirstOrder()) {
-                return response()->json('caiu aquiiii');
-                // CompensationController::dailyCompensation($user->id);
+                $res = CompensationController::dailyCompensation($user->id);
+                return response()->json($res);
             }
         }
     }
