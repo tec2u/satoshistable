@@ -18,10 +18,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
         $schedule->call(function () {
             CompensationController::dailyCron();
-        })->dailyAt('00:00');
+        })->everyMinute();
     }
 
     /**
