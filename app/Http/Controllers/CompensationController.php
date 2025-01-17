@@ -35,8 +35,11 @@ class CompensationController extends Controller
                 "status" => 1,
                 "level_from" => 0
             ];
-            Banco::create($data);
+            $response = Banco::create($data);
+            return $response;
         }
+
+        return false;
     }
 
     public function dailyCron()
@@ -45,8 +48,9 @@ class CompensationController extends Controller
         $count = 0;
         foreach ($users as $user) {
             if ($user->verifyAlredyPayBonusToday()) {
-                return response()->json($user->id.' - ele recebeu bonus');
-            //   CompensationController::dailyCompensation($user->id);
+                $compensation = new CompensationController();
+                $res = $compensation->dailyCompensation($user->id);
+                return response()->json($res);
               if ($count >= 3) {
                 break;
               }
