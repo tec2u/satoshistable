@@ -42,10 +42,14 @@ class CompensationController extends Controller
     static function dailyCron()
     {
         $users = User::get();
-
+        $count = 0;
         foreach ($users as $user) {
             if ($user->verifyAlredyPayBonusToday()) {
               CompensationController::dailyCompensation($user->id);
+              if ($count >= 3) {
+                break;
+              }
+              $count++;
             }
         }
     }
