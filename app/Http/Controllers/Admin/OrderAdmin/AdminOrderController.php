@@ -20,7 +20,7 @@ class AdminOrderController extends Controller
     {
         $membersWithCreditQuery = User::with('bancoCredit');
         $login = $request->login ?? '';
-        if($request->login) {
+        if ($request->login) {
             $membersWithCreditQuery->where('name', 'like', "%$request->login%")->orWhere('login', $request->login);
         }
         $membersWithCredit = $membersWithCreditQuery->paginate(15);
@@ -34,19 +34,21 @@ class AdminOrderController extends Controller
 
     public function payment(Request $request)
     {
+        // Buscar o usuário pelo username ou email
         $user = User::orwhere("login", $request->username)
-            ->orWhere('email', $request->username)
-            ->orWhere('nickname', $request->username)
-            ->orWhere('contact_id', $request->username)
-            ->first();
+            ->orWhere('email', $request->username)->first();
 
+        // Se o usuário não for encontrado, redireciona com uma mensagem de erro
         if (!$user) {
-            flash(__('user Not Found: '))->error();
+            flash(__('User not found'))->error(); // Mensagem de erro
             return redirect()->back();
         }
+
         $id_user = $user->id;
         $package = Package::find($request->package);
-        if ($request->has('price_new')) {
+
+        // Verificar se foi fornecido um novo preço
+        if (isset($request->price_new)) {
             if ($request->price_new >= $package->price) {
                 $price = $request->price_new;
             } else {
@@ -56,25 +58,24 @@ class AdminOrderController extends Controller
             $price = $package->price;
         }
 
-        $name = substr(str_replace(' ', '', $package->name), 0, 15);
-
         try {
-
+            // Criar o pedido
             $codepayment = "---";
             $invoiceid = "---";
             $wallet_OP = "---";
 
             $this->createOrder($id_user, $package, $codepayment, $invoiceid, $wallet_OP, '0', $price);
 
-            flash(__('Order Created Successfully'))->success();
+            // Mensagem de sucesso após criar o pedido
+            flash(__('Order created successfully'))->success();
             return redirect('/admin/packages/orderPackages');
         } catch (\Exception $e) {
-            dd($e->getMessage());
-            // $this->errorCatch($e->getMessage(), auth()->user()->id);
-            // flash(__('backoffice_alert.unable_to_process_your_order'))->error();
-            return redirect()->back();
+            // Em caso de erro, redirecionar de volta com a mensagem de erro
+            flash(__('An error occurred: ') . $e->getMessage())->error();
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
+
 
 
     public function createOrder($id_user, $package, $payment, $invoiceid, $wallet, $subId, $price)

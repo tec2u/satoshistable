@@ -362,10 +362,10 @@ return [
                'text' => 'Orders',
                'url' => 'admin/packages/orderPackages',
             ],
-            // [
-            //    'text' => 'profit_orders',
-            //    'url' => 'admin/packages/orderProfit',
-            // ],
+            [
+               'text' => 'Packages',
+               'url' => 'admin/packages',
+            ],
             [
                'text' => 'create_pkg_order',
                'url' => "/admin/order-admin",
