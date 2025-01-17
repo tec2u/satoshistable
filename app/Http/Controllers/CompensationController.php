@@ -70,7 +70,7 @@ class CompensationController extends Controller
         foreach ($users as $user) {
             // Iterar sobre cada dia do mês até hoje
             for ($date = $startOfMonth; $date <= $today; $date->addDay()) {
-                $dias[] = $dias;
+                $dias[] = $date;
                 if ($user->verifyAlredyPayBonusSpecificDay($date)) {
                     $bonus['user_id'] = $user->id;
                     $compensation = new CompensationController();
