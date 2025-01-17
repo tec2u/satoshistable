@@ -293,7 +293,7 @@
           <li>
             <a href="{{ route('reports.bonusdaily') }}">
               <i class="bi bi-circle"></i><span>
-               
+
                 @lang('header.daily_reward')
               </span>
             </a>
@@ -363,6 +363,26 @@
           <li>
             <a href="{{ route('users.password') }}">
               <i class="bi bi-circle"></i><span>@lang('header.password')</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#media-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gear"></i><span>Media</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="media-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('videos.index') }}">
+              <i class="bi bi-circle"></i><span>Videos</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="{{ route('documents.index') }}">
+              <i class="bi bi-circle"></i><span>Documents</span>
             </a>
           </li>
         </ul>

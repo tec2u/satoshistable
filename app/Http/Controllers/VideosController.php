@@ -12,11 +12,22 @@ class VideosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $videos = Video::orderBy('id', 'DESC')->paginate(9);
+        $videosQuery = Video::orderBy('id', 'DESC');
+        $fdate = $request->fdate ? $request->fdate. " 00:00:00" : '' ;
+        $sdate = $request->sdate ? $request->sdate. " 23:59:59" : '' ;
 
-        return view('daily.videos', compact('videos'));
+        if ($fdate) {
+            $videosQuery->where('created_at', '>=', $fdate);
+        }
+        if ($sdate) {
+            $videosQuery->where('created_at', '<=', $sdate);
+        }
+
+        $videos = $videosQuery->paginate(9);
+
+        return view('daily.videos', compact('videos', 'fdate', 'sdate'));
     }
 
     public function downloadFile($id)

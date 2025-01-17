@@ -7,25 +7,25 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <h1>Daily Main Report</h1>
+                        <h1>Media - Videos</h1>
                         <div class="card shadow my-3">
                             <div class="card-header bbcolorp">
                                 <h3 class="card-title">Videos</h3>
                             </div>
                             <div class="card-header py-3 ">
-                                <form class="row g-3" method="POST" action="{{route('videos.getDateVideos')}}">
+                                <form class="row g-3" method="GET" action="{{route('videos.index')}}">
                                     @csrf
                                     <div class="col-auto">
                                         <label>@lang('admin.btn.firstdate'):</label>
                                     </div>
                                     <div class="col">
-                                        <input type="date" class="form-control" name="fdate">
+                                        <input type="date" class="form-control" name="fdate" value="{{ $fdate ?? '' }}">
                                     </div>
                                     <div class="col-auto">
                                         <label>@lang('admin.btn.seconddate'):</label>
                                     </div>
                                     <div class="col">
-                                        <input type="date" class="form-control" name="sdate">
+                                        <input type="date" class="form-control" name="sdate" value="{{ $sdate ?? '' }}">
                                     </div>
                                     <input type="submit" value="@lang('admin.btn.search')" class="btn btn-dark">
                                 </form>
@@ -36,7 +36,7 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Title</th>
-                                            <th>Download</th>
+                                            <th>View</th>
                                             <th>@lang('withdraw.date')</th>
                                         </tr>
                                     </thead>
@@ -45,7 +45,7 @@
                                         <tr>
                                             <td>{{$video->id}}</td>
                                             <td>{{$video->title}}</td>
-                                            <td><a class="btn btn-success btn-sm m-0" href="{{ route('videos.download', $video->id) }}">Download</a></td>
+                                            <td><a href="{{ asset('storage/' . $video->path) }}" target="_blank">View</a></td>
                                             <td>{{date('d/m/Y ', strtotime($video->created_at))}}</td>
                                         </tr>
                                         @empty

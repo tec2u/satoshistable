@@ -12,11 +12,22 @@ class DocumentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $documents = Documents::orderBy('id', 'DESC')->paginate(9);
+        $documentsQuery = Documents::orderBy('id', 'DESC');
+        $fdate = $request->fdate ? $request->fdate. " 00:00:00" : '' ;
+        $sdate = $request->sdate ? $request->sdate. " 23:59:59" : '' ;
 
-        return view('daily.documents', compact('documents'));
+        if ($fdate) {
+            $documentsQuery->where('created_at', '>=', $fdate);
+        }
+        if ($sdate) {
+            $documentsQuery->where('created_at', '<=', $sdate);
+        }
+
+        $documents = $documentsQuery->paginate(9);
+
+        return view('daily.documents', compact('documents', 'fdate', 'sdate'));
     }
 
     public function downloadFile($id)

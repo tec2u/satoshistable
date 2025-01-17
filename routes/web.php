@@ -380,6 +380,19 @@ Route::prefix('affiliate-network')->middleware('auth')->name('affiliate')->group
 /**
  * Admin Route
  */
+
+ Route::prefix('videos')->name('.videos')->group(function () {
+    Route::controller(VideosController::class)->group(function () {
+       Route::get('/', 'index')->name('.index');
+    });
+ });
+
+ Route::prefix('documents')->name('.documents')->group(function () {
+    Route::controller(DocumentsController::class)->group(function () {
+       Route::get('/', 'index')->name('.index');
+    });
+ });
+
 Route::prefix('admin')->middleware(['auth', 'is.admin'])->name('admin')->group(function () {
 
    Route::prefix('reports/order-bonus')->name('.order-bonus')->group(function () {
@@ -391,6 +404,8 @@ Route::prefix('admin')->middleware(['auth', 'is.admin'])->name('admin')->group(f
          Route::get('/bonus-daily-user', 'verifyUserOder')->name('.store');
       });
    });
+
+
 
    Route::prefix('bonus-daily')->name('.bonus-daily')->group(function () {
       Route::controller(PercentageAdminController::class)->group(function () {
