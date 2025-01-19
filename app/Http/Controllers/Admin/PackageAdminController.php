@@ -194,7 +194,7 @@ class PackageAdminController extends Controller
 
             $Orderpackage->update($data);
 
-            $bonusTotal = $Orderpackage->price * 0.15;
+            $bonusTotal = $Orderpackage->price * 0.005;
 
             if ($Orderpackage->status == 1 && $Orderpackage->payment_status == 1) {
                 $config_unilevel = ConfigBonusunilevel::get();
