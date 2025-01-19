@@ -33,12 +33,14 @@ class CompensationController extends Controller
             $daily_percentage = json_decode(json_encode(array('value_perc' => 0.005)));
         }
 
+        $daily_percentage_extra = Banco::where('user_id', $id)->where('status', 1)->where('description', 1)->sum('price');
+
         if ($investment > 0) {
             $data = [
                 "user_id" => $user->id,
                 "order_id" => 0,
                 "description" => 2,
-                "price" => ($investment * $daily_percentage->value_perc),
+                "price" => (($investment * $daily_percentage->value_perc)+$daily_percentage_extra),
                 "status" => 1,
                 "level_from" => 0,
             ];
