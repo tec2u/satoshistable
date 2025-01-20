@@ -21,7 +21,8 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             $controller = new CompensationController();
             $controller->dailyCron();
-        })->everyMinute();
+        })->daily();
+
     }
 
     /**
