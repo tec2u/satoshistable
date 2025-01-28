@@ -313,7 +313,7 @@
             <div class="info-box mb-4 shadow c1 card_color">
               <span class="info-box-icon"><i class="bi bi-arrow-down-up card_text"></i></span>
               <div class="info-box-content font">
-                <span class="info-box-text card_text">@lang('home.total_commission')</span>
+                <span class="info-box-text card_text">Total Daily Reward</span>
                 <span class="info-box-number card_text">{{ number_format($totalComission, 2, ',', '.') }}</span>
               </div>
             </div>
@@ -347,7 +347,7 @@
             <div class="info-box mb-4 shadow c1 card_color">
               <span class="info-box-icon"><i class="bi bi-arrow-down-up card_text"></i></span>
               <div class="info-box-content font">
-                <span class="info-box-text card_text" style="text-transform: uppercase">@lang('home.personal_volume')</span>
+                <span class="info-box-text card_text" style="text-transform: uppercase">Total Amount Invested In Projects</span>
                 <span class="info-box-number card_text">{{ number_format($totalComission, 2, ',', '.') }}</span>
               </div>
             </div>
