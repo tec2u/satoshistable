@@ -262,9 +262,6 @@
       max-width: 90%;
       border-radius: 50%;
     }
-    .info-box-text .card_text {
-      white-space: normal !important;
-    }
   </style>
 
   <main id="main" class="main mt-0">
@@ -317,7 +314,7 @@
             <div class="info-box mb-4 shadow c1 card_color">
               <span class="info-box-icon"><i class="bi bi-arrow-down-up card_text"></i></span>
               <div class="info-box-content font">
-                <span class="info-box-text card_text">Total Daily Reward</span>
+                <span class="info-box-text card_text" style="white-space: normal !important;">Total Daily Reward</span>
                 <span class="info-box-number card_text">{{ number_format($totalComissionReward, 2, ',', '.') }}</span>
               </div>
             </div>
@@ -326,7 +323,7 @@
             <div class="info-box mb-4 shadow c1 card_color">
               <span class="info-box-icon"><i class="bi bi-trophy-fill card_text"></i></span>
               <div class="info-box-content font">
-                <span class="info-box-text card_text">@lang('home.total_referrals')</span>
+                <span class="info-box-text card_text" style="white-space: normal !important;">@lang('home.total_referrals')</span>
                 <span class="info-box-number card_text">{{ $diretos }}</span>
               </div>
             </div>
@@ -335,7 +332,7 @@
             <div class="info-box mb-4 shadow elevation c1 card_color">
               <span class="info-box-icon "><i class="bi bi-caret-up card_text"></i></span>
               <div class="info-box-content font">
-                <span class="info-box-text card_text" style="text-transform: uppercase">@lang('home.total_indirect_referral')</span>
+                <span class="info-box-text card_text" style="white-space: normal !important;text-transform: uppercase">@lang('home.total_indirect_referral')</span>
                 <span class="info-box-number card_text">{{ $indiretos }}</span>
               </div>
             </div>
@@ -351,7 +348,7 @@
             <div class="info-box mb-4 shadow c1 card_color">
               <span class="info-box-icon"><i class="bi bi-arrow-down-up card_text"></i></span>
               <div class="info-box-content font">
-                <span class="info-box-text card_text" style="text-transform: uppercase">Total Amount Invested In Projects</span>
+                <span class="info-box-text card_text" style="white-space: normal !important;text-transform: uppercase">Total Amount Invested In Projects</span>
                 <span class="info-box-number card_text">{{ number_format($totalComissionInvested, 2, ',', '.') }}</span>
               </div>
             </div>
@@ -360,7 +357,7 @@
             <div class="info-box mb-4 shadow c1 card_color">
               <span class="info-box-icon"><i class="bi bi-trophy-fill card_text"></i></span>
               <div class="info-box-content font">
-                <span class="info-box-text card_text" style="text-transform: uppercase">@lang('home.group_volume')</span>
+                <span class="info-box-text card_text" style="white-space: normal !important;text-transform: uppercase">@lang('home.group_volume')</span>
                 <span class="info-box-number card_text">{{ number_format($totalVolume, 2, ',', '.') }}</span>
               </div>
             </div>
@@ -369,7 +366,7 @@
             <div class="info-box mb-4 shadow elevation c1 card_color">
               <span class="info-box-icon "><i class="bi bi-caret-up card_text"></i></span>
               <div class="info-box-content font">
-                <span class="info-box-text card_text" style="text-transform: uppercase">@lang('home.rank')</span>
+                <span class="info-box-text card_text" style="white-space: normal !important;text-transform: uppercase">@lang('home.rank')</span>
                 <span class="info-box-number card_text">@lang('home.no_rank')</span>
               </div>
             </div>
