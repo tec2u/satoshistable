@@ -55,11 +55,12 @@
     );
     $personalVolume = isset($personalVolume[0]->{'total'}) ? $personalVolume[0]->{'total'} : 0;
 
-    $totalComission = Illuminate\Support\Facades\DB::select(
-        'select sum(price) from banco where user_id=? and price>0',
-        [$user_id],
-    );
-    $totalComission = isset($totalComission[0]->{'sum(price)'}) ? $totalComission[0]->{'sum(price)'} : 0;
+    $totalComissionInvested = Illuminate\Support\Facades\DB::select('select sum(price) from orders_package where user_id=? and status=1', [$user_id]);
+    $totalComissionInvested = isset($totalComissionInvested[0]->{'sum(price)'}) ? $totalComissionInvested[0]->{'sum(price)'} : 0;
+
+    $totalComissionReward = Illuminate\Support\Facades\DB::select(
+        'select sum(price) from banco where user_id=? and price>0 and description=2', [$user_id]);
+    $totalComissionReward = isset($totalComissionReward[0]->{'sum(price)'}) ? $totalComissionReward[0]->{'sum(price)'} : 0;
 
     $availableComission = Illuminate\Support\Facades\DB::select('select sum(price) from banco where user_id=?', [
         $user_id,
@@ -314,7 +315,7 @@
               <span class="info-box-icon"><i class="bi bi-arrow-down-up card_text"></i></span>
               <div class="info-box-content font">
                 <span class="info-box-text card_text">Total Daily Reward</span>
-                <span class="info-box-number card_text">{{ number_format($totalComission, 2, ',', '.') }}</span>
+                <span class="info-box-number card_text">{{ number_format($totalComissionReward, 2, ',', '.') }}</span>
               </div>
             </div>
           </div>
@@ -323,7 +324,7 @@
               <span class="info-box-icon"><i class="bi bi-trophy-fill card_text"></i></span>
               <div class="info-box-content font">
                 <span class="info-box-text card_text">@lang('home.total_referrals')</span>
-                <span class="info-box-number card_text">{{ $totalMembros }}</span>
+                <span class="info-box-number card_text">{{ $diretos }}</span>
               </div>
             </div>
           </div>
@@ -332,7 +333,7 @@
               <span class="info-box-icon "><i class="bi bi-caret-up card_text"></i></span>
               <div class="info-box-content font">
                 <span class="info-box-text card_text" style="text-transform: uppercase">@lang('home.total_indirect_referral')</span>
-                <span class="info-box-number card_text">{{ $totalMembros }}</span>
+                <span class="info-box-number card_text">{{ $indiretos }}</span>
               </div>
             </div>
           </div>
@@ -348,7 +349,7 @@
               <span class="info-box-icon"><i class="bi bi-arrow-down-up card_text"></i></span>
               <div class="info-box-content font">
                 <span class="info-box-text card_text" style="text-transform: uppercase">Total Amount Invested In Projects</span>
-                <span class="info-box-number card_text">{{ number_format($totalComission, 2, ',', '.') }}</span>
+                <span class="info-box-number card_text">{{ number_format($totalComissionInvested, 2, ',', '.') }}</span>
               </div>
             </div>
           </div>
