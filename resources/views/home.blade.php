@@ -262,6 +262,9 @@
       max-width: 90%;
       border-radius: 50%;
     }
+    .info-box-text .card_text {
+      white-space: normal !important;
+    }
   </style>
 
   <main id="main" class="main mt-0">
