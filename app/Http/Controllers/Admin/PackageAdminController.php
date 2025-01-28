@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\ClubSwanController;
 use App\Http\Requests\Admin\SearchRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HistoricScoreController;
 use App\Http\Controllers\MatrizForcadaController;
 use App\Models\Banco;
 use App\Models\BancoCredit;
@@ -197,9 +198,11 @@ class PackageAdminController extends Controller
             $bonusTotal = $Orderpackage->price * 0.005;
 
             if ($Orderpackage->status == 1 && $Orderpackage->payment_status == 1) {
+                $userrec = User::find($Orderpackage->user_id);
+                $pontosController = new HistoricScoreController();
+                $pontosController->insertScoreToUpLevel($userrec->recommendation_user_id, 1, $userrec->id, 1000);
                 $config_unilevel = ConfigBonusunilevel::get();
 
-                $userrec = User::find($Orderpackage->userpenv_id);
                 foreach ($config_unilevel as $config) {
                     $valor = ($config->value_percent / 100) * $bonusTotal;
                     $check_ja_existe = Banco::where('user_id', $userrec->recommendation_user_id)->where('order_id', $Orderpackage->id)->count();
