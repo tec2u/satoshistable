@@ -199,7 +199,7 @@ class PackageAdminController extends Controller
             if ($Orderpackage->status == 1 && $Orderpackage->payment_status == 1) {
                 $config_unilevel = ConfigBonusunilevel::get();
 
-                $userrec = User::find($Orderpackage->user_id);
+                $userrec = User::find($Orderpackage->userpenv_id);
                 foreach ($config_unilevel as $config) {
                     $valor = ($config->value_percent / 100) * $bonusTotal;
                     $check_ja_existe = Banco::where('user_id', $userrec->recommendation_user_id)->where('order_id', $Orderpackage->id)->count();

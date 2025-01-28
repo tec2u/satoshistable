@@ -175,14 +175,31 @@ class RegisterController extends Controller
                 ]);
             }
         }
-
-
         $binarioController = new BinarioController;
-        $registerBinario = $binarioController->registerBinario($user->id);
+        $binarioController->registerBinario($user->id);
         $matrizController = new MatrizForcadaController();
         $matrizController->matriz_forcada($user->id);
-        return $user;
+        $this->insertScoreToUpLevel($user->recommendation_user_id, 1, $user->id);
 
+        return $user;
+    }
+
+    function insertScoreToUpLevel($id, $level_from = 1, $user_id_level_0) {
+        $user = User::find($id);
+        HistoricScore::create([
+            'user_id' => $id,
+            'description' => 'Contador',
+            'score' => 0,
+            'status' => 1,
+            'orders_package_id' => 0,
+            'level_from' => $level_from,
+            'user_id_from' => $user_id_level_0,
+        ]);
+
+        if($user->recommendation_user_id) {
+            $level_from++;
+            $this->insertScoreToUpLevel($user->recommendation_user_id, $level_from, $user_id_level_0);
+        }
     }
 
     function get_client_ip()
