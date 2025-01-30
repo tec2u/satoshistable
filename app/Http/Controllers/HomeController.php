@@ -161,7 +161,14 @@ class HomeController extends Controller
       $label = json_encode(array_reverse($label));
       $data = json_encode($data);
 
-      Alert::success(__('backoffice_alert.home_welcome') . " " . $user->login . "!");
+      Alert::html(
+        __('backoffice_alert.home_welcome') . " " . $user->login . "!",
+        '<video width="100%" controls>
+            <source src="/videos/popup-video.mp4" type="video/mp4">
+            Seu navegador não suporta a tag de vídeo.
+        </video>',
+        'success'
+    )->persistent(true, 'Fechar');
 
       $url_image_popup = asset('/images/logo_tiger.jpeg');
 

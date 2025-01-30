@@ -64,10 +64,9 @@
           <h4 class="title-login mb-5">@lang('register.register')</h4>
         @endif
         <div style="height: 70vh;width: 100%">
-          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/ZD1tzNqouY8?si=dKEs9RGfBP1nr2Yy"
-            title="YouTube video player" frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <video width="100%" height="100%" controls>
+                <source src="/videos/register-video.mp4" type="video/mp4">
+            </video>
         </div>
         <br>
         <form class="login100-form validate-form" method="POST" action="{{ route('register') }}">
@@ -776,14 +775,14 @@
             @foreach ($questions as $question)
               <div class="col-lg-12">
                 <div class="form-floating">
-                  <p>{{ $loop->iteration }}) 
-                     @if($loop->iteration==1) 
+                  <p>{{ $loop->iteration }})
+                     @if($loop->iteration==1)
                       @lang('register.q5')
                     @endif
-                    @if($loop->iteration==2) 
+                    @if($loop->iteration==2)
                       @lang('register.q6')
                     @endif
-                    @if($loop->iteration==3) 
+                    @if($loop->iteration==3)
                       @lang('register.q7')
                     @endif</p>
 
@@ -828,7 +827,7 @@
         </div>
       </div>
     </div>
-   
+
   </div>
   <footer id="footer">
     @include('components.footer')
