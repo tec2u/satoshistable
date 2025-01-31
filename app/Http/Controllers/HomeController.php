@@ -161,27 +161,14 @@ class HomeController extends Controller
       $label = json_encode(array_reverse($label));
       $data = json_encode($data);
 
-      Alert::html(
-        __('backoffice_alert.home_welcome') . " " . $user->login . "!",
+      Alert::html(__('backoffice_alert.home_welcome') . " " . $user->login . "!",
         '<video width="100%" controls>
             <source src="/videos/popup-video.mp4" type="video/mp4">
             Seu navegador não suporta a tag de vídeo.
         </video>',
-        'success'
-    )->persistent(true, 'Fechar');
+        'success')->persistent(true, 'Fechar');
 
       $url_image_popup = asset('/images/logo_tiger.jpeg');
-
-      // if ($user->contact_id == NULL) {
-      //    $complete_registration = "Please complete your registration:<br>";
-      //    $array_att = array('last_name' => 'Last Name', 'address1' => 'Address 1', 'address2' => 'Address 2', 'postcode' => 'Postcode', 'state' => 'State', 'wallet' => 'Wallet');
-      //    foreach ($user->getAttributes() as $key => $value) {
-      //       if ($value == NULL && array_search($key, array('last_name', 'address1', 'address2', 'postcode', 'state', 'wallet'))) {
-      //          $complete_registration .= "&nbsp;&nbsp;&bull;" . $array_att[$key] . "<br>";
-      //       }
-      //    }
-      //    flash($complete_registration)->error();
-      // }
 
       $n_pago = false;
       foreach ($orderpackages as $order) {
