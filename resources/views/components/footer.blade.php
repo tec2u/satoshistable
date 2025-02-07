@@ -137,7 +137,9 @@
       <a class="dropdown-item" href="/setlocale/en"><img src="{{ asset('assetsWelcome/images/flaguk.png') }}"
                     style="width: 18px;margin-right:10px" alt="..."></a>
               
-                <a class="dropdown-item" href="/setlocale/es"><img src="{{ asset('assetsWelcome/images/flagspa.png') }}"
+                    <a class="dropdown-item" href="/setlocale/es"><img src="{{ asset('assetsWelcome/images/flagspa.png') }}"
+                    style="width: 18px;margin-right:10px" alt="..."></a>
+                    <a class="dropdown-item" href="/setlocale/br"><img src="{{ asset('assetsWelcome/images/flagbr.png') }}"
                     style="width: 18px;margin-right:10px" alt="..."></a>
              
                 <a class="dropdown-item" href="/setlocale/de"><img src="{{ asset('assetsWelcome/images/flagger.png') }}"

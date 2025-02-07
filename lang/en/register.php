@@ -14,6 +14,7 @@ return [
     'questionnaire' => 'Questionnaire',
     'register' => 'Register',
     'next' => 'Next',
+    'referral' => 'Referral Username',
 
     'q5'=>'In 2025, I would like to make extra passive income of:',
     'q6'=>'Using this additional money, I wish to improve my life and purchase:',
