@@ -92,7 +92,7 @@ class WithdrawController extends Controller
       }
 
 
-      try {
+    //   try {
 
          $data = [
             "price" => -$valuetx,
@@ -113,11 +113,11 @@ class WithdrawController extends Controller
          $withdraw = $user->withdraw()->create($datawithdraw);
 
          Alert::success(__('backoffice_alert.withdraw_request_created'));
-         return redirect()->route('withdraws.withdrawRequests');
-      } catch (Exception $e) {
-         Alert::error(__('backoffice_alert.withdraw_request_not_created'));
-         return redirect()->route('withdraws.withdrawRequests');
-      }
+    //      return redirect()->route('withdraws.withdrawRequests');
+    //   } catch (Exception $e) {
+    //      Alert::error(__('backoffice_alert.withdraw_request_not_created'));
+    //      return redirect()->route('withdraws.withdrawRequests');
+    //   }
    }
 
    /**
