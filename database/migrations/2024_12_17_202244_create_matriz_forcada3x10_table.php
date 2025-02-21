@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        // Schema::create('matriz_forcada3x10', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->unsignedBigInteger('id_dados')->nullable(true);
-        //     $table->unsignedBigInteger('upline')->nullable(true);
-        //     $table->integer('ciclo')->nullable(true);
-        //     $table->integer('qty')->nullable(true);
-        //     $table->timestamps();
-        //     $table->foreign('id_dados')->references('id')->on('users');
-        // });
+        Schema::create('matriz_forcada3x10', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('id_dados')->nullable(true);
+            $table->unsignedBigInteger('upline')->nullable(true);
+            $table->integer('ciclo')->nullable(true);
+            $table->integer('qty')->nullable(true);
+            $table->timestamps();
+            $table->foreign('id_dados')->references('id')->on('users');
+        });
     }
 
     /**
