@@ -5,6 +5,7 @@ return [
     'language' => 'Idioma',
     'english' => 'Inglés',
     'spanish' => 'Español',
+    'brazil' => 'Portugués Brasileño',
     'india' => 'Hindi',
     'china' => 'Chino',
     'russian' => 'Ruso',

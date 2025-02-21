@@ -102,6 +102,10 @@
                     style="width: 18px;margin-right:10px" alt="...">@lang('header.spanish')</a>
               </li>
               <li>
+                <a class="dropdown-item" href="/setlocale/br"><img src="{{ asset('assetsWelcome/images/flagbr.png') }}"
+                    style="width: 18px;margin-right:10px" alt="...">@lang('header.brazil')</a>
+              </li>
+              <li>
                 <a class="dropdown-item" href="/setlocale/de"><img src="{{ asset('assetsWelcome/images/flagger.png') }}"
                     style="width: 18px;margin-right:10px" alt="...">@lang('header.german')</a>
               </li>

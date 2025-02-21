@@ -5,6 +5,7 @@ return [
 'language' => '语言',
 'english' => '英语',
 'spanish' => '西班牙语',
+'brazil' => '巴西葡萄牙语',
 'german' => '德语',
 'french' => '法语',
 'india' => '印地语',
