@@ -107,7 +107,7 @@ class WithdrawController extends Controller
             "value" => $value,
             "status" => 0,
             "type" => 'Withdraw CC',
-            "wallet" => $wallet->wallet
+            // "wallet" => $wallet->wallet
          ];
 
          $withdraw = $user->withdraw()->create($datawithdraw);
