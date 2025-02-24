@@ -37,7 +37,7 @@ class PaymentController extends Controller
                  "currency" => "USD",
                  "expire_time" => "30"
              ];
-            
+
              $codepayment = '0'; //$raw->data->id;
              $invoiceid = '0'; //$raw->data->invoice_id;
              $wallet_OP = '0'; //$raw->data->address;
@@ -74,7 +74,7 @@ class PaymentController extends Controller
                  "currency" => "USD",
                  "expire_time" => "30"
              ];
-            
+
              $codepayment = '0'; //$raw->data->id;
              $invoiceid = '0'; //$raw->data->invoice_id;
              $wallet_OP = '0'; //$raw->data->address;
@@ -111,7 +111,7 @@ class PaymentController extends Controller
                  "currency" => "USD",
                  "expire_time" => "30"
              ];
-            
+
              $codepayment = '0'; //$raw->data->id;
              $invoiceid = '0'; //$raw->data->invoice_id;
              $wallet_OP = '0'; //$raw->data->address;

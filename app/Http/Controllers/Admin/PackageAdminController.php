@@ -50,7 +50,8 @@ class PackageAdminController extends Controller
      */
     public function create()
     {
-        return view('admin.packages.create');
+        $packages = Package::get();
+        return view('admin.packages.create', compact('packages'));
     }
 
     /**
@@ -69,8 +70,12 @@ class PackageAdminController extends Controller
             'type',
             'long_description',
             'description_fees',
-            'plan_id'
+            'plan_id',
         ]);
+
+        if ($request->type == 'kit') {
+            $data['kit'] = implode(",", $request->kit);
+        }
 
         try {
 

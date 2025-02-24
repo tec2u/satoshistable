@@ -208,7 +208,13 @@ class PackageController extends Controller
         $package = Package::where('id', '=', $packageid)
             ->first();
 
-        return view('package.produto', compact('package'));
+        $packagesByKit = [];
+        if ($package->type == 'kit') {
+            $kitIds = explode(",",$package->kit);
+            $packagesByKit = Package::whereIn('id', $kitIds)->get();
+        }
+
+        return view('package.produto', compact('package', 'packagesByKit'));
     }
 
     public function package()
