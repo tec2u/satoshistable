@@ -87,10 +87,11 @@
                     </div>
 
                     <div class="col-md-12" id="products_only_package">
+                        <div><strong>Products by kit</strong></div>
                         <div class="form-group d-flex flex-wrap">
                             @foreach($packages as $package)
                                 <div class="mx-3">
-                                    <input type="checkbox" name="kit[]" value="{{ $package->id }}"> <label for="long_description" class="mb-0 ml-1">{{ $package->name }}</label>
+                                    <input type="checkbox" name="kit[]" value="{{ $package->id }}" id="product_{{ $package->id }}"> <label for="product_{{ $package->id }}" class="mb-0 ml-1">{{ $package->name }}</label>
                                 </div>
                             @endforeach
                         </div>

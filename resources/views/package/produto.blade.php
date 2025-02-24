@@ -7,9 +7,11 @@
             <div class="container-fluid">
                 <div class="row justify-content-evenly">
                     @if ($package->type == 'kit')
-                    Packages Kit
+                    <div class="text-center">
+                        <h3><strong>Packages Kit</strong></h3>
+                    </div>
                     @foreach($packagesByKit as $itemKit)
-                    <div class="card shadow " style="width: 28rem;">
+                    <div class="card shadow ">
 
                         <img src='{{ asset($itemKit->img) }}' class="card-img-top" alt="...">
 
@@ -20,20 +22,18 @@
                     </div>
                     @endforeach
                     <div class="card-body">
-                            @if ($itemKit->plan_id == null)
-                            <a onclick="confirmPlan()" class="btn btn-primary rounded-pill m-4">@lang('package.subscribe_now')</a>
-                            <script>
-                                function confirmPlan() {
-                                    if (confirm("You just selected the {!! $package->name !!} plan, is that correct?")) {
-                                        location.href = "{!! route('payment.subscriptionClub', ['package' => $package->id]) !!}";
-                                    } else {
-                                        alert("Please go back and choose the correct plan!");
-                                        history.go(-1);
-                                    }
+                        <a onclick="confirmPlan()" class="btn btn-primary rounded-pill m-4">@lang('package.subscribe_now')</a>
+                        <script>
+                            function confirmPlan() {
+                                if (confirm("You just selected the {!! $package->name !!} plan, is that correct?")) {
+                                    location.href = "{!! route('payment.subscriptionClub', ['package' => $package->id]) !!}";
+                                } else {
+                                    alert("Please go back and choose the correct plan!");
+                                    history.go(-1);
                                 }
-                            </script>
-                            @endif
-                        </div>
+                            }
+                        </script>
+                    </div>
                     @else
                     <div class="card shadow " style="width: 28rem;">
 

@@ -77,7 +77,7 @@ class PackageAdminController extends Controller
             $data['kit'] = implode(",", $request->kit);
         }
 
-        try {
+        // try {
 
             if ($request->hasFile('image')) {
                 $imageName = time() . '_' . $request->file('image')->getClientOriginalName(); // Gera um nome único
@@ -93,11 +93,11 @@ class PackageAdminController extends Controller
             $this->createLog('Package created successfully', 201, 'success', auth()->user()->id);
             flash(__('admin_alert.pkgcreate'))->success();
             return redirect()->route('admin.packages.index');
-        } catch (Exception $e) {
-            $this->errorCatch($e->getMessage(), auth()->user()->id);
-            flash(__('admin_alert.pkgnotcreate'))->error();
-            return redirect()->back();
-        }
+        // } catch (Exception $e) {
+        //     $this->errorCatch($e->getMessage(), auth()->user()->id);
+        //     flash(__('admin_alert.pkgnotcreate'))->error();
+        //     return redirect()->back();
+        // }
     }
 
     /**
