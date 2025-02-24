@@ -355,6 +355,7 @@ Route::prefix('videos')->middleware('auth')->name('videos')->group(function () {
 Route::prefix('payment')->middleware('auth')->name('payment')->group(function () {
    Route::controller(PaymentController::class)->group(function () {
       Route::post('/payment', 'indexPost')->name('.paymentPost');
+      Route::post('/subscriptionKit', 'subscriptionKit')->name('.subscriptionKit');
       Route::post('/payment/notity', 'notity')->name('.notity');
       Route::get('/payment/{package}/{value}', 'index')->name('.payment');
       Route::get('/paymentUSDTERC/{package}/{value}', 'indexUSDTERC')->name('.paymentUSDTERC');

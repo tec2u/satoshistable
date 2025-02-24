@@ -185,6 +185,42 @@ class PaymentController extends Controller
 
 
     }
+
+    public function subscriptionKit(Request $request)
+    {
+
+        $package = Package::find($request->packageID);
+        $itemsKitIDs = json_decode($request->itemsKit);
+        $kitItems = Package::whereIn('id', $itemsKitIDs)->get();
+
+        $this->createOrderKit($package, $kitItems);
+
+        flash(__('ORDER CREATED SUCCESFULLY'))->success();
+        return redirect()->route('packages.packagelog', ['id' => $package->id]);
+    }
+
+    public function createOrderKit($package, $kitItems) {
+        $user = User::find(auth()->user()->id);
+
+        $total = $package->price;
+
+        foreach ($kitItems as $item) {
+            $total += $item->price;
+        }
+        $user->orderPackage()->create([
+            "reference" => $package->name,
+            "payment_status" => 0,
+            "transaction_code" => 0,
+            "package_id" => $package->id,
+            "price" => $total,
+            "amount" => 1,
+            "transaction_wallet" => 0,
+            "wallet" => 0,
+            "server" => ''
+
+        ]);
+    }
+
     public function createOrder($package, $payment, $invoiceid, $wallet, $subId)
     {
         $user = User::find(auth()->user()->id);
