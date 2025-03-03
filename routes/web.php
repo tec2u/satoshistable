@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\VideoAdminController;
 use App\Http\Controllers\Admin\DocumentsAdminController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\AffiliateNetworkController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CompensationController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\HistoricScoreController;
@@ -238,6 +239,7 @@ Route::post('/packages/packagepay/notify', [PackageController::class, 'notify'])
 Route::prefix('packages')->middleware('auth')->name('packages')->group(function () {
    Route::controller(PackageController::class)->group(function () {
       Route::get('/packages', 'index')->name('.index');
+      Route::get('/activation-packages', 'indexActivation')->name('.activation_packages');
       Route::get('/pay-with-credit', 'payWithCredit')->name('.pay_with_credit');
       Route::post('/pay-order', 'payOrder')->name('.pay_order');
       Route::get('/packagesActivator', 'packagesActivator')->name('.packagesActivator');
@@ -352,15 +354,24 @@ Route::prefix('videos')->middleware('auth')->name('videos')->group(function () {
    });
 });
 
+Route::prefix('cart')->middleware('auth')->name('cart')->group(function () {
+   Route::controller(CartController::class)->group(function () {
+      Route::get('/', 'index')->name('.index');
+      Route::post('/', 'store')->name('.store');
+      Route::put('/', 'update')->name('.update');
+      Route::get('/{id}', 'destroy')->name('.destroy');
+   });
+});
+
 Route::prefix('payment')->middleware('auth')->name('payment')->group(function () {
    Route::controller(PaymentController::class)->group(function () {
       Route::post('/payment', 'indexPost')->name('.paymentPost');
-      Route::post('/subscriptionKit', 'subscriptionKit')->name('.subscriptionKit');
       Route::post('/payment/notity', 'notity')->name('.notity');
       Route::get('/payment/{package}/{value}', 'index')->name('.payment');
       Route::get('/paymentUSDTERC/{package}/{value}', 'indexUSDTERC')->name('.paymentUSDTERC');
       Route::get('/paymentBTC/{package}/{value}', 'indexBTC')->name('.paymentBTC');
       Route::get('/subscriptionClub/{package}', 'subscriptionClub')->name('.subscriptionClub');
+      Route::post('/create-activator-order', 'createActivatorOrder')->name('.createActivatorOrder');
    });
 });
 

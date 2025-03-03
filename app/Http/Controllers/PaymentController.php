@@ -10,6 +10,7 @@ use App\Traits\CustomLogTrait;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ClubSwanController;
+use App\Models\Cart;
 
 class PaymentController extends Controller
 {
@@ -182,43 +183,51 @@ class PaymentController extends Controller
 
         flash(__('ORDER CREATED SUCCESFULLY'))->success();
         return redirect()->route('packages.packagelog', ['id' => $package->id]);
-
-
     }
 
-    public function subscriptionKit(Request $request)
+    public function createActivatorOrder(Request $request)
     {
 
         $package = Package::find($request->packageID);
-        $itemsKitIDs = json_decode($request->itemsKit);
-        $kitItems = Package::whereIn('id', $itemsKitIDs)->get();
+        $othersItems = Package::whereIn('id', json_decode($request->otherPackagesIDs))->get();
 
-        $this->createOrderKit($package, $kitItems);
+        if ($othersItems->isNotEmpty()) {
+            $this->createOrderActivatorAndOthers($package, $othersItems);
+        } else {
+            $this->createOrder($package, '0', '0', '0', '0');
+        }
 
+        Cart::where('user_id', auth()->user()->id)->delete();
         flash(__('ORDER CREATED SUCCESFULLY'))->success();
         return redirect()->route('packages.packagelog', ['id' => $package->id]);
     }
 
-    public function createOrderKit($package, $kitItems) {
+    public function createOrderActivatorAndOthers($package, $othersItems)
+    {
         $user = User::find(auth()->user()->id);
 
         $total = $package->price;
 
-        foreach ($kitItems as $item) {
+        $otherPackagesIDs = [];
+        foreach ($othersItems as $item) {
             $total += $item->price;
+            $otherPackagesIDs[] = $item->id;
         }
         $user->orderPackage()->create([
-            "reference" => $package->name,
+            "reference" => "Combo - activator: " . $package->name,
             "payment_status" => 0,
             "transaction_code" => 0,
-            "package_id" => $package->id,
+            "package_id" => NULL,
             "price" => $total,
             "amount" => 1,
             "transaction_wallet" => 0,
             "wallet" => 0,
-            "server" => ''
+            "server" => '',
+            'activator_id' => $package->id,
+            'others_packages_id' => implode(",", $otherPackagesIDs),
 
         ]);
+
     }
 
     public function createOrder($package, $payment, $invoiceid, $wallet, $subId)

@@ -19,26 +19,6 @@
 
                       {{-- {!! $package->long_description !!} --}}
                     </h6>
-                    {{-- <div class="d-flex shadow-sm cardlist">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item pk">@lang('package.product_price')</li>
-                                            <li class="list-group-item pk">@lang('package.daily_return')</li>
-                                            <li class="list-group-item pk">@lang('package.yearly_return_coin')</li>
-                                            <li class="list-group-item pk">@lang('package.total_return_coin')</li>
-                                            <li class="list-group-item pk">@lang('package.steaking_period')</li>
-                                            <li class="list-group-item pk">@lang('package.capping_coin')</li>
-                                            <li class="list-group-item pk">@lang('package.expected_total_return')</li>
-                                        </ul>
-                                        <ul class="list-group list-group-flush text-end">
-                                            <li class="list-group-item pk"> $ {{$package->price}}</li>
-                                            <li class="list-group-item pk">{{$package->daily_returns}}</li>
-                                            <li class="list-group-item pk">{{$package->yaerly_returns}}</li>
-                                            <li class="list-group-item pk">{{$package->total_returns}}</li>
-                                            <li class="list-group-item pk">{{$package->period_days}} @lang('package.months')</li>
-                                            <li class="list-group-item pk">{{$package->capping_coin}}</li>
-                                            <li class="list-group-item pk">{{number_format($package->packageTotal($package->id),2, ',', '.')}} / @lang('package.month')</li>
-                                            </ul>
-                                        </div> --}}
                     <div class="card-body">
 
                       <a href="{{ route('packages.detail', ['id' => $package->id]) }}"

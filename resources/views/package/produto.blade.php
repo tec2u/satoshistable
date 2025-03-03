@@ -7,32 +7,34 @@
         <div class="fade">
             <div class="container-fluid">
                 <div class="row justify-content-evenly">
-                    @if ($package->type == 'kit')
-                    <form id="redirectForm" action="/payment/subscriptionKit" method="POST" style="display: none;">
+                    @if ($package->type == 'activator')
+                    <form id="redirectForm" action="{{ route('cart.store') }}" method="POST" style="display: none;">
                         @csrf <!-- O token CSRF do Laravel -->
-                        <input type="hidden" name="itemsKit" id="itemsKit">
+                        <input type="hidden" name="othersPackagesIDs" id="othersPackagesIDs">
                         <input type="hidden" name="packageID" value="{{ $package->id }}">
                     </form>
+
                     <div class="text-center">
-                        <h3><strong>Packages Kit</strong></h3>
+                        <h3>You chose <strong style="font-family: 'Poppins' !important;">Activator package {{ $package->name }} - $ {{ $package->price }}</strong></h3> <br/>
+                        <h5>Choose others packages</h5>
                     </div>
-                    @foreach($packagesByKit as $itemKit)
+                    @foreach($othersPackages as $additionalPackage)
                     <div class="card shadow ">
 
-                        <img src='{{ asset($itemKit->img) }}' class="card-img-top" alt="...">
+                        <img src='{{ asset($additionalPackage->img) }}' class="card-img-top" alt="...">
 
                         <div class="card-body flex-column">
-                            <div>{{ $itemKit->name }}</div>
+                            <div>{{ $additionalPackage->name }}</div>
                             <div>
-                                Price: {{ $itemKit->price }} <input type="checkbox" value="{{ $itemKit->id }}" class="items-kit" name="itemKit[]" id="item_{{ $itemKit->id }}" onclick="selectItem()"> <label for="item_{{ $itemKit->id }}" class="mb-0 ml-1">Select</label>
+                                Price: {{ $additionalPackage->price }} <input type="checkbox" value="{{ $additionalPackage->id }}" class="items-activator" name="additionalPackage[]" id="item_{{ $additionalPackage->id }}" onclick="selectItem()"> <label for="item_{{ $additionalPackage->id }}" class="mb-0 ml-1">Select</label>
                             </div>
                         </div>
 
-                        {!! htmlspecialchars($itemKit->long_description, ENT_QUOTES, 'UTF-8', false) !!}
+                        {!! htmlspecialchars($additionalPackage->long_description, ENT_QUOTES, 'UTF-8', false) !!}
                     </div>
                     @endforeach
                     <div class="card-body">
-                        <a onclick="confirmKitPlan()" class="btn btn-primary rounded-pill m-4">@lang('package.subscribe_now')</a>
+                        <a onclick="confirmActivatorPlan()" class="btn btn-primary rounded-pill m-4">@lang('package.subscribe_now')</a>
                     </div>
                     @else
                     <div class="card shadow " style="width: 28rem;">
@@ -67,26 +69,21 @@
     </section>
 </main>
 <script>
-    let itemsKit = [];
+    let othersPackagesIDs = [];
 
     function selectItem() {
-        itemsKit = []
-        $('.items-kit').each((index, element) => {
+        othersPackagesIDs = []
+        $('.items-activator').each((index, element) => {
             if (element.checked) {
-                itemsKit.push(element.value)
+                othersPackagesIDs.push(element.value)
             }
         })
     }
 
-    function confirmKitPlan() {
+    function confirmActivatorPlan() {
         selectItem();
-
-        if (itemsKit.length === 0) {
-            alert("Por favor, selecione ao menos um item.");
-            return;
-        }
-
-        document.getElementById('itemsKit').value = JSON.stringify(itemsKit);
+        
+        document.getElementById('othersPackagesIDs').value = JSON.stringify(othersPackagesIDs);
 
         document.getElementById('redirectForm').submit();
     }

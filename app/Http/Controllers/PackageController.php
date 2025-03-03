@@ -24,21 +24,20 @@ class PackageController extends Controller
     public function index()
     {
         $user = User::find(Auth::id());
-        $adesao = !$user->getAdessao($user->id); //verifica se ja tem adesão para liberar os outros produtos
-        //$adesao = true;
-        $packages = Package::orderBy('id', 'DESC')->where('activated', 1)->paginate(9);
-        // if ($user->contact_id == NULL) {
-        //     $complete_registration = "Please complete your registration to purchase:<br>";
-        //     $array_att = array('last_name' => 'Last Name', 'address1' => 'Address 1', 'address2' => 'Address 2', 'postcode' => 'Postcode', 'state' => 'State', 'wallet' => 'Wallet');
-        //     foreach ($user->getAttributes() as $key => $value) {
-        //        if ($value == NULL && array_search($key, array('last_name', 'address1', 'address2', 'postcode', 'state', 'wallet'))) {
-        //           $complete_registration .= "&nbsp;&nbsp;&bull;" . $array_att[$key] . "<br>";
-        //        }
-        //     }
-        //     flash($complete_registration)->error();
-        //  }
+        $adesao = $user->getAdessao($user->id);
 
-        return view('package.produtos', compact('packages', 'adesao', 'user'));
+
+        $packages = Package::where('activated', 1)->orderBy('id', 'DESC')->paginate(9);
+
+        return view('package.produtos', compact('packages', 'user'));
+    }
+
+    public function indexActivation()
+    {
+        $user = User::find(Auth::id());
+        $packages = Package::where('type', 'activator')->where('activated', 1)->orderBy('id', 'DESC')->paginate(9);
+
+        return view('package.produtos', compact('packages', 'user'));
     }
 
     public function payWithCredit()
@@ -58,16 +57,16 @@ class PackageController extends Controller
 
         if ($user->totalCredit() <= $order->price) {
             return redirect()
-            ->route('packages.pay_with_credit')
-            ->withErrors(['error' => 'You do not have enough credits to pay for this order: '.$user->totalCredit()]);
+                ->route('packages.pay_with_credit')
+                ->withErrors(['error' => 'You do not have enough credits to pay for this order: ' . $user->totalCredit()]);
         }
 
         $paymentSuccess = BancoCredit::create([
-                'user_id' => auth()->user()->id,
-                'order_id' => $order->id,
-                'description' => 78, //description para pedido pago adicionado coloquei o 78 no momento
-                'status' => 'order_payment',
-                'price' => -floatval($order->price)
+            'user_id' => auth()->user()->id,
+            'order_id' => $order->id,
+            'description' => 78, //description para pedido pago adicionado coloquei o 78 no momento
+            'status' => 'order_payment',
+            'price' => -floatval($order->price)
         ]);
 
         if ($paymentSuccess) {
@@ -75,9 +74,8 @@ class PackageController extends Controller
             $order->status = 1;
             $order->save();
             return redirect()
-            ->route('packages.pay_with_credit')
-            ->with('success', 'Order paid successfully!');
-
+                ->route('packages.pay_with_credit')
+                ->with('success', 'Order paid successfully!');
         } else {
             return redirect()
                 ->route('packages.pay_with_credit')
@@ -175,7 +173,6 @@ class PackageController extends Controller
                     return redirect()->back()->with('error', 'The image is invalid. Please try again.');
                 }
             }
-
         }
 
         $orderpackage->user = $_POST['login_number'];
@@ -208,13 +205,12 @@ class PackageController extends Controller
         $package = Package::where('id', '=', $packageid)
             ->first();
 
-        $packagesByKit = [];
-        if ($package->type == 'kit') {
-            $kitIds = explode(",",$package->kit);
-            $packagesByKit = Package::whereIn('id', $kitIds)->get();
+        $othersPackages = [];
+        if ($package->type == 'activator') {
+            $othersPackages = Package::where('type', '<>', 'activator')->get();
         }
 
-        return view('package.produto', compact('package', 'packagesByKit'));
+        return view('package.produto', compact('package', 'othersPackages'));
     }
 
     public function package()
@@ -222,9 +218,18 @@ class PackageController extends Controller
         $id_user = Auth::id();
         $orderpackages = OrderPackage::orderBy('id', 'DESC')
             ->where('hide', false)
-            ->where('package_id', '<>', 20)
             ->where('user_id', $id_user)->paginate(9);
 
+        $orderpackages->map(function ($orderpackage) {
+            $ids = explode(',', $orderpackage->others_packages_id);
+            $orderpackage->other_packages = Package::whereIn('id', $ids)->get();
+            return $orderpackage;
+        });
+
+        $orderpackages->map(function ($orderpackage) {
+            $orderpackage->activator_package = Package::where('id', $orderpackage->activator_id)->get();
+            return $orderpackage;
+        });
         return view('userpackageinfo', compact('orderpackages'));
     }
     public function packageprofit()
@@ -385,7 +390,6 @@ class PackageController extends Controller
                 $payment->payment_status = 1;
                 $payment->payment = $requestFormated["status"];
                 $payment->status = 1;
-
             }
 
             if (strtolower($requestFormated["status"]) == 'cancelled' || strtolower($requestFormated["status"]) == 'expired') {
@@ -411,7 +415,6 @@ class PackageController extends Controller
             if ($payment->package_id == 20 && strtolower($requestFormated["status"]) == 'paid' || strtolower($requestFormated["status"]) == 'over paid') {
                 $this->sendPostPayOrder($payment->id);
             }
-
         } else if (isset($requestFormated["node"])) {
             // return 'node';
             $payment = OrderPackage::where('transaction_wallet', $requestFormated["id"])
@@ -580,13 +583,9 @@ class PackageController extends Controller
             $log->route = "payd order";
             $log->status = "SUCCESS";
             $log->save();
-
         } catch (\Throwable $th) {
             return false;
         }
-
-
-
     }
 
     public function invoice($id)
@@ -655,7 +654,6 @@ class PackageController extends Controller
                     return redirect()->back()->with('error', 'The image is invalid. Please try again.');
                 }
             }
-
         }
 
         $newOrder = new OrderPackage;
@@ -706,10 +704,7 @@ class PackageController extends Controller
         abort(404);
     }
 
-    function filterWallet($mt)
-    {
-
-    }
+    function filterWallet($mt) {}
 
     public function payCryptoNode(Request $request)
     {
@@ -723,6 +718,5 @@ class PackageController extends Controller
         $order->save();
 
         return redirect()->back();
-
     }
 }

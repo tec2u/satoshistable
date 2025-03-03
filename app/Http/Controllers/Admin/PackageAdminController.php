@@ -79,20 +79,20 @@ class PackageAdminController extends Controller
 
         // try {
 
-            if ($request->hasFile('image')) {
-                $imageName = time() . '_' . $request->file('image')->getClientOriginalName(); // Gera um nome único
-                $request->file('image')->move(public_path('admin/package'), $imageName);
+        if ($request->hasFile('image')) {
+            $imageName = time() . '_' . $request->file('image')->getClientOriginalName(); // Gera um nome único
+            $request->file('image')->move(public_path('admin/package'), $imageName);
 
-                // Salva o caminho no banco de dados
-                $data['img'] = 'admin/package/' . $imageName;
-            }
+            // Salva o caminho no banco de dados
+            $data['img'] = 'admin/package/' . $imageName;
+        }
 
 
-            $package = Package::create($data);
+        $package = Package::create($data);
 
-            $this->createLog('Package created successfully', 201, 'success', auth()->user()->id);
-            flash(__('admin_alert.pkgcreate'))->success();
-            return redirect()->route('admin.packages.index');
+        $this->createLog('Package created successfully', 201, 'success', auth()->user()->id);
+        flash(__('admin_alert.pkgcreate'))->success();
+        return redirect()->route('admin.packages.index');
         // } catch (Exception $e) {
         //     $this->errorCatch($e->getMessage(), auth()->user()->id);
         //     flash(__('admin_alert.pkgnotcreate'))->error();
@@ -195,53 +195,83 @@ class PackageAdminController extends Controller
             ];
 
             $Orderpackage = OrderPackage::find($id);
-            $package = Package::find($Orderpackage->package_id);
-            // dd($Orderpackage->id);
 
-            $Orderpackage->update($data);
 
-            $bonusTotal = $Orderpackage->price * 0.005;
+            if ($Orderpackage->others_packages_id && ($status == 1 && $payment_status == 1)) {
+                $otherPackagesIDs = explode(",", $Orderpackage->others_packages_id);
+                $otherPackages = Package::whereIn('id', $otherPackagesIDs)->get();
+                $activatorPackage = Package::find($Orderpackage->activator_id);
 
-            if ($Orderpackage->status == 1 && $Orderpackage->payment_status == 1) {
-                $userrec = User::find($Orderpackage->user_id);
-                $pontosController = new HistoricScoreController();
-                $pontosController->insertScoreToUpLevel($userrec->recommendation_user_id, 1, $userrec->id, 1000);
-                $config_unilevel = ConfigBonusunilevel::get();
+                OrderPackage::create([
+                    "user_id" => $Orderpackage->user_id,
+                    "reference" => $activatorPackage->name,
+                    "payment_status" => 1,
+                    "status" => 1,
+                    "transaction_code" => 0,
+                    "package_id" => $activatorPackage->id,
+                    "price" => $activatorPackage->price,
+                    "amount" => 1,
+                    "transaction_wallet" => 0,
+                    "wallet" => 0,
+                    "server" => ''
+                ]);
 
-                foreach ($config_unilevel as $config) {
-                    $valor = ($config->value_percent / 100) * $bonusTotal;
-                    $check_ja_existe = Banco::where('user_id', $userrec->recommendation_user_id)->where('order_id', $Orderpackage->id)->count();
+                foreach ($otherPackages as $otherPackage) {
+                    OrderPackage::create([
+                        "user_id" => $Orderpackage->user_id,
+                        "reference" => $otherPackage->name,
+                        "payment_status" => 1,
+                        "status" => 1,
+                        "transaction_code" => 0,
+                        "package_id" => $otherPackage->id,
+                        "price" => $otherPackage->price,
+                        "amount" => 1,
+                        "transaction_wallet" => 0,
+                        "wallet" => 0,
+                        "server" => ''
+                    ]);
+                }
 
-                    if ($check_ja_existe <= 0) {
-                        if ($config->status == 1) {
-                            if ($userrec->recommendation_user_id) {
-                                $rede = Rede::where('user_id', $userrec->recommendation_user_id)->first();
-                                if ($rede->qty >= $config->minimum_users) {
-                                    $data = [
-                                        "price" => $valor,
-                                        "status" => 1,
-                                        "description" => 1,
-                                        "user_id" => $userrec->recommendation_user_id,
-                                        "order_id" => $Orderpackage->id,
-                                        "level_from" => $config->level,
-                                    ];
-                                    Banco::create($data);
+                $Orderpackage->delete();
+            } else {
+                $Orderpackage->update($data);
+
+                $bonusTotal = $Orderpackage->price * 0.005;
+
+                if ($Orderpackage->status == 1 && $Orderpackage->payment_status == 1) {
+                    $userrec = User::find($Orderpackage->user_id);
+                    $pontosController = new HistoricScoreController();
+                    $pontosController->insertScoreToUpLevel($userrec->recommendation_user_id, 1, $userrec->id, 1000);
+                    $config_unilevel = ConfigBonusunilevel::get();
+
+                    foreach ($config_unilevel as $config) {
+                        $valor = ($config->value_percent / 100) * $bonusTotal;
+                        $check_ja_existe = Banco::where('user_id', $userrec->recommendation_user_id)->where('order_id', $Orderpackage->id)->count();
+
+                        if ($check_ja_existe <= 0) {
+                            if ($config->status == 1) {
+                                if ($userrec->recommendation_user_id) {
+                                    $rede = Rede::where('user_id', $userrec->recommendation_user_id)->first();
+                                    if ($rede->qty >= $config->minimum_users) {
+                                        $data = [
+                                            "price" => $valor,
+                                            "status" => 1,
+                                            "description" => 1,
+                                            "user_id" => $userrec->recommendation_user_id,
+                                            "order_id" => $Orderpackage->id,
+                                            "level_from" => $config->level,
+                                        ];
+                                        Banco::create($data);
+                                    }
+                                } else {
+                                    break;
                                 }
-                            } else {
-                                break;
                             }
                         }
+                        $userrec = User::find($userrec->recommendation_user_id);
                     }
-                    $userrec = User::find($userrec->recommendation_user_id);
                 }
             }
-
-
-            // if ($Orderpackage->payment_status == 1 && $package->type_product !== 'products') {
-            //     $matriz = MatrizForcada::where('id_dados', $Orderpackage->user_id)->first();
-            //     $matrizController = new MatrizForcadaController();
-            //     $matrizController->bonusDivisao($matriz->id, $Orderpackage->id);
-            // }
 
             // $this->createLog('OrderPackage updated successfully', 200, 'success', auth()->user()->id);
             flash(__('admin_alert.pkgupdate'))->success();

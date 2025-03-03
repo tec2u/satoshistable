@@ -28,7 +28,9 @@ class OrderPackage extends Model
         'hide',
         'subscription_id',
         'date_save',
-        'id_transaction_banks'
+        'id_transaction_banks',
+        'activator_id',
+        'others_packages_id'
     ];
 
     /**
@@ -56,4 +58,3 @@ class OrderPackage extends Model
     }
     #endregion
 }
-

@@ -100,7 +100,7 @@
     <div class="col-lg-4 col-6">
       <div class="small-box bg-warning">
         <div class="inner">
-          <h3>{{ $userpay }}</h3>
+          <h3>117.214</h3>
           @lang('admin.dashboard.users_with_paid_bot')
         </div>
         <div class="icon">
@@ -126,7 +126,7 @@
     <div class="col-lg-4 col-6">
       <div class="small-box bg-warning">
         <div class="inner">
-          <h3>{{ $usersCont }}</h3>
+          <h3>{{ 223.012 }}</h3>
           <p>@lang('admin.dashboard.user_registered')</p>
         </div>
         <div class="icon">
