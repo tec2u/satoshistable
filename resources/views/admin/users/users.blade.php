@@ -59,9 +59,6 @@
             <th>@lang('admin.members.memberlist.col2')</th>
             <th>@lang('admin.members.memberlist.col3')</th>
             <th>@lang('admin.members.memberlist.col4')</th>
-            {{-- <th>@lang('admin.members.memberlist.col5')</th> --}}
-            <!-- <th>@lang('admin.members.memberlist.col6')</th>
-                     <th>@lang('admin.members.memberlist.col7')</th> -->
             <th>@lang('admin.members.memberlist.col8')</th>
             <th>@lang('admin.members.memberlist.col9')</th>
           </tr>
@@ -73,7 +70,7 @@
           @forelse($users as $user)
             <tr>
               <th>{{ $user->id }}</th>
-              <th>{{ $user->nickname ?? '' }}</th>
+              <th>{{ $user->login ?? '' }}</th>
               <td style="text-align: center; vertical-align: middle;">
                 @if (!empty($user->image_path))
                   <img style="max-width: 100px" src="{{ asset('storage/' . $user->image_path) }}" />
@@ -82,14 +79,8 @@
                 @endif
               </td>
               <td><b>{{ $user->name }}</b><br>{{ $user->login }}<br>{{ $user->email }}</td>
-              <td>{{ $user->telephone }}</td>
+              <td>{{ $user->cell }}</td>
               <td>{{ number_format($user->getTotalBancoIndicacao() + $user->getTotalBancoILevel(), 2, ',', '.') }}</td>
-              {{-- <td>{{number_format($user->getTotalBancoCurrent() + $user->getTotalBancoDaily(),2,",",".")}} </td> --}}
-              <!-- <td>{{ $user->getDirectsActiveted($user->id) }}/{{ $user->getRede($user->id) }}</td> -->
-              <!-- <td>{{ number_format($user->special_comission, 2, ',', '.') }} % @if ($user->special_comission_active == 1)
-<i class="fa fa-check" style="color:green" aria-hidden="true"></i> @else<i class="fa fa-times" style="color: red" aria-hidden="true"></i>
-  @endif
-      </td> -->
               <td>
                 @if ($user->getTypeActivated($user->id) == 'AllCards')
                   <button class="btn btn-success btn-sm m-0">@lang('admin.members.btn_active')</button>
