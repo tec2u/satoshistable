@@ -349,11 +349,28 @@ class PackageAdminController extends Controller
         }
     }
 
-    public function orderPackages()
+    public function orderPackages(Request $request)
     {
-        $orderpackages = OrderPackage::with('user')
-            ->orderBy('id', 'DESC')
-            ->paginate(9);
+        $orderpackagesQuery = OrderPackage::with('user') ->orderBy('id', 'DESC');
+        $search = $request->search ?? null;
+        $fdate = $request->fdate ?? null;
+        $sdate = $request->sdate ?? null;
+
+        if($search) {
+            $orderpackagesQuery->whereHas('user', function ($query) use ($search) {
+                $query->where('login', $search);
+            })->orWhere('id', $search);
+        }
+
+        if($fdate) {
+            $orderpackagesQuery->where('created_at', '>=', $fdate . " 00:00:00");
+        }
+
+        if($sdate) {
+            $orderpackagesQuery->where('created_at', '<=', $sdate ." 23:59:59");
+        }
+
+        $orderpackages = $orderpackagesQuery->paginate(9);
 
         $orderpackages->getCollection()->transform(function ($orderpackage) {
             $orderpackage->total_credit = $orderpackage->user
@@ -361,8 +378,7 @@ class PackageAdminController extends Controller
                 : 0;
             return $orderpackage;
         });
-        // return response()->json($orderpackages);
-        return view('admin.packages.orders', compact('orderpackages'));
+        return view('admin.packages.orders', compact('orderpackages', 'search', 'fdate', 'sdate'));
     }
 
     public function deleteOrderPackage(Request $request)
