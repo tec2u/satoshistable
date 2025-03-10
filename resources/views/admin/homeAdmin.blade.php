@@ -175,8 +175,8 @@
             <tr>
               <th>#</th>
               <th>@lang('admin.dashboard.user')</th>
-              <th>@lang('admin.dashboard.server_config')</th>
-              <th>@lang('admin.dashboard.value')</th>
+              <th>username</th>
+              <th>price</th>
               <th>@lang('admin.dashboard.order_created')</th>
               <th>@lang('admin.dashboard.bot_order_status')</th>
               <th>@lang('admin.dashboard.action')</th>
@@ -191,8 +191,8 @@
 
                 <th>{{ $orderpackage->id }}</th>
                 <td>{{ $orderpackage->name }}</td>
-                <td>{{ $orderpackage->user }} / {{ $orderpackage->pass }}</td>
-                <td>{{ number_format($orderpackage->price, 2, ',', '.') }}</td>
+                <td>{{ $orderpackage->login }}</td>
+                <td>{{ number_format($orderpackage->total, 2, ',', '.') }}</td>
                 <td>{{ $orderpackage->created_at }}</td>
                 <td>
                   @if ($orderpackage->status == 2)

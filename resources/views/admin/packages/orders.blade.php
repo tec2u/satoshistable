@@ -98,9 +98,6 @@
                     <td>{{ $orderpackage->reference }}</td>
                     <td>{{ number_format($orderpackage->price, 2, ',', '.') }}</td>
                     <th>{{ $orderpackage->updated_at }}</th>
-                    {{-- <th>{{ $orderpackage->user }} / {{ $orderpackage->pass }} </br> Server: {{ $orderpackage->server }} </th>
-                    <td><a href="/images/printscreen/{{ $orderpackage->printscreen }}" target="_blank"> @lang('admin.orders.orders.printscreen')</a>
-                    </td> --}}
                     <td>
                         @if (isset($orderpackage->id_transaction_banks))
                         <img src="{{ asset($orderpackage->transactionBank->logo) }}" alt="" width="100px">

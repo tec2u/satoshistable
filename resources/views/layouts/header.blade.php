@@ -192,7 +192,6 @@
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="minting-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    @if(auth()->user()->getAdessao(auth()->user()->id))
                     <li>
                         <a href="{{ route('packages.index') }}">
                             <i class="bi bi-circle"></i><span>@lang('header.products')</span>
@@ -204,13 +203,11 @@
                         </a>
                     </li>
 
-                    @else
                     <li>
                         <a href="{{ route('packages.activation_packages') }}">
                             <i class="bi bi-circle"></i><span>Activation packages + Products</span>
                         </a>
                     </li>
-                    @endif
 
                 </ul>
             </li>
