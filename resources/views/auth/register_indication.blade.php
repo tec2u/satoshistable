@@ -72,7 +72,7 @@
           @csrf
           <span class="login100-form-title p-b-48">
             <img class="imagetest" style="filter: brightness(9);" src="{{ asset($project->logo) }}"
-              alt="">
+              alt="" style="width: 35%;">
           </span>
           <div id="stepForm01" style="" class="row g-3 px-2">
 
