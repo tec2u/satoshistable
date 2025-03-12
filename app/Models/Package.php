@@ -19,7 +19,8 @@ class Package extends Model
         'type',
         'description_fees',
         'plan_id',
-        'kit'
+        'kit',
+        'project_id'
     ];
 
     /**

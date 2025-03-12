@@ -14,189 +14,188 @@ use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Attribute\Cache;
 use App\Http\Controllers\ClubSwanController;
+use App\Models\Project;
 
 class UserController extends Controller
 {
-   use CustomLogTrait;
+    use CustomLogTrait;
 
-   /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
-   public function index()
-   {
-      $id = auth()->user()->id;
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $id = auth()->user()->id;
 
-      $user = User::find($id);
+        $user = User::find($id);
 
-      $wallet = Wallet::where('user_id', $id)->latest()->first();
+        $wallet = Wallet::where('user_id', $id)->latest()->first();
 
-      $user->wallet = $wallet->wallet ?? null;
+        $user->wallet = $wallet->wallet ?? null;
 
-      return view('user.myinfo', compact('user'));
-   }
+        return view('user.myinfo', compact('user'));
+    }
 
-   public function password()
-   {
-      return view('user.password');
-   }
-   /**
-    * Update the specified resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
-   public function update(Request $request, $id)
-   {
-      $data = $request->only([
-         'name',
-         'password',
-         'last_name',
-         'birthday',
-         'address1',
-         'address2',
-         'postcode',
-         'state',
-         'city',
-         'gender',
-         'email',
-         'telephone',
-         'cell',
-         'country',
-      ]);
+    public function password()
+    {
+        return view('user.password');
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $data = $request->only([
+            'name',
+            'password',
+            'last_name',
+            'birthday',
+            'address1',
+            'address2',
+            'postcode',
+            'state',
+            'city',
+            'gender',
+            'email',
+            'telephone',
+            'cell',
+            'country',
+        ]);
 
-      try {
+        try {
 
-         if ($request->hasFile('image')) {
-            $images = $request->file('image')->store('user', 'public');
-            $data['image_path'] = $images;
-         }
-
-         $user = User::find($id);
-
-         if (!Hash::check($request->get('password'), $user->password)) {
-            Alert::error(__('backoffice_alert.current_password_is_not_correct'));
-            return redirect()->back();
-         }
-
-         if (!empty($request->get('wallet'))) {
-            $datawallet = [
-               "wallet" => $request->get('wallet'),
-               "description" => "wallet"
-            ];
-
-            // $exists = Wallet::where('user_id', $id)->first();
-            // if (isset($exists)) {
-            //    $user->wallet()->update($datawallet);
-            // } else {
-            //    $user->wallet()->create($datawallet);
-            // }
-
-
-            $datawallet = [
-               "wallet" => $request->get('wallet'),
-               "description" => "wallet"
-            ];
-            $user->wallet()->create($datawallet);
-
-         }
-
-
-
-         $club = new ClubSwanController;
-         $clubResponse = NULL;
-         if ($user->contact_id == NULL) {
-            $clubResponse = $club->singUp($data);
-            if ($clubResponse->status == 'success') {
-               $data['contact_id'] = $clubResponse->data->contactId;
+            if ($request->hasFile('image')) {
+                $images = $request->file('image')->store('user', 'public');
+                $data['image_path'] = $images;
             }
-            //  else {
-            // throw new Exception(json_encode($clubResponse));
 
-            // }
-         }
+            $user = User::find($id);
 
-         unset($data['password']);
-
-         $user->update($data);
-
-
-         $this->createLog('User updated successfully', 200, 'success', auth()->user()->id);
-
-         if ($clubResponse == NULL) {
-            Alert::success(__('backoffice_alert.user_update'));
-         }
-         return redirect()->route('users.index');
-
-      } catch (Exception $e) {
-         $error = json_decode($e->getMessage(), true);
-         if (isset($error['status']) && $error['status'] == 'fail') {
-            $this->errorCatch($error['message'] . ' - PayLoad: ' . json_encode($data) . ' - Response: ' . $e->getMessage(), auth()->user()->id);
-            $q = '';
-            if ($error['message'] == 'Invalid parameter(s)') {
-               foreach ($error['data']['invalid-params'] as $value) {
-                  $q .= '<br>' . $value;
-               }
+            if (!Hash::check($request->get('password'), $user->password)) {
+                Alert::error(__('backoffice_alert.current_password_is_not_correct'));
+                return redirect()->back();
             }
-            Alert::error($error['message'] . $q);
-         } else {
+
+            if (!empty($request->get('wallet'))) {
+                $datawallet = [
+                    "wallet" => $request->get('wallet'),
+                    "description" => "wallet"
+                ];
+
+                // $exists = Wallet::where('user_id', $id)->first();
+                // if (isset($exists)) {
+                //    $user->wallet()->update($datawallet);
+                // } else {
+                //    $user->wallet()->create($datawallet);
+                // }
+
+
+                $datawallet = [
+                    "wallet" => $request->get('wallet'),
+                    "description" => "wallet"
+                ];
+                $user->wallet()->create($datawallet);
+            }
+
+
+
+            $club = new ClubSwanController;
+            $clubResponse = NULL;
+            if ($user->contact_id == NULL) {
+                $clubResponse = $club->singUp($data);
+                if ($clubResponse->status == 'success') {
+                    $data['contact_id'] = $clubResponse->data->contactId;
+                }
+                //  else {
+                // throw new Exception(json_encode($clubResponse));
+
+                // }
+            }
+
+            unset($data['password']);
+
+            $user->update($data);
+
+
+            $this->createLog('User updated successfully', 200, 'success', auth()->user()->id);
+
+            if ($clubResponse == NULL) {
+                Alert::success(__('backoffice_alert.user_update'));
+            }
+            return redirect()->route('users.index');
+        } catch (Exception $e) {
+            $error = json_decode($e->getMessage(), true);
+            if (isset($error['status']) && $error['status'] == 'fail') {
+                $this->errorCatch($error['message'] . ' - PayLoad: ' . json_encode($data) . ' - Response: ' . $e->getMessage(), auth()->user()->id);
+                $q = '';
+                if ($error['message'] == 'Invalid parameter(s)') {
+                    foreach ($error['data']['invalid-params'] as $value) {
+                        $q .= '<br>' . $value;
+                    }
+                }
+                Alert::error($error['message'] . $q);
+            } else {
+                $this->errorCatch($e->getMessage(), auth()->user()->id);
+                Alert::error(__('backofffice_alert.user_not_update'));
+            }
+            return redirect()->route('users.index');
+        }
+    }
+    public function updateBinaryPositionIndication(Request $request)
+    {
+        User::where('id', auth()->user()->id)->update(['perna_cad' => $request['position']]);
+        return response()->json('success');
+    }
+    public function changePassword(Request $request)
+    {
+        $data = $request->only([
+            'password',
+            'old_password'
+        ]);
+
+        try {
+            $id = auth()->user()->id;
+
+            $user = User::find($id);
+            if (!Hash::check($data['old_password'], $user->password)) {
+                Alert::error(__('backoffice_alert.current_password_is_not_correct'));
+                return redirect()->back();
+            }
+
+            $password = Hash::make($data['password']);
+
+            $user->update([
+                'password' => $password
+            ]);
+            $this->createLog('Password updated successfully', 200, 'success', auth()->user()->id);
+            Alert::success(__('backoffice_alert.password_changed'));
+            return redirect()->route('users.password');
+        } catch (Exception $e) {
             $this->errorCatch($e->getMessage(), auth()->user()->id);
-            Alert::error(__('backofffice_alert.user_not_update'));
-         }
-         return redirect()->route('users.index');
-      }
-   }
-   public function updateBinaryPositionIndication(Request $request)
-   {
-      User::where('id', auth()->user()->id)->update(['perna_cad' => $request['position']]);
-      return response()->json('success');
-   }
-   public function changePassword(Request $request)
-   {
-      $data = $request->only([
-         'password',
-         'old_password'
-      ]);
+            Alert::error(__('backoffice_alert.password_not_changed'));
 
-      try {
-         $id = auth()->user()->id;
+            return redirect()->route('users.password');
+        }
+    }
 
-         $user = User::find($id);
-         if (!Hash::check($data['old_password'], $user->password)) {
-            Alert::error(__('backoffice_alert.current_password_is_not_correct'));
-            return redirect()->back();
-         }
+    public function register($project_id, $id)
+    {
+        Auth::logout();
 
-         $password = Hash::make($data['password']);
-
-         $user->update([
-            'password' => $password
-         ]);
-         $this->createLog('Password updated successfully', 200, 'success', auth()->user()->id);
-         Alert::success(__('backoffice_alert.password_changed'));
-         return redirect()->route('users.password');
-      } catch (Exception $e) {
-         $this->errorCatch($e->getMessage(), auth()->user()->id);
-         Alert::error(__('backoffice_alert.password_not_changed'));
-
-         return redirect()->route('users.password');
-      }
-   }
-
-   public function register($id)
-   {
-      Auth::logout();
-
-      $packages = Package::where('activated', 1)->where('type', '!=', 'activator')->orderBy('price')->get();
-
-      $user = User::where('id', $id)->orWhere('login', $id)->first();
-      if (!isset($user)) {
-         Alert::error('User not found!');
-         return view('auth.register_must_active');
-      } else {
-         return view('auth.register', compact('id', 'packages', 'user'));
-      }
-   }
+        $packages = Package::where('activated', 1)->where('type', '!=', 'activator')->orderBy('price')->get();
+        $project = Project::find($project_id);
+        $user = User::where('id', $id)->orWhere('login', $id)->first();
+        if (!isset($user)) {
+            Alert::error('User not found!');
+            return view('auth.register_must_active');
+        } else {
+            return view('auth.register_indication', compact('id', 'packages', 'user','project'));
+        }
+    }
 }

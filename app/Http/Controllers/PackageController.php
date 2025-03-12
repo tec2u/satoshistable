@@ -12,6 +12,7 @@ use App\Models\Wallet;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Models\OrderPackage;
+use App\Models\Project;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -27,9 +28,14 @@ class PackageController extends Controller
         $adesao = $user->getAdessao($user->id);
 
 
-        $packages = Package::where('activated', 1)->orderBy('id', 'DESC')->paginate(9);
+        // Buscar os projetos que possuem pacotes ativados
+        $projects = Project::whereHas('packages', function ($query) {
+            $query->where('activated', 1);
+        })->with(['packages' => function ($query) {
+            $query->where('activated', 1)->orderBy('id', 'DESC');
+        }])->get();
 
-        return view('package.produtos', compact('packages', 'user'));
+        return view('package.produtos', compact('projects', 'user'));
     }
 
     public function indexActivation()

@@ -56,7 +56,7 @@
                         @enderror
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="price">@lang('admin.editPackage.edit.price')</label>
                                 <input type="number"
@@ -69,16 +69,32 @@
                             </div>
 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                        <div class="form-group">
+                                    <label for="type">@lang('admin.editPackage.edit.type')</label>
+                                    <select class="form-control form-control-lg @error('type') is-invalid @enderror"
+                                        name="type" id="type">
+                                        <option value="packages">
+                                            @lang('admin.editPackage.edit.typeedit.package')</option>
+                                        <option value="activator">
+                                            @lang('admin.editPackage.edit.typeedit.active')</option>
+                                    </select>
+                                    @error('rule')
+                                        <span class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                        </div>
+
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label for="type">@lang('admin.editPackage.edit.type')</label>
-                                <select class="form-control form-control-lg @error('type') is-invalid @enderror"
-                                    name="type" id="type" onchange="changeType(this)">
-                                    <option value="packages">@lang('admin.editPackage.edit.typeedit.package')</option>
-                                    <option value="activator">@lang('admin.editPackage.edit.typeedit.active')</option>
-                                    <option value="kit">Kit</option>
+                                <label for="project_id">Project</label>
+                                <select class="form-control form-control-lg @error('project_id') is-invalid @enderror" name="project_id" id="project_id">
+                                    @foreach($projects as $project)
+                                        <option value="{{ $project->id }}">{{ $project->name }}</option>
+                                    @endforeach
                                 </select>
-                                @error('rule')
+                                @error('project_id')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>

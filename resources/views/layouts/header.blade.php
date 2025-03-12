@@ -202,12 +202,12 @@
                             <i class="bi bi-circle"></i><span>@lang('header.pay_with_credit')</span>
                         </a>
                     </li>
-
+<!--
                     <li>
                         <a href="{{ route('packages.activation_packages') }}">
                             <i class="bi bi-circle"></i><span>Activation packages + Products</span>
                         </a>
-                    </li>
+                    </li> -->
 
                 </ul>
             </li>

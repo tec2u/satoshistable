@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Alert;
 use App\Models\Career;
 use App\Models\CareerUser;
+use App\Models\Project;
 
 class HomeController extends Controller
 {
@@ -177,8 +178,9 @@ class HomeController extends Controller
          }
       }
 
+      $projects = Project::all();
 
-      return view('home', compact('n_pago', 'packages', 'orderpackages', 'name', 'user', 'data', 'label', 'datasaida', 'totalbanco', 'bonusdaily', 'pontos', 'saque', 'carrer', 'inactiverights', 'url_image_popup'));
+      return view('home', compact('n_pago', 'projects', 'packages', 'orderpackages', 'name', 'user', 'data', 'label', 'datasaida', 'totalbanco', 'bonusdaily', 'pontos', 'saque', 'carrer', 'inactiverights', 'url_image_popup'));
    }
 
    public function welcome1()

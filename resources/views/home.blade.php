@@ -209,6 +209,18 @@
 
       // alert("Copied the text: " + copyText.value);
     }
+    function FunctionCopy(input_id) {
+
+      var copyText = document.getElementById(input_id);
+
+
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); // For mobile devices
+
+      navigator.clipboard.writeText(copyText.value);
+
+      // alert("Copied the text: " + copyText.value);
+    }
   </script>
 
   <style>
@@ -290,12 +302,11 @@
       </div>
 
       <div class="col-12">
-        <div class="info-box mb-4 shadow c1">
-          <span class="info-box-icon"><i class="bi bi-star-fill"></i></span>
+        <div class="info-box mb-4 shadow mt-4" style="padding: 1em 0.6em;">
           <div class="info-box-content font">
             <span class="info-box-text up font">@lang('home.referral_link')</span>
             <div class="row">
-              <div class="col-10">
+              <div class="col-12">
                 <div class="input-group mb-3 font">
                   <input type="text" class="form-control" id="referral"
                     value="http://register.satoshistable.com/{{ auth()->user()->login }}">
@@ -303,6 +314,17 @@
                     style="background-color: #99c147;color:white" onclick=" FunctionCopy2()">@lang('home.copy')</button>
                 </div>
               </div>
+              @foreach($projects as $project)
+              <!-- <div class="col-12">
+                <div class="font">{{ $project->name }}</div>
+                <div class="input-group mb-3 font">
+                  <input type="text" class="form-control" id="referral_{{$project->id}}"
+                    value="{{ route('landing', ['project_id' => $project->id, 'id' => auth()->user()->id]) }}">
+                  <button class="up btn  orderbtn linkcopy px-4" type="button"
+                    style="background-color: #99c147;color:white" onclick="FunctionCopy('referral_{{$project->id}}')">@lang('home.copy')</button>
+                </div>
+              </div> -->
+              @endforeach
             </div>
           </div>
         </div>

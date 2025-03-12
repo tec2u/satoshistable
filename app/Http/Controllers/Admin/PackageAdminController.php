@@ -17,6 +17,8 @@ use App\Models\MatrizForcada;
 use App\Models\Order;
 use App\Models\OrderPackage;
 use App\Models\Package;
+use App\Models\Product;
+use App\Models\Project;
 use App\Models\Rede;
 use App\Models\User;
 use App\Traits\CustomLogTrait;
@@ -51,7 +53,8 @@ class PackageAdminController extends Controller
     public function create()
     {
         $packages = Package::get();
-        return view('admin.packages.create', compact('packages'));
+        $projects = Project::get();
+        return view('admin.packages.create', compact('packages', 'projects'));
     }
 
     /**
@@ -71,6 +74,7 @@ class PackageAdminController extends Controller
             'long_description',
             'description_fees',
             'plan_id',
+            'project_id'
         ]);
 
         if ($request->type == 'kit') {
@@ -120,8 +124,9 @@ class PackageAdminController extends Controller
     public function edit($id)
     {
         $package = Package::find($id);
+        $projects = Project::get();
 
-        return view('admin.packages.edit', compact('package'));
+        return view('admin.packages.edit', compact('package', 'projects'));
     }
 
     /**
@@ -143,7 +148,8 @@ class PackageAdminController extends Controller
                 'type',
                 'long_description',
                 'description_fees',
-                'plan_id'
+                'plan_id',
+                'project_id'
             ]);
 
             $package = package::find($id);
