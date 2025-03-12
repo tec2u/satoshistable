@@ -77,7 +77,7 @@
           <div id="stepForm01" style="" class="row g-3 px-2">
 
             <div class="col-lg-6">
-              <label for="name" class="form-label teste1234" style="color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.name')<span style="color: brown">*</span></label>
+              <label for="name" class="form-label teste1234" style="background-color: {{ $project->registration_boxbgcolor}} ;color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.name')<span style="color: brown">*</span></label>
               <input id="name" type="text" class="form-control form-register @error('name') is-invalid @enderror"
                 placeholder="First Name" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus
                 tabindex="1">
@@ -90,7 +90,7 @@
             </div>
 
             <div class="col-lg-6">
-              <label for="last_name" class="form-label teste1234" style="color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.last_name')<span style="color: brown">*</span></label>
+              <label for="last_name" class="form-label teste1234" style="background-color: {{ $project->registration_boxbgcolor}} ;color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.last_name')<span style="color: brown">*</span></label>
               <input id="last_name" type="text"
                 class="form-control form-register @error('last_name') is-invalid @enderror" placeholder="Last Name"
                 name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus
@@ -104,8 +104,8 @@
             </div>
 
             <div class="col-lg-6">
-              <label class="form-label teste1234" style="color: {{ $project->regiatration_fontcolor }} !important;">Country <span style="color: brown">*</span></label>
-              <select class="teste1234 form-register form-control" style="color: {{ $project->regiatration_fontcolor }} !important;" required name="country" tabindex="7">
+              <label class="form-label teste1234" style="background-color: {{ $project->registration_boxbgcolor}} ;color: {{ $project->regiatration_fontcolor }} !important;">Country <span style="color: brown">*</span></label>
+              <select class="teste1234 form-register form-control" style="background-color: {{ $project->registration_boxbgcolor}} ;color: {{ $project->regiatration_fontcolor }} !important;" required name="country" tabindex="7">
                 <option>Select Country</option>
                 <option value="AF" @if (old('country') == 'AF') selected="selected" @endif>
                   Afghanistan</option>
@@ -659,7 +659,7 @@
               </select>
             </div>
             <div class="col-lg-6">
-              <label for="city" class="form-label teste1234" style="color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.city')<span style="color: brown">*
+              <label for="city" class="form-label teste1234" style="background-color: {{ $project->registration_boxbgcolor}} ;color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.city')<span style="color: brown">*
                 </span></label>
               <input id="city" type="text"
                 class="form-control form-register @error('city') is-invalid @enderror" placeholder="City"
@@ -673,7 +673,7 @@
             </div>
 
             <div class="col-lg-6">
-              <label for="login" class="form-label teste1234" style="color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.username')<span style="color: brown">*
+              <label for="login" class="form-label teste1234" style="background-color: {{ $project->registration_boxbgcolor}} ;color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.username')<span style="color: brown">*
                 </span></label>
               <input id="login" type="text"
                 class="form-control form-register login @error('login') is-invalid @enderror" placeholder="Username"
@@ -688,7 +688,7 @@
             </div>
 
             <div class="col-lg-6">
-              <label for="cell" class="form-label teste1234" style="color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.phone')<span style="color: brown">* </span>
+              <label for="cell" class="form-label teste1234" style="background-color: {{ $project->registration_boxbgcolor}} ;color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.phone')<span style="color: brown">* </span>
                 </label>
               <input id="cell" type="number" step="1"
                 class="form-control form-register @error('cell') is-invalid @enderror" placeholder="Phone"
@@ -710,7 +710,7 @@
               </div>
             @else
               <div class="col-lg-6">
-                <label for="recommendation_user_id" class="form-label teste1234" style="color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.referral')</label>
+                <label for="recommendation_user_id" class="form-label teste1234" style="background-color: {{ $project->registration_boxbgcolor}} ;color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.referral')</label>
                 <input id="recommendation_user_id" type="text" class="form-control form-register"
                   name="recommendation_user_id" placeholder="Referral Username"
                   value="{{ old('recommendation_user_id') }}" autofocus tabindex="18" required
@@ -720,7 +720,7 @@
             @endif
 
             <div class="col-lg-6">
-              <label for="email" class="form-label teste1234" style="color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.email')<span style="color: brown">*</span></label>
+              <label for="email" class="form-label teste1234" style="background-color: {{ $project->registration_boxbgcolor}} ;color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.email')<span style="color: brown">*</span></label>
               <input id="email" type="email"
                 class="form-control form-register @error('email') is-invalid @enderror" placeholder="Email"
                 name="email" value="{{ old('email') }}" required autocomplete="email" tabindex="14">
@@ -733,7 +733,7 @@
             </div>
 
             <div class="col-lg-6">
-              <label for="password" class="form-label teste1234" style="color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.password')<span style="color: brown">*</span></label>
+              <label for="password" class="form-label teste1234" style="background-color: {{ $project->registration_boxbgcolor}} ;color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.password')<span style="color: brown">*</span></label>
               <span class="btn-show-pass d-inline-flex ps-2">
                 <i class="fa fa-eye" id="togglePassword"></i>
               </span>
@@ -750,7 +750,7 @@
             </div>
 
             <div class="col-lg-6">
-              <label for=" password-confirm" class="form-label teste1234" style="color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.confirm_password')<span
+              <label for=" password-confirm" class="form-label teste1234" style="background-color: {{ $project->registration_boxbgcolor}} ;color: {{ $project->regiatration_fontcolor }} !important;">@lang('register.confirm_password')<span
                   style="color: brown">*</span></label>
               <span class="btn-show-pass d-inline-flex ps-2">
                 <i class="fa fa-eye" id="togglePasswordconfim"></i>
