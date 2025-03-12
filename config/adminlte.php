@@ -363,8 +363,8 @@ return [
                'url' => 'admin/packages/orderPackages',
             ],
             [
-               'text' => 'Projetos',
-               'url' => 'admin/projetos',
+               'text' => 'Projects',
+               'url' => 'admin/projects',
             ],
             [
                'text' => 'Packages',

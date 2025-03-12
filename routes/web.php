@@ -467,7 +467,7 @@ Route::prefix('admin')->middleware(['auth', 'is.admin'])->name('admin')->group(f
 
 
 
-    Route::prefix('project')->name('.project')->group(function () {
+    Route::prefix('projects')->name('.projects')->group(function () {
         Route::controller(ProjectController::class)->group(function () {
             Route::get('/', 'index')->name('.index');
             Route::post('/', 'store')->name('.store');
