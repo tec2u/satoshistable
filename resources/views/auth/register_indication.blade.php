@@ -71,7 +71,7 @@
         <form class="login100-form validate-form" method="POST" action="{{ route('register') }}">
           @csrf
           <span class="login100-form-title p-b-48">
-            <img class="imagetest2" style="filter: brightness(9);" src="{{ asset('images/tigle_logo2.png') }}"
+            <img class="imagetest" style="filter: brightness(9);" src="{{ asset($project->logo) }}"
               alt="">
           </span>
           <div id="stepForm01" style="" class="row g-3 px-2">
