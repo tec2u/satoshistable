@@ -23,7 +23,7 @@
                                     {!! htmlspecialchars($package->long_description, ENT_QUOTES, 'UTF-8', false) !!}
                                 </h6>
                                 <div class="card-body">
-                                    @if($project->id != 1)
+                                    @if($project->id == 1)
                                         <a href="{{ route('packages.detail', ['id' => $package->id]) }}"
                                             class="btn btn-primary m-4 rounded-pill">
                                             @lang('package.details')
