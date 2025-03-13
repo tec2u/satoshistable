@@ -49,12 +49,16 @@
       background-size: calc(0.75em em + 0.375rem) calc(0.75em + 0.375rem);
       background-image: none !important;
     }
+
+    .bg-limiter {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
   </style>
-  <video autoplay muted loop class="bg_video">
-    <source src="{{ asset($project->registration_bg) }}" type="video/mp4">
-  </video>
+
   @include('flash::message')
-  <div class="limiter py-5">
+  <div class="limiter py-5 bg-limiter" style="background-image: url('{{ asset($project->registration_bg) }}');">
     <div class="container-login100">
       <div class="wrap-login100" style="width: 900px; background-color: {{ $project->registration_boxbgcolor }} !important">
         @if (isset($id))
@@ -62,12 +66,6 @@
         @else
           <h4 class="title-login mb-5">@lang('register.register')</h4>
         @endif
-        <div style="height: 70vh;width: 100%">
-            <video width="100%" height="100%" controls>
-                <source src="{{ asset($project->registration_video) }}" type="video/mp4">
-            </video>
-        </div>
-        <br>
         <form class="login100-form validate-form" method="POST" action="{{ route('register') }}">
           @csrf
           <span class="login100-form-title p-b-48">
