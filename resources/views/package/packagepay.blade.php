@@ -154,7 +154,7 @@
                                     @else
                                     @if ($orderpackage->payment_status != 2)
                                     <button type="button" class="btn btn-warning" style="color:white" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal1">
+                                        data-bs-target="#exampleModal">
                                         See wallet
                                     </button>
                                     @endif
@@ -176,8 +176,7 @@
 </main>
 
 @if (isset($wallet) && isset($wallet->address) && $orderpackage->payment_status != 2)
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
