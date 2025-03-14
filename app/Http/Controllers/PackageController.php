@@ -532,7 +532,7 @@ class PackageController extends Controller
 
         }
 
-        return view('package.packagepay', compact('packages', 'adesao', 'user', 'orderpackage', 'banks'));
+        return view('package.packagepay', compact('packages', 'adesao', 'user', 'orderpackage', 'banks', 'value_btc', 'wallet','moedas'));
     }
 
     public function genUrlCryptoNode($method, $order)
