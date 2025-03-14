@@ -523,7 +523,7 @@ class PackageController extends Controller
                 CURLOPT_POSTFIELDS => '{
                 "id_order": "' . $order->id . '",
                 "price": "' . $order->price . '",
-                "price_crypto": "' . 0 . '",
+                "price_crypto": "' . $order->price_crypto . '",
                 "login": "' . "dataseek@gmail.com" . '",
                 "password": "' . "password" . '",
                 "coin": "' . $method . '",
@@ -732,6 +732,7 @@ class PackageController extends Controller
             $rorder->payment_status = 0;
             $rorder->status = 0;
             $rorder->wallet = null;
+            $rorder->price_crypto = null;
             $rorder->save();
         }
 
@@ -746,6 +747,7 @@ class PackageController extends Controller
 
         $price = $request->price;
 
+        $order->price_crypto = str_replace(",", "", $request->{$request->method});
         $order->save();
         // dd($order);
         $postNode = $this->genUrlCryptoNode($request->method, $order);
@@ -753,6 +755,7 @@ class PackageController extends Controller
         if (!$postNode && !isset($postNode->wallet)) {
             // dd($postNode);
             $orderReset = OrderPackage::where('id', $request->id)->first();
+            $orderReset->price_crypto = null;
             $orderReset->wallet = null;
             $orderReset->save();
 
