@@ -726,6 +726,7 @@ class PackageController extends Controller
                 return redirect()->back()->withErrors(['error' => "You do not have enough bonus balance to pay for this package."]);
             }
         }
+        return response()->json($request);
 
         if (isset($request->retry) && $request->retry == 1) {
             $rorder = OrderPackage::where('id', $request->id)->first();
