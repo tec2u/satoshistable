@@ -486,12 +486,51 @@ class PackageController extends Controller
     {
         $packages = Package::orderBy('id', 'DESC')->where('id', $packageid);
         $orderpackage = OrderPackage::find($packageid);
-
+        $wallet = null;
+        $moedas = null;
+        $value_btc = null;
         $user = User::find(Auth::id());
         $adesao = !$user->getAdessao($user->id) >= 1;
 
         $banks = TransactionBank::where('activated', 1)->get();
+        if (isset($orderpackage->price_crypto) && $orderpackage->payment_status != 2) {
+            $value_btc = $orderpackage->price_crypto;
 
+            $moedas = [
+                "USDT_TRC20" => number_format($orderpackage->price / 1, 2),
+            ];
+        } else {
+
+            $api_key = 'ca699a34-d3c2-4efc-81e9-6544578433f8';
+
+            $response = Http::withHeaders([
+                'X-CMC_PRO_API_KEY' => $api_key,
+                'Content-Type' => 'application/json',
+            ])->get('https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?symbol=btc,eth,trx,trc20,USDT');
+
+            $data = $response->json();
+
+            // dd($data);
+
+            // $bitcoin = $result->bitcoin->usd;
+            $price_order = $orderpackage->price;
+            // $value_btc = $price_order / $bitcoin;
+
+            $btc = $data['data']['BTC'][0]['quote']['USD']['price'];
+            $erc20 = 1;
+            $trx = $data['data']['TRX'][0]['quote']['USD']['price'];
+            $eth = $data['data']['ETH'][0]['quote']['USD']['price'];
+            $trc20 = 1;
+
+            $moedas = [
+                "BITCOIN" => number_format($price_order / $btc, 5),
+                "ETH" => number_format($price_order / $eth, 4),
+                "USDT_ERC20" => number_format($price_order / $erc20, 2),
+                "TRX" => number_format($price_order / $trx, 2),
+                "USDT_TRC20" => number_format($price_order / $trc20, 2),
+            ];
+
+        }
 
         return view('package.packagepay', compact('packages', 'adesao', 'user', 'orderpackage', 'banks'));
     }
