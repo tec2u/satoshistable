@@ -30,7 +30,8 @@ class OrderPackage extends Model
         'date_save',
         'id_transaction_banks',
         'activator_id',
-        'others_packages_id'
+        'others_packages_id',
+        'price_crypto'
     ];
 
     /**
