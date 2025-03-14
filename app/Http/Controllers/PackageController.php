@@ -774,4 +774,3 @@ class PackageController extends Controller
 
     }
 }
-$
