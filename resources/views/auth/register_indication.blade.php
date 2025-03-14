@@ -54,6 +54,7 @@
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
+        background-color: #000000;
     }
   </style>
 
