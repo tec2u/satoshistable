@@ -493,6 +493,23 @@ class PackageController extends Controller
         $adesao = !$user->getAdessao($user->id) >= 1;
 
         $banks = TransactionBank::where('activated', 1)->get();
+        if (isset($orderpackage->wallet) && $orderpackage->wallet != "---") {
+            $ewallet = Wallet::where('id', $orderpackage->wallet)->first();
+
+            if (isset($ewallet)) {
+                $wallet = $ewallet;
+            } else {
+                $wallet = new stdClass();
+                $wallet->wallet = $orderpackage->wallet;
+                $wallet->coin = $orderpackage->transaction_code;
+                $wallet->address = $orderpackage->wallet;
+            }
+
+        } else {
+            $wallet = null;
+        }
+
+
         if (isset($orderpackage->price_crypto) && $orderpackage->payment_status != 2) {
             $value_btc = $orderpackage->price_crypto;
 
