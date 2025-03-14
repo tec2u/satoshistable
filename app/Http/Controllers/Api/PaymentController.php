@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\OrderPackage;
 use App\Models\Package;
+use App\Models\PaymentLog;
 use App\Traits\OrderBonusTrait;
 use App\Traits\PaymentLogTrait;
 use Exception;
@@ -19,65 +20,55 @@ class PaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function notity(Request $request)
+    public function notify(Request $request)
     {
-        $content = $request->getContent();
-        $dados =  json_decode(json_encode($request->all()), false);
+        $requestFormated = $request->all();
 
-        if (!empty($dados)) {
-            $codepayment = $dados->merchant_id;
-            $status = $dados->status_code;
+        $payment = OrderPackage::where('id', $requestFormated["id_order"])
+            ->where('payment_status', "<>", 1)
+            ->first();
 
-            $id = "";
+        try {
 
-            $order = OrderPackage::where('transaction_code', $codepayment)->first();
+            if (isset($requestFormated["node"])) {
 
-            if ($order->others_packages_id && $status == 1) {
-                try {
-                    $otherPackagesIDs = explode(",", $order->others_packages_id);
-                    $otherPackages = Package::whereIn('id', $otherPackagesIDs)->get();
-
-                    foreach ($otherPackages as $otherPackage) {
-                        OrderPackage::create([
-                            "user_id" => $order->user_id,
-                            "reference" => $otherPackage->name,
-                            "payment_status" => 0,
-                            "transaction_code" => 0,
-                            "package_id" => $otherPackage->id,
-                            "price" => $otherPackage->price,
-                            "amount" => 1,
-                            "transaction_wallet" => 0,
-                            "wallet" => 0,
-                            "server" => ''
-                        ]);
-                    }
-
-                    $order->delete();
-                } catch (Exception $e) {
-
-                    $this->errorPaymentCatch($e->getMessage(), $order->id);
+                if (!isset($payment) || $payment->id != $requestFormated["id_order"]) {
+                    return false;
                 }
-            } else {
-                try {
 
-                    if (!empty($order)) {
-                        $data = [
-                            "status" => $status == 1 ? 1 : 0,
-                            "payment_status" => $status
-                        ];
-                        $id = $order->id;
-                        $order->update($data);
-
-                        if ($status == 1) {
-                            $this->bonus_compra(0, $order->user_id, $order->price, $order->id);
-                            $this->createPaymentLog('Payment processed successfully', 200, 'success',  $id, $content);
-                        }
-                    }
-                } catch (Exception $e) {
-
-                    $this->errorPaymentCatch($e->getMessage(), $id);
+                if (
+                    strtolower($requestFormated["status"]) == 'paid'
+                    || strtolower($requestFormated["status"]) == 'overpaid'
+                    || strtolower($requestFormated["status"]) == 'underpaid'
+                ) {
+                    $payment->payment_status = 1;
+                    $payment->status = 1;
                 }
+
+                if (strtolower($requestFormated["status"]) == 'cancelled' || strtolower($requestFormated["status"]) == 'expired') {
+                    $payment->payment_status = 2;
+                    $payment->status = 0;
+                }
+
+                $payment->save();
+
+                $log = new PaymentLog;
+                $log->content = $requestFormated["status"];
+                $log->order_package_id = $payment->id;
+                $log->operation = "payment package";
+                $log->controller = "packageController";
+                $log->http_code = "200";
+                $log->route = "/api/notify";
+                $log->status = "success";
+                $log->json = json_encode($request->all());
+                $log->save();
+
+                return response()->json('success');
             }
+        } catch (Exception $e) {
+
+            $this->errorPaymentCatch($e->getMessage(), $payment->id);
         }
+        return response("OK", 200);
     }
 }

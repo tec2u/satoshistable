@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banco;
 use App\Models\BancoCredit;
 use App\Models\CustomLog;
 use App\Models\Documents;
@@ -500,15 +501,13 @@ class PackageController extends Controller
 
         $paymentConfig = [
             // "api_url" => "http://127.0.0.1:8001/packages/wallets/notify"
-            "api_url" => "https://crypto.binfinitybank.com/packages/wallets/notify"
+            "api_url" => "https://binfinitycrypto.tecnologia2u.com.br/packages/wallets/notify"
         ];
-
-        // dd($order);
 
         $curl = curl_init();
 
-        // $url = "http://127.0.0.1:8000/packages/packagepay/notify";
-        $url = "https://ai-satoshitable.com/packages/packagepay/notify";
+        $url = "http://127.0.0.1:8000/packages/packagepay/notify";
+        // $url = "https://sunvolt.pro/api/notify";
 
         curl_setopt_array(
             $curl,
@@ -525,7 +524,7 @@ class PackageController extends Controller
                 "id_order": "' . $order->id . '",
                 "price": "' . $order->price . '",
                 "price_crypto": "' . $order->price_crypto . '",
-                "login": "' . "ai@tec2u.com.br" . '",
+                "login": "' . "dataseek@gmail.com" . '",
                 "password": "' . "password" . '",
                 "coin": "' . $method . '",
                 "notify_url" : "' . $url . '"
@@ -541,12 +540,12 @@ class PackageController extends Controller
 
         curl_close($curl);
         if ($raw) {
-            // dd($raw);
             return $raw;
         } else {
             return false;
         }
     }
+
 
     public function sendPostPayOrder($id_order)
     {
@@ -714,15 +713,64 @@ class PackageController extends Controller
 
     public function payCryptoNode(Request $request)
     {
+        $order = OrderPackage::where('id', $request->id)->first();
 
-        if (!isset($request->id) || !isset($request->bank)) {
+        if ($request->method === 'bonus') {
+            $availableComission = Banco::where('user_id', auth()->user()->id)->sum('price');
+
+            if ($availableComission >= $order->price) {
+                $order->payment_status = 1;
+                $order->status = 1;
+                $order->save();
+            } else {
+                return redirect()->back()->withErrors(['error' => "You do not have enough bonus balance to pay for this package."]);
+            }
+        }
+
+        if (isset($request->retry) && $request->retry == 1) {
+            $rorder = OrderPackage::where('id', $request->id)->first();
+            $rorder->payment_status = 0;
+            $rorder->status = 0;
+            $rorder->wallet = null;
+            $rorder->price_crypto = null;
+            $rorder->save();
+        }
+
+        // dd($request);
+
+        if (strlen($request->price) < 7) {
+            $price = floatval(str_replace(',', '.', $request->price));
+        } else {
+            $valorSemSeparadorMilhar = str_replace('.', '', $request->price);
+            $price = str_replace(',', '.', $valorSemSeparadorMilhar);
+        }
+
+        $price = $request->price;
+
+        $order->price_crypto = str_replace(",", "", $request->{$request->method});
+        $order->save();
+        // dd($order);
+        $postNode = $this->genUrlCryptoNode($request->method, $order);
+
+        if (!$postNode && !isset($postNode->wallet)) {
+            // dd($postNode);
+            $orderReset = OrderPackage::where('id', $request->id)->first();
+            $orderReset->price_crypto = null;
+            $orderReset->wallet = null;
+            $orderReset->save();
+
             return redirect()->back();
         }
 
         $order = OrderPackage::where('id', $request->id)->first();
-        $order->id_transaction_banks = $request->bank;
+        $order->wallet = $postNode->wallet;
+        $order->transaction_code = $request->method;
+        $order->transaction_wallet = $postNode->merchant_id;
         $order->save();
+        // }
+
 
         return redirect()->back();
+
     }
 }
