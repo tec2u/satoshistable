@@ -154,7 +154,7 @@
                                     @else
                                     @if ($orderpackage->payment_status != 2)
                                     <button type="button" class="btn btn-warning" style="color:white" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
+                                        data-bs-target="#exampleModal1">
                                         See wallet
                                     </button>
                                     @endif
@@ -174,6 +174,71 @@
         </div>
     </section>
 </main>
+
+@if (isset($wallet) && isset($wallet->address) && $orderpackage->payment_status != 2)
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+
+                @php
+                $img = '';
+
+                if ($wallet->coin == 'BITCOIN') {
+                $img = 'https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=029';
+                }
+                if ($wallet->coin == 'TRX') {
+                $img = 'https://cryptologos.cc/logos/tron-trx-logo.png?v=029';
+                }
+                if ($wallet->coin == 'ETH') {
+                $img = 'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=029';
+                }
+                if ($wallet->coin == 'USDT_TRC20') {
+                $img =
+                'https://images.ctfassets.net/77lc1lz6p68d/5Z7vveK1yJ7rDvX9K5ywJa/cfa5f74c313594a5a75652f98678578a/tether-usdt-trc20.svg';
+                }
+                if ($wallet->coin == 'USDT_ERC20') {
+                $img = 'https://cryptologos.cc/logos/tether-usdt-logo.png?v=029';
+                }
+
+                @endphp
+                {{ $wallet->address }}
+
+                <h1 class="modal-title fs-5" id="exampleModalLabel">@lang('package.choose_method') {{ $wallet->coin ?? '' }} <img
+                        src='{{ $img }}' style='width:20px'></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <strong>@lang('package.price_in') {{ $wallet->coin ?? '' }}:</br> <span style=" font-size: 50px;">
+                        {{ $orderpackage->price_crypto ?? '' }} <img src='{{ $img }}'
+                            style='width:20px'></br></strong>
+                <br>
+                <strong>@lang('package.price_in_usd'): {{ $orderpackage->price ?? '' }}</strong>
+                <br>
+                <br>
+                <input type="text" class="form-control" id="landing" value="{{ $wallet->address ?? '' }}">
+                <button class=" btn btn-dark orderbtn linkcopy px-4" type="button"
+                    onclick="FunctionCopy1()">@lang('package.copy')</button>
+                {{-- <strong>@lang('package.wallet_address'): {{ $wallet->address ?? '' }}</strong> --}}
+                <br><br>
+                <div class="card-body table-responsive p-0 col-6">
+                    <img src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ $wallet->address ?? '' }}'>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@lang('package.close')</button>
+
+                </br>
+                @lang('package.gateway_note')</br>
+
+                {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+            </div>
+        </div>
+    </div>
+</div>
+@else
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -212,7 +277,7 @@
         </div>
     </div>
 </div>
-
+@endif
 <script>
     // Captura o botão e o select
     const bankSelect = document.getElementById('bankSelect');
