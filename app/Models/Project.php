@@ -13,6 +13,7 @@ class Project extends Model
     protected $fillable = [
         'id',
         'name',
+        'description',
         'logo',
         'registration_bg',
         'regiatration_fontcolor',
@@ -25,5 +26,10 @@ class Project extends Model
     public function packages()
     {
         return $this->hasMany(Package::class, 'project_id', 'id');
+    }
+
+    public function landingPages()
+    {
+        return $this->hasMany(LandingPage::class, 'project_id', 'id');
     }
 }

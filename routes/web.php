@@ -388,6 +388,12 @@ Route::prefix('affiliate-network')->middleware('auth')->name('affiliate')->group
     });
 });
 
+Route::prefix('projects')->name('projects')->group(function () {
+    Route::controller(ProjectController::class)->group(function () {
+        Route::get('/', 'list')->name('.list');
+        Route::get('/project-profile/{id}', 'profile')->name('.profile');
+    });
+});
 /**
  * Admin Route
  */
@@ -470,6 +476,7 @@ Route::prefix('admin')->middleware(['auth', 'is.admin'])->name('admin')->group(f
     Route::prefix('projects')->name('.projects')->group(function () {
         Route::controller(ProjectController::class)->group(function () {
             Route::get('/', 'index')->name('.index');
+            Route::get('/edit/{id}', 'edit')->name('.edit');
             Route::post('/', 'store')->name('.store');
             Route::put('/{id}/update', 'update')->name('.update');
             Route::delete('/{id}/remove', 'destroy')->name('.delete');

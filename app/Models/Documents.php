@@ -12,6 +12,6 @@ class Documents extends Model
     protected $table = 'documents';
 
     protected $fillable = [
-        'title', 'path'
+        'title', 'path', 'project_id'
     ];
 }

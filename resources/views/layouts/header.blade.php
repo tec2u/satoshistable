@@ -274,6 +274,13 @@
             </a>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link " href="{{ route('projects.list') }}">
+                <i class="bi bi-question-octagon"></i>
+                <span>Projects</span>
+            </a>
+        </li>
+
         {{-- <li class="nav-item">
             <a class="nav-link " href="{{ url('/marketing') }}">
         <i class="bi bi-bag"></i>
