@@ -22,12 +22,14 @@
                                 <h6 class="card-body">
                                     {!! htmlspecialchars($package->long_description, ENT_QUOTES, 'UTF-8', false) !!}
                                 </h6>
-                                <div class="card-body">
-                                        <a href="{{ route('packages.detail', ['id' => $package->id]) }}"
-                                            class="btn btn-primary m-4 rounded-pill">
-                                            @lang('package.details')
-                                        </a>
-                                </div>
+                                @if ($project->id == 1 || auth()->user()->id == 1)
+                                    <div class="card-body">
+                                            <a href="{{ route('packages.detail', ['id' => $package->id]) }}"
+                                                class="btn btn-primary m-4 rounded-pill">
+                                                @lang('package.details')
+                                            </a>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         @endforeach
