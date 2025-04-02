@@ -309,7 +309,7 @@
               <div class="col-12">
                 <div class="input-group mb-3 font">
                   <input type="text" class="form-control" id="referral"
-                    value="http://register.satoshistable.com/{{ auth()->user()->login }}">
+                    value="{{ route('indication', ['project_id' => 1, 'id' => auth()->user()->id]) }}">
                   <button class="up btn  orderbtn linkcopy px-4" type="button"
                     style="background-color: #99c147;color:white" onclick=" FunctionCopy2()">@lang('home.copy')</button>
                 </div>
