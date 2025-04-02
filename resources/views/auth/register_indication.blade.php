@@ -104,7 +104,7 @@
 
             <div class="col-lg-6">
               <label class="form-label teste1234" style="background-color: {{ $project->registration_boxbgcolor}} ;color: {{ $project->regiatration_fontcolor }} !important;">Country <span style="color: brown">*</span></label>
-              <select class="teste1234 form-register form-control" style="background-color: {{ $project->registration_boxbgcolor}} ;color: {{ $project->regiatration_fontcolor }} !important;" required name="country" tabindex="7">
+              <select class="teste1234 form-register form-control" required name="country" tabindex="7">
                 <option>Select Country</option>
                 <option value="AF" @if (old('country') == 'AF') selected="selected" @endif>
                   Afghanistan</option>
