@@ -523,7 +523,7 @@ class PackageController extends Controller
             $response = Http::withHeaders([
                 'X-CMC_PRO_API_KEY' => $api_key,
                 'Content-Type' => 'application/json',
-            ])->get('https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?symbol=btc,eth,trx,trc20,USDT');
+            ])->withoutVerifying()->get('https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?symbol=btc,eth,trx,trc20,USDT');
 
             $data = $response->json();
 
@@ -564,6 +564,12 @@ class PackageController extends Controller
 
         $url = "http://127.0.0.1:8000/packages/packagepay/notify";
         // $url = "https://sunvolt.pro/api/notify";
+        $login = '';
+        if($order->package->project_id == 2) {
+            $login = 'dataseek@gmail.com';
+        } else {
+            $login = 'untrade@gmail.com';
+        }
 
         curl_setopt_array(
             $curl,
@@ -580,7 +586,7 @@ class PackageController extends Controller
                 "id_order": "' . $order->id . '",
                 "price": "' . $order->price . '",
                 "price_crypto": "' . $order->price_crypto . '",
-                "login": "' . "dataseek@gmail.com" . '",
+                "login": "' . $login . '",
                 "password": "' . "password" . '",
                 "coin": "' . $method . '",
                 "notify_url" : "' . $url . '"
@@ -769,7 +775,7 @@ class PackageController extends Controller
 
     public function payCryptoNode(Request $request)
     {
-        $order = OrderPackage::where('id', $request->id)->first();
+        $order = OrderPackage::with('package')->where('id', $request->id)->first();
 
         if ($request->method === 'bonus') {
             $availableComission = Banco::where('user_id', auth()->user()->id)->sum('price');

@@ -119,10 +119,14 @@
 
 
                                         <select class="form-select" aria-label="Default select example" name="method" required>
-                                            <option value="" selected>@lang('package.choose_method')</option>
-                                            <option value="BITCOIN">BTC</option>
-                                            <option value="TRX">TRX</option>
-                                            <option value="USDT_TRC20">@lang('package.usdt') TRC20</option>
+                                            @if($orderpackage->package->project_id == 2)
+                                                <option value="" selected>@lang('package.choose_method')</option>
+                                                <option value="BITCOIN">BTC</option>
+                                                <option value="TRX">TRX</option>
+                                                <option value="USDT_TRC20">@lang('package.usdt') TRC20</option>
+                                            @else
+                                                <option value="USDT_ERC20">@lang('package.usdt') ERC20</option>
+                                            @endif
                                         </select>
                                         <button type="submit" class="btn btn-success" style="margin-top: 1rem">@lang('package.retry')
                                             @lang('package.pay')</button>
@@ -143,11 +147,14 @@
                                         <input type="hidden" value="{{ $orderpackage->price }}" name="price">
 
                                         <select class="form-select" aria-label="Default select example" name="method" required>
-                                            <option value="" selected>@lang('package.choose_method')</option>
-                                            <option value="BITCOIN">@lang('package.btc')</option>
-                                            <option value="TRX">TRX</option>
-                                            <option value="USDT_TRC20">@lang('package.usdt') TRC20</option>
-
+                                            @if($orderpackage->package->project_id == 2)
+                                                <option value="" selected>@lang('package.choose_method')</option>
+                                                <option value="BITCOIN">BTC</option>
+                                                <option value="TRX">TRX</option>
+                                                <option value="USDT_TRC20">@lang('package.usdt') TRC20</option>
+                                            @else
+                                                <option value="USDT_ERC20">@lang('package.usdt') ERC20</option>
+                                            @endif
                                         </select>
                                         <button type="submit" class="btn btn-success" style="margin-top: 1rem">Choose</button>
                                     </form>

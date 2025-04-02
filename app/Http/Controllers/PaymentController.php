@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ClubSwanController;
 use App\Models\Cart;
+use App\Services\SunPayService;
 
 class PaymentController extends Controller
 {
@@ -183,6 +184,25 @@ class PaymentController extends Controller
 
         flash(__('ORDER CREATED SUCCESFULLY'))->success();
         return redirect()->route('packages.packagelog', ['id' => $package->id]);
+    }
+
+    public function paymentSunPay($orderID)
+    {
+        $sunPayService = new SunPayService();
+
+        $order = OrderPackage::find($orderID);
+
+        $paymentData = [
+            'user_id' => $order->user_id,
+            'order_id' => $order->id,
+            'price' => $order->price,
+            'name' => $order->name,
+            'amount' => $order->amount
+        ];
+
+        $response = $sunPayService->createPayment($paymentData);
+
+        return response()->json($response);
     }
 
     public function createActivatorOrder(Request $request)

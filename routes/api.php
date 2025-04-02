@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/registerBinario/{id}', [BinarioController::class, 'registerBinario'])->name('api.registerBinario');
 
 Route::post('/notify', [PaymentController::class, 'notify'])->name('notify');
+Route::post('/notify-sunvolt', [PaymentController::class, 'notify'])->name('notify_sunvolt');
 
 Route::controller(UserAdminController::class)->group(function () {
     Route::post('/add-credit', 'addCredit')->name('api.add_credit');//autentica login de usuarios
