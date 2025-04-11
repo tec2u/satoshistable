@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Documents;
+use App\Models\Project;
 use Encore\Admin\Actions\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,8 +20,9 @@ class DocumentsAdminController extends Controller
     public function index()
     {
         $videos = Documents::orderBy('id', 'DESC')->paginate(9);
+        $projects = Project::all();
 
-        return view('admin.documents-upload', compact('videos'));
+        return view('admin.documents-upload', compact('videos', 'projects'));
     }
 
     public function store(Request $request)
@@ -40,13 +42,11 @@ class DocumentsAdminController extends Controller
         $url = Storage::disk('public')->url($filePath);
 
         $title = $request->title;
-        if (isset($request->tutorial_account) && $request->tutorial_account != '') {
-            $title = $request->tutorial_account . "|" . $title;
-        }
 
         if ($isFileUploaded) {
             $video = new Documents();
             $video->title = $title;
+            $video->project_id = $request->project_id;
             $video->path = $filePath;
             $video->save();
 
@@ -107,6 +107,7 @@ class DocumentsAdminController extends Controller
             if ($isFileUploaded) {
                 $video->title = $request->title;
                 $video->path = $filePath;
+                $video->project_id = $request->project_id;
                 $video->update($data);
 
                 return redirect()->route('admin.documents-upload.index')->with('success', 'Document has been successfully updated.');

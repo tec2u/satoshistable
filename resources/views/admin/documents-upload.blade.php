@@ -50,14 +50,11 @@
             </div>
 
             <div class="col-md-6 form-group">
-              <label>@lang('admin.upload.tutorial_create_account')</label>
-              <select class="form-select" aria-label="Default select example" name="tutorial_account">
-                <option selected></option>
-                <option value="">No</option>
-                <option value="blueberrymarkets">blueberrymarkets</option>
-                <option value="icmarkets">icmarkets</option>
-                <option value="exness">exness</option>
-                <option value="vantagemarkets">vantagemarkets</option>
+              <label>Project</label>
+              <select class="form-select" aria-label="Default select example" name="project_id">
+                @foreach ($projects as $project)
+                    <option value="{{ $project->id }}">{{ $project->name }}</option>
+                @endforeach
               </select>
             </div>
             <div class="col-md-6 form-group">
