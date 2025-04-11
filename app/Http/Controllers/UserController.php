@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Attribute\Cache;
 use App\Http\Controllers\ClubSwanController;
 use App\Models\Project;
+use App\Models\Theme;
 
 class UserController extends Controller
 {
@@ -36,6 +37,21 @@ class UserController extends Controller
         $user->wallet = $wallet->wallet ?? null;
 
         return view('user.myinfo', compact('user'));
+    }
+
+    public function theme()
+    {
+        $themeUser = Theme::find(auth()->user()->theme_id);
+        $themes = Theme::with('project')->get();
+
+        return view('user.theme', compact('themes', 'themeUser'));
+    }
+
+    public function changeTheme(Request $request)
+    {
+        User::where('id', auth()->user()->id)->update(['theme_id' => $request->theme]);
+
+        return redirect()->route('users.theme');
     }
 
     public function password()

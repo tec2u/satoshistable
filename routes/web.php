@@ -330,6 +330,8 @@ Route::controller(LangingController::class)->group(function () {
 Route::prefix('users')->middleware('auth')->name('users')->group(function () {
     Route::controller(UserController::class)->group(function () {
         Route::get('/users', 'index')->name('.index');
+        Route::get('/theme', 'theme')->name('.theme');
+        Route::put('/change-theme', 'changeTheme')->name('.change.theme');
         Route::put('/{id}/update', 'update')->name('.update');
         Route::get('/password', 'password')->name('.password');
         Route::put('/password/change', 'changePassword')->name('.change.password');

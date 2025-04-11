@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Banco;
 use App\Models\HistoricScore;
-
+use App\Models\OrderPackage;
+use Carbon\Carbon;
 
 class AffiliateNetworkController extends Controller
 {
@@ -50,41 +51,88 @@ class AffiliateNetworkController extends Controller
         // }
 
         $id_user ??= Auth::id();
-        $rede = Rede::where('user_id', $id_user)->first();
+        $rede = Rede::with('user')->where('user_id', $id_user)->first();
+        $startDate = Carbon::now()->startOfMonth();
+        $endDate = Carbon::now()->endOfMonth();
         $networks = [];
+        $redename = $rede->user->name . ' ' . $rede->user->last_name ?? '';
+        $network = $this->getNetwork($rede->id);
+        $networks[] = array(
+            "id" => $rede->user_id,
+            "login" => $rede->user->login,
+            "name" => $redename,
+            "pid" => $rede->upline_id,
+            "img" => "https://cdn.balkan.app/shared/empty-img-none.svg",
+            "size" => ".".$rede->qty,
+            "qty" => $rede->qty ? $rede->qty : 0,
+            "referred" => $rede->user->name,
+            "email" => $rede->user->email,
+            "volume" => "Volume: 0",
+            "tags" => '',
+            "active" => $rede->user->hasValidOrderPackage($startDate, $endDate),
+            "level" => 0
+        );
+        $networks = array_merge($network, $networks);
 
-        // Função recursiva para buscar diretos e indiretos
-        $fetchNetwork = function ($id_user, $parent_id = null) use (&$fetchNetwork) {
-            $results = [];
-            $user = User::find($id_user);
-
-            if ($user) {
-                $results[] = array(
-                    "id" => $id_user,
-                    "pid" => $parent_id,
-                    "login" => $user->login,
-                    "email" => $user->email,
-                    "Name" => $user->login,
-                    "Photo" => asset("/assetsWelcome/images/user.png"),
-                    "Title" => $user->name,
-                    "tags" => ["profile"]
-                );
-
-                $rede = Rede::where('upline_id', Rede::where('user_id', $id_user)->value('id'))->get();
-
-                foreach ($rede as $value) {
-                    $results = array_merge($results, $fetchNetwork($value->user_id, $id_user));
-                }
-            }
-
-            return $results;
-        };
-
-        // Buscar toda a rede a partir do usuário principal
-        $networks = $fetchNetwork($id_user);
+        // return response()->json(['count' => count($networks)]);
         $networks = count($networks) > 0 ? json_encode($networks) : [];
 
         return view('network.binary', compact('networks'));
+    }
+
+    private function getNetwork($id, $cont = 1)
+    {
+        $rede_users = Rede::with('user')->where('upline_id', $id)->get();
+        $startDate = Carbon::now()->startOfMonth();
+        $endDate = Carbon::now()->endOfMonth();
+
+        $networks = array();
+        if ($cont >= 5) {
+            return [];
+        }
+        foreach ($rede_users as $rede) {
+            $login = $rede->user->login;
+            $redename = $rede->user->name . ' ' . $rede->user->last_name ?? '';
+            $id = $rede->id;
+            $qty = $rede->qty;
+            $upline = $rede->upline_id;
+            $volume = 0;
+            $tag = '';
+            $pay = OrderPackage::where('user_id', $rede->user->id)->where('status', 1)->where('payment_status', 1)->first();
+            $getadessao = $rede->user->getAdessao($rede->user->id);
+            $getpackages = $rede->user->getPackages($rede->user->id);
+            if (!$pay) {
+                $tag = ["Inactive"];
+            }
+            if ($getadessao > 0) {
+                $tag = ["PreRegistration"];
+            }
+            if ($getpackages > 0) {
+                $tag = ["AllCards"];
+            }
+            $email = $rede->user->email;
+            $referral_rede = Rede::where('id', $upline)->first();
+            $referral_user = User::where('id', $referral_rede->user_id)->first();
+
+            $networks[] = array(
+                "id" => "$id",
+                "pid" => "$upline",
+                "login" => "$login",
+                "name" => "$redename",
+                "img" => "https://cdn.balkan.app/shared/empty-img-none.svg",
+                "size" => "$qty",
+                "qty" => $qty ? $qty : 0,
+                "referred" => $referral_user->login,
+                "email" => $email,
+                "volume" => "Volume: $volume ",
+                "btn" => "<a href='" . route('networks.mytree', ['parameter' => $rede->user->id]) . "'> More + </a>",
+                "tags" => $tag,
+                "active" => $rede->user->hasValidOrderPackage($startDate, $endDate),
+                "level" => $cont
+            );
+            $networks = array_merge($this->getNetwork($rede->id, $cont + 1), $networks);
+        }
+        return $networks;
     }
 
 }

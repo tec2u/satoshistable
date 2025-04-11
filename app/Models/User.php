@@ -63,7 +63,8 @@ class User extends Authenticatable
         'relationship_status',
         'rfc',
         'etapa',
-        'perna_cad'
+        'perna_cad',
+        'theme_id'
     ];
 
     /**

@@ -36,14 +36,22 @@
     }
 </style>
 
+{{-- condição para dados de rede, remover depois --}}
 @if (isset($networks))
 <main id="main" class="main" style="position: relative;">
+    <div class="d-flex justify-content-between mb-2">
+        <button onclick="zoomOut()" class="btn btn-primary zoom-btn">Zoom Out 25%</button>
+        <button onclick="zoomIn()" class="btn btn-primary zoom-btn">Zoom In 100%</button>
+    </div>
+    {{-- <div id="tree" /> --}}
     <figure class="highcharts-figure" style="max-width: 100% !important;">
         <div onclick="updateChartsByLogin('{{auth()->user()->login}}')" class="btn btn-outline-primary btn-inicio-rede">Inicio Rede</div>
         <div id="container" style="height: 800px;">
         </div>
     </figure>
 </main>
+
+{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script> --}}
 
 <style>
     .highcharts-figure,
@@ -207,6 +215,8 @@
 
     function formatData(){
         formattedData = []
+
+        console.log(window.innerWidth)
         if(window.innerWidth <= 400) {
             fontsizeWidth = '11px'
             niveisPorVez = 2
@@ -218,6 +228,8 @@
         }
 
         getFormattedData(pointNameFirst);
+        console.log('level atual: ' + levelUsuarioFirst)
+        console.log(formattedData)
         if(formattedData.length >= 300) {
             sizeRedeWidth = formattedData.length * 5
             sizeRedeHeight = formattedData.length * 30

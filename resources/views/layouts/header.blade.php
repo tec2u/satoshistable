@@ -1,6 +1,12 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="font-family: Poppins, sans-serif;">
 
+@php
+    use App\Models\Theme;
+
+    $theme = Theme::find(auth()->user()->theme_id);
+
+@endphp
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -67,6 +73,36 @@
         .font {
             font-family: "Montserrat", sans-serif !important;
             font-weight: 200;
+        }
+
+        .sidebar {
+            background: {{ $theme->background_menu ?? 'black' }};
+        }
+
+        .sidebar-nav .nav-link.collapsed, .sidebar-nav .nav-link {
+            background: {{ $theme->background_btn_menu ?? 'black' }};
+        }
+
+        .sidebar-nav .nav-link.collapsed:hover, .sidebar-nav .nav-link:hover {
+            background: {{ $theme->background_btn_menu_hover ?? 'black' }};
+        }
+
+        .header {
+            background: {{ $theme->background_top ?? 'black' }};
+        }
+
+        .card_color {
+            background: #99c147 ;
+        }
+        .card_color {
+            background: {{ $theme->background_box }};
+        }
+        .btn-background-color {
+            background: #99c147;
+            color: #ffff;
+        }
+        .btn-background-color {
+            background: {{ $theme->background_box }};
         }
     </style>
 </head>
@@ -170,9 +206,9 @@
     </header><!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar font" style="background-color: #fff;">
+    <aside id="sidebar" class="sidebar font">
         <a href="{{ route('home.home') }}">
-            <img class="imagetest2" style="width: 150px" src="{{ asset('images/logo.png') }}" alt="">
+            <img class="imagetest2" style="width: 150px" src="{{ asset($theme->logo) }}" alt="">
         </a>
         </br></br>
 
@@ -227,11 +263,11 @@
                     <i class="bi bi-people"></i><span>@lang('header.referral_program')</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="networks-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                    {{-- <li>
+                    <!-- <li>
             <a href="{{ route('networks.mytree', Auth::id()) }}">
                     <i class="bi bi-circle"></i><span>Visualização Rede</span>
                     </a>
-            </li> --}}
+            </li> -->
             <li>
                 <a href=" {{ route('affiliate.binary') }} ">
                     <i class="bi bi-circle"></i><span>
@@ -382,6 +418,12 @@
                 <li>
                     <a href="{{ route('users.password') }}">
                         <i class="bi bi-circle"></i><span>@lang('header.password')</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('users.theme') }}">
+                        <i class="bi bi-circle"></i><span>Theme</span>
                     </a>
                 </li>
             </ul>

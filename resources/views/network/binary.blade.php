@@ -1,136 +1,68 @@
 @extends('layouts.header')
 @section('content')
+  <script src="{{ asset('js/orgchart.js') }}"></script>
   <style>
-    /*Now the CSS*/
-    * {
-      margin: 0;
-      padding: 0;
+    .Inactive {
+      stroke: #ff0000;
     }
 
-
-    #tree {
-      width: 100%;
-      height: 100%;
+    .PreRegistration {
+      stroke: #3700ff;
     }
 
-    .profile>line {
-      stroke: #99C147 !important;
+    .AllCards {
+      stroke: #15ff00;
     }
 
-    .profile>text {
-      stroke: #99C147 !important;
+    .details-view {
+      display: none !important;
     }
 
-    .boc-edit-form.profile .boc-edit-form-header,
-    .boc-edit-form.profile .boc-img-button {
-      background-color: #99C147 !important;
+    .edit-wrapper {
+      display: none !important;
     }
-  </style>
-  <main id="main" class="main">
-    <section id="poolcommission" class="content">
-      <div class="fade">
-        <div class="container-fluid">
 
+    .boc-edit-form {
+      display: none !important;
+    }
 
-
-          <div class="row">
-            <div class="col-lg-6 align-self-center mobile-bottom-fix">
-              <h1>Network</h1>
-            </div>
-            {{-- <h2>
-              Leg Preference:
-            </h2>
-            <form id="binary-position-form"
-              class="col-lg-6 d-flex align-items-center justify-content-end align-self-center mobile-bottom-fix">
-              <div class="form-check ml-4">
-                <input class="form-check-input" type="radio" name="perna_cad" value="L"
-                  {{ auth()->user()->perna_cad == 'L' ? 'checked' : '' }} onchange="submitForm()">
-                <label class="form-check-label">
-                  Left
-                </label>
-              </div>
-              <div class="form-check ml-4">
-                <input class="form-check-input" type="radio" name="perna_cad" value="B"
-                  {{ auth()->user()->perna_cad == 'B' ? 'checked' : '' }} onchange="submitForm()">
-                <label class="form-check-label">
-                  Balanced
-                </label>
-              </div>
-              <div class="form-check ml-4">
-                <input class="form-check-input" type="radio" name="perna_cad" value="R"
-                  {{ auth()->user()->perna_cad == 'R' ? 'checked' : '' }} onchange="submitForm()">
-                <label class="form-check-label">
-                  Right
-                </label>
-              </div>
-            </form> --}}
-
-            <div class="card shadow my-3" style="overflow: auto;">
-              @if (isset($networks))
-                <div id="tree"></div>
-              @endif
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-  <style>
-    .message-responsive-alert {
-      display: none;
+    .boc-edit-form-fields {
+      display: none !important;
     }
   </style>
 
-  <script src={{ asset('/js/orgchart.js') }}></script>
+  {{-- condição para dados de rede, remover depois --}}
+  @if (isset($networks))
+    <main id="main" class="main">
+      <div id="tree" />
+    </main>
 
-  <script>
-    let chart = new OrgChart(document.getElementById("tree"), {
-      template: "ula",
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script> --}}
 
-      mouseScrool: OrgChart.none,
-      nodeBinding: {
-        field_0: "Name",
-        field_1: "Title",
-        img_0: "Photo"
-      },
-      editForm: {
-        photoBinding: 'Photo',
-        buttons: null
-      },
-      nodeMenu: {
-        details: {
-          text: "Details",
+    <script>
+      OrgChart.templates.olivia.field_2 =
+        '<text data-width="50" style="font-size: 14px;" fill="#757575" x="195" y="100">{val}</text>';
 
-        }
-      },
-      nodes: {!! $networks !!}
-    });
+      var chart = new OrgChart(document.getElementById("tree"), {
+        // enableTouch: true,
+        nodeBinding: {
+          field_0: "login",
+          field_1: "name",
+          field_2: "btn",
+          img_0: "img"
+        },
+        template: "olivia",
+        editForm: {
+          addMore: 'Add more elements',
+          addMoreBtn: 'Add element',
+          addMoreFieldName: 'Element name',
+        },
+        tags: {
+          "Inactive": {},
+        },
+        nodes: {!! $networks !!}
+      });
+    </script>
+  @endif
 
-    chart.on('init', function(sender) {
-      // sender.editUI.show(1);
-    });
-
-    chart.load({!! $networks !!});
-  </script>
-  <script>
-    function submitForm() {
-      axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute(
-        'content');
-      // Captura os dados do formulário
-      const form = document.getElementById('binary-position-form');
-      const formData = new FormData(form);
-
-      // Envia a requisição GET usando Axios
-      axios.post('/update-binary-position', {
-          position: formData.get('perna_cad')
-        })
-        .then(function(response) {
-          console.log('Dados enviados com sucesso:', response);
-          alert('Leg preference updated successfully');
-        })
-        .catch(function(error) {
-          console.error('Erro ao enviar os dados:', error);
-        });
-    }
-  </script>
-@endsection
+@stop

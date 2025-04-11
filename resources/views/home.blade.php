@@ -228,10 +228,6 @@
       color: #fff;
     }
 
-    .card_color {
-      background-image: url(images/bg_box.png), linear-gradient(to right, #99c147, #99c147);
-      background-size: contain;
-    }
 
     .card_text {
       color: #fff;
@@ -310,8 +306,7 @@
                 <div class="input-group mb-3 font">
                   <input type="text" class="form-control" id="referral"
                     value="{{ route('indication', ['project_id' => 1, 'id' => auth()->user()->id]) }}">
-                  <button class="up btn  orderbtn linkcopy px-4" type="button"
-                    style="background-color: #99c147;color:white" onclick=" FunctionCopy2()">@lang('home.copy')</button>
+                  <button class="up btn  orderbtn linkcopy px-4 btn-background-color" type="button" onclick=" FunctionCopy2()">@lang('home.copy')</button>
                 </div>
               </div>
               @foreach($projects as $project)
