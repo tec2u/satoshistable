@@ -16,7 +16,7 @@ class ProjectSettingsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('project_settings')->insert([
+        DB::table('project_theme')->insert([
             [
                 'id' => 1,
                 'project_id' => 1,
