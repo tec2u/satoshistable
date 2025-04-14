@@ -25,7 +25,7 @@
                                             <input type="text" class="input_st w-50" readonly id="register_{{ $project->id }}" value="{{ route('indication', ['project_id' => $project->id, 'id' => auth()->user()->id]) }}">
                                             <div>
                                                 <button class="btn btn-outline-primary btn-background-color" type="button" onclick="copyLink('register_{{ $project->id }}')">copy</button>
-                                                <button class="btn btn-outline-primary btn-background-color" type="button" onclick="copenLink'register_{{ $project->id }}')">open</button>
+                                                <button class="btn btn-outline-primary btn-background-color" type="button" onclick="openLink('register_{{ $project->id }}')">open</button>
                                             </div>
                                         </div>
                                     </div>
