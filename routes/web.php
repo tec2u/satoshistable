@@ -327,6 +327,7 @@ Route::controller(LangingController::class)->group(function () {
     Route::get('/landing/{project_id}/{id}', 'index')->name('landing');
 });
 
+
 Route::prefix('users')->middleware('auth')->name('users')->group(function () {
     Route::controller(UserController::class)->group(function () {
         Route::get('/users', 'index')->name('.index');

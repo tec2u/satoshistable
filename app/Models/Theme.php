@@ -20,6 +20,7 @@ class Theme extends Model
         'background_box',
         'background_btn_menu',
         'background_btn_menu_hover',
+        'banner'
     ];
 
     public function project()

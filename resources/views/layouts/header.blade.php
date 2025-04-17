@@ -109,7 +109,9 @@
 
 <body>
     <!-- ======= Header ======= -->
-    @include('sweetalert::alert')
+    @if(!auth()->user()->alredy_view_video_home)
+        @include('sweetalert::alert')
+    @endif
     <header id="header" class="header font fixed-top d-flex align-items-center">
         <div class="d-flex align-items-center justify-content-between">
             <i class="bi bi-list toggle-sidebar-btn" style="color: #ffffff;"></i>
@@ -495,6 +497,7 @@
 </body>
 
 <script>
+     fetch('/api/marcar-video-visto/{{ auth()->user()->id }}', { method: 'GET' });
     (function() {
         "use strict";
         const select = (el, all = false) => {

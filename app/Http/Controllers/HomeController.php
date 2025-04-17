@@ -196,6 +196,11 @@ class HomeController extends Controller
       return view('welcome.elements');
    }
 
+   public function marcarComoVisto($id)
+   {
+        User::where('id', $id)->update(['alredy_view_video_home' => 1]);
+   }
+
    public function fees()
    {
       $packages = Package::where('type', 'packages')->where('activated', 1)->orderBy('price')->get();

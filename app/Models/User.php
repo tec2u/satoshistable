@@ -64,7 +64,8 @@ class User extends Authenticatable
         'rfc',
         'etapa',
         'perna_cad',
-        'theme_id'
+        'theme_id',
+        'alredy_view_video_home'
     ];
 
     /**
@@ -202,6 +203,7 @@ class User extends Authenticatable
         }
         return '';
     }
+
 
     public function getTotalBanco()
     {

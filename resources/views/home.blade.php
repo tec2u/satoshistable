@@ -68,6 +68,13 @@
     $availableComission = isset($availableComission[0]->{'sum(price)'}) ? $availableComission[0]->{'sum(price)'} : 0;
 
   @endphp
+
+    @php
+    use App\Models\Theme;
+
+    $theme = Theme::find(auth()->user()->theme_id);
+
+    @endphp
   <script>
     $(function() {
       'use strict'
@@ -273,18 +280,12 @@
   </style>
 
   <main id="main" class="main mt-0">
-    @include('flash::message')
-
-
 
     <section id="home" class="content">
       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img class="d-block w-100" src="{{ asset('images/banner1.png') }}" alt="First slide" style="height: 100%">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="{{ asset('images/banner2.png') }}" alt="Second slide" style="height: 100%">
+            <img class="d-block w-100" src="{{ asset($theme->banner) }}" alt="First slide" style="height: 100%">
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -407,6 +408,7 @@
     </div>
   </main>
   <script>
+
     // Quando o usuário clica na imagem, exibe o modal com a imagem em tela cheia
     $('.image-modal').click(function() {
       var imageUrl = $(this).attr('src');
